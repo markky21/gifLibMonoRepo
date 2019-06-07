@@ -1,0 +1,30 @@
+.AppContainer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+
+  .LibrarySideNav {
+    width: 55vw;
+
+    .SideNavTrigger {
+      position: absolute;
+      left: -60px;
+      height: 40px;
+      width: 40px;
+      z-index: 9999;
+    }
+  }
+}
+
+.App-flex {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    margin: 10px 20px;
+    flex: 1 1 0;
+  }
+}

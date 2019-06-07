@@ -1,0 +1,25 @@
+<mat-sidenav-container class="AppContainer" [hasBackdrop]="false">
+    <mat-sidenav class="LibrarySideNav" mode="over" position="end" [(opened)]="libraryOpened">
+        <button mat-raised-button color="primary" class="SideNavTrigger" (click)="libraryOpened = !libraryOpened">
+            <mat-icon>collections</mat-icon>
+        </button>
+        <div (swiperight)="libraryOpened = false">
+            <app-gif-library></app-gif-library>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <button mat-raised-button color="primary" [routerLink]="['about']">About</button>
+        <button mat-raised-button color="primary" [routerLink]="['']">GIF Search</button>
+        <button mat-raised-button color="primary" [routerLink]="['upload']">Upload & Convert</button>
+        <button mat-raised-button color="primary" [routerLink]="['edit']">Edit Gif</button>
+        <span>Sign In</span>
+        <span>Register</span>
+        <span><img src="assets/giphy_logo.png"/></span>
+        <div class="App-flex">
+            <div class="Router">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+        <button (click)="testApi($event)">Test API</button>
+    </mat-sidenav-content>
+</mat-sidenav-container>

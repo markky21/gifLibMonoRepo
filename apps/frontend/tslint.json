@@ -1,0 +1,7 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "gifLibMonoRepo", "camelCase"],
+    "component-selector": [true, "element", "gif-lib-mono-repo", "kebab-case"]
+  }
+}

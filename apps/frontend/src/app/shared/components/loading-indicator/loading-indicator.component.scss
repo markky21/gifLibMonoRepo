@@ -1,0 +1,22 @@
+.lds-css {
+  width: 100%;
+
+  svg {
+    width: 100%;
+  }
+}
+
+::ng-deep.ldBar-label {
+  text-align: center;
+  margin-top: -65%;
+  font-size: 300%;
+  font-weight: bolder;
+  left: 30%;
+  color: white;
+  text-shadow: 4px 3px 0px black;
+
+  &:after {
+    color: inherit;
+    content: '%';
+  }
+}
