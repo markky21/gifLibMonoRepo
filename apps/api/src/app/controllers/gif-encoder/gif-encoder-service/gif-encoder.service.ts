@@ -7,21 +7,17 @@ import * as ffmpeg from 'fluent-ffmpeg';
 export class GifEncoderService {
   public encodeGif(video: File): Observable<any> {
     const stream = new Duplex();
+    stream.push(video.buffer);
+    stream.push(null);
 
-    const ff = new ffmpeg();
+    const ff = new ffmpeg(stream);
 
-    ff.size('640x480')
+    ff.size('260x120')
       .format('gif')
       .on('start', () => console.log('started converting....'))
-      .on('error', function(err, stdout, stderr) {
-        console.log('An error occurred: ' + err.message, err, stderr);
-      })
-      .on('progress', (progress) => {
-        console.log(progress.percent + '%');
-      })
-      .on('end', () => console.log('finished ffmpeg'))
-      .save('ffmpegedit.gif');
+      .on('end', () => console.log('finished converting ' + video.originalname))
+      .output(stream);
 
-    return of(video);
+    return of(stream);
   }
 }
