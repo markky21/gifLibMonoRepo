@@ -8,7 +8,7 @@ import { HttpService } from '../../../core/http/http.service';
 import { MainService } from '../../../shared/services/main.service';
 import { Res, VideoConverterOptions } from '../shared/video-converter-options.interfaces';
 import { GIFObject } from '../../../core/types/gif-object.type';
-import { arrayBufferToBinaryString, blobToArrayBuffer } from 'blob-util';
+import { blobToDataURL, dataURLToBlob } from "cypress/types/blob-util";
 
 const UPLOAD_MESSAGES = {
   sizeExceeded: 'File upload aborted due to exceeded file size! Limit is 15MB',
@@ -89,22 +89,21 @@ export class UploadFileService {
         const sizeExceeded = size > limit;
         const wrongType = !file.type.includes('video');
 
-        // if (sizeExceeded || wrongType) {
-        //   reader.abort();
-        //   this.videoURL = null;
-        //   this.uploadedFile = null;
-        //   this.loadedVideo$.next(false);
-        //   const message = sizeExceeded ? 'sizeExceeded' : 'wrongType';
-        //   this.mainService.notifyMessage(UPLOAD_MESSAGES[message]);
-        //   return;
-        // }
+        if (sizeExceeded || wrongType) {
+          reader.abort();
+          this.videoURL = null;
+          this.uploadedFile = null;
+          this.loadedVideo$.next(false);
+          const message = sizeExceeded ? 'sizeExceeded' : 'wrongType';
+          this.mainService.notifyMessage(UPLOAD_MESSAGES[message]);
+          return;
+        }
       };
 
       reader.onloadend = () => {
         this.videoURL = reader.result;
         this.uploadedFile = file;
         this.mainService.notifyMessage(UPLOAD_MESSAGES.loadOK);
-        this.initConvertion();
       };
 
       reader.readAsDataURL(file);
@@ -157,7 +156,7 @@ export class UploadFileService {
     );
   }
 
-  public initConvertion(videoUploadForm?: FormGroup): void {
+  public initConvertion(videoUploadForm: FormGroup): void {
     // this.converting$.next(true);
     // const { conversionVideoBitrate, conversionFrameRate } = videoUploadForm.value;
     // const convertedType = this.uploadedFile.type.split('/')[1];
@@ -175,19 +174,11 @@ export class UploadFileService {
     //   converteroptions: options
     // };
     //
-    // const formData = new FormData();
-    //
-    // formData.append('file', this.uploadedFile);
+    let formData = new FormData();
 
-    const buffer$ = from(blobToArrayBuffer(this.uploadedFile));
+    formData.append('file', this.uploadedFile);
 
-    buffer$
-      .pipe(
-        switchMap((videoBuffer: ArrayBuffer) => {
-          console.log(new Uint8Array(videoBuffer));
-          return this.httpService.apiConvertToGif(arrayBufferToBinaryString(videoBuffer));
-        })
-      )
+   this.httpService.apiConvertToGif(formData)
       // .initConvertToGif(convertedType, fileData)
       .pipe(switchMap(response => this.httpService.downloadTheConvertedImage(response.output.url)))
       .subscribe(

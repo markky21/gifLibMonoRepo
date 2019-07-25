@@ -53,8 +53,13 @@ export class HttpService {
     return this.httpClient.post('/api/gif-encoder', body);
   }
 
-  public apiConvertToGif(videoBuffer: string): Observable<any> {
-    return this.httpClient.post('/api/gif-encoder', { file: videoBuffer });
+  public apiConvertToGif(videoBuffer: Blob): Observable<any> {
+    const headersRequest = {
+      'Accept': 'multipart/form-data;boundary=---WebKitFormBoundary7MA4YWxkTrZu0gW',
+      'Content-Type': 'multipart/form-data;boundary=---WebKitFormBoundary7MA4YWxkTrZu0gW'
+    };
+
+    return this.httpClient.post('/api/gif-encoder', videoBuffer);
   }
 
   public upoloadedGiphyFileIdToGifObject(id: string): Observable<any> {

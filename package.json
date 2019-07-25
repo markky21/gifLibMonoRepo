@@ -54,7 +54,7 @@
     "gif-encoder": "^0.7.2",
     "gifencoder": "^2.0.1",
     "hammerjs": "^2.0.8",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.15",
     "mat-video": "^2.6.0",
     "reflect-metadata": "^0.1.12",
     "rxjs": "~6.4.0",
