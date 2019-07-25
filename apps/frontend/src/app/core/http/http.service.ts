@@ -10,22 +10,19 @@ import { ConversionFileData } from '../../features/upload-file/shared/file-data-
   providedIn: 'root'
 })
 export class HttpService {
-
   public giphyApi = GIPHY_CONFIG.endpoints;
 
-  constructor(private httpClient: HttpClient) {
-
-  }
+  constructor(private httpClient: HttpClient) {}
 
   public searchGifs(searchTerms, options?): Observable<any> {
     const url = `${this.giphyApi.search}${GIPHY_CONFIG.apikey}`;
 
-    return this.httpClient.get(`${url}&q=${searchTerms}&limit=8`)
+    return this.httpClient.get(`${url}&q=${searchTerms}&limit=8`);
   }
 
   public giphyUpload(fileData, tags: string[]): Observable<any> {
-    const url = `${this.giphyApi.upload}${GIPHY_CONFIG.apikey}`
-    fileData['api_key'] =  GIPHY_CONFIG.apikey;
+    const url = `${this.giphyApi.upload}${GIPHY_CONFIG.apikey}`;
+    fileData['api_key'] = GIPHY_CONFIG.apikey;
 
     const formData = new FormData();
 
@@ -37,7 +34,7 @@ export class HttpService {
   }
 
   public initConvertToGif(type: string, fileData: ConversionFileData): Observable<any> {
-    let { filename} = fileData;
+    let { filename } = fileData;
     const { file, converteroptions } = fileData;
     filename += `.${type}`;
 
@@ -53,13 +50,17 @@ export class HttpService {
       converteroptions
     };
 
-    return this.httpClient.post(gifConvertConfig.endpoint, body);
+    return this.httpClient.post('/api/gif-encoder', body);
+  }
+
+  public apiConvertToGif(videoBuffer: string): Observable<any> {
+    return this.httpClient.post('/api/gif-encoder', { file: videoBuffer });
   }
 
   public upoloadedGiphyFileIdToGifObject(id: string): Observable<any> {
     const headers = new HttpHeaders({
       Accept: 'image/gif',
-      'Content-Type' : 'image/gif'
+      'Content-Type': 'image/gif'
     });
 
     const url = `${this.giphyApi.getById.replace('%1', id)}${GIPHY_CONFIG.apikey}`;
@@ -70,15 +71,13 @@ export class HttpService {
   public downloadTheConvertedImage(gifUrl: string): Observable<any> {
     const headers = new HttpHeaders({
       Accept: 'image/gif',
-      'Content-Type' : 'image/gif'
+      'Content-Type': 'image/gif'
     });
 
     if (!gifUrl.match(/(https|http)/)) {
       gifUrl = `https://${gifUrl}`;
     }
 
-    return this.httpClient.get(`${gifUrl}`, {headers, responseType: 'arraybuffer'});
+    return this.httpClient.get(`${gifUrl}`, { headers, responseType: 'arraybuffer' });
   }
 }
-
-

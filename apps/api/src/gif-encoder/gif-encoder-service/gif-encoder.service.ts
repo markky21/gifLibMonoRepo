@@ -1,12 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import * as GIFencoder from 'gifencoder';
-import * as fs from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
+import { Observable, of } from 'rxjs';
+import * as streams from 'stream';
+import * as ffmpeg from 'fluent-ffmpeg';
 
 @Injectable()
 export class GifEncoderService {
-    encodeGif(video) {
-        const encoder = new GIFencoder(video.width, video.height);
+  encodeGif(video: string): Observable<any> {
+    const encoder = new GIFencoder(240, 160);
+    const command = new ffmpeg();
 
-        fs.createWriteStream('convertedGif.gif');
-    }
+    console.log(command);
+    const stream = new streams.PassThrough();
+    stream.end(video);
+
+    return of(video);
+  }
 }
