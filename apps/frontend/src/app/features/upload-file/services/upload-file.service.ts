@@ -8,7 +8,6 @@ import { HttpService } from '../../../core/http/http.service';
 import { MainService } from '../../../shared/services/main.service';
 import { Res, VideoConverterOptions } from '../shared/video-converter-options.interfaces';
 import { GIFObject } from '../../../core/types/gif-object.type';
-import { blobToDataURL, dataURLToBlob } from "cypress/types/blob-util";
 
 const UPLOAD_MESSAGES = {
   sizeExceeded: 'File upload aborted due to exceeded file size! Limit is 15MB',
@@ -157,16 +156,16 @@ export class UploadFileService {
   }
 
   public initConvertion(videoUploadForm: FormGroup): void {
-    // this.converting$.next(true);
-    // const { conversionVideoBitrate, conversionFrameRate } = videoUploadForm.value;
-    // const convertedType = this.uploadedFile.type.split('/')[1];
-    // const prefixIndex = (this.videoURL as string).indexOf(',');
+    this.converting$.next(true);
+    const { conversionVideoBitrate, conversionFrameRate } = videoUploadForm.value;
+    const convertedType = this.uploadedFile.type.split('/')[1];
+    const prefixIndex = (this.videoURL as string).indexOf(',');
     // const prefix = (this.videoURL as string).slice(0, prefixIndex + 1);
-    // const options: VideoConverterOptions = {
-    //   video_bitrate: conversionVideoBitrate,
-    //   video_fps: conversionFrameRate,
-    //   video_resolution: Res.Minimal
-    // };
+    const options: VideoConverterOptions = {
+      video_bitrate: conversionVideoBitrate,
+      video_fps: conversionFrameRate,
+      video_resolution: Res.Minimal
+    };
     //
     // const fileData = {
     //   filename: this.uploadedFile.name.split('.')[0],
@@ -177,10 +176,12 @@ export class UploadFileService {
     let formData = new FormData();
 
     formData.append('file', this.uploadedFile);
+    Object.keys(options).forEach(option => formData.append(option, options[option]));
 
-   this.httpService.apiConvertToGif(formData)
+    this.httpService
+      .apiConvertToGif(formData)
       // .initConvertToGif(convertedType, fileData)
-      .pipe(switchMap(response => this.httpService.downloadTheConvertedImage(response.output.url)))
+      .pipe(switchMap(response => from(response)))
       .subscribe(
         response => {
           this.convertGifFromConverterToUrl(response);

@@ -53,12 +53,7 @@ export class HttpService {
     return this.httpClient.post('/api/gif-encoder', body);
   }
 
-  public apiConvertToGif(videoBuffer: Blob): Observable<any> {
-    const headersRequest = {
-      'Accept': 'multipart/form-data;boundary=---WebKitFormBoundary7MA4YWxkTrZu0gW',
-      'Content-Type': 'multipart/form-data;boundary=---WebKitFormBoundary7MA4YWxkTrZu0gW'
-    };
-
+  public apiConvertToGif(videoBuffer: FormData): Observable<any> {
     return this.httpClient.post('/api/gif-encoder', videoBuffer);
   }
 
@@ -71,18 +66,5 @@ export class HttpService {
     const url = `${this.giphyApi.getById.replace('%1', id)}${GIPHY_CONFIG.apikey}`;
 
     return this.httpClient.get(url);
-  }
-
-  public downloadTheConvertedImage(gifUrl: string): Observable<any> {
-    const headers = new HttpHeaders({
-      Accept: 'image/gif',
-      'Content-Type': 'image/gif'
-    });
-
-    if (!gifUrl.match(/(https|http)/)) {
-      gifUrl = `https://${gifUrl}`;
-    }
-
-    return this.httpClient.get(`${gifUrl}`, { headers, responseType: 'arraybuffer' });
   }
 }

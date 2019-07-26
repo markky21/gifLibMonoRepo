@@ -11,7 +11,8 @@ import { MyMiddleware } from './middleware/my-middleware.service';
   controllers: [AppController, GifEncoderController],
   providers: [AppService, GifEncoderService]
 })
-export class AppModule {// implements NestModule {
+export class AppModule {
+  // implements NestModule {
   // configure(consumer: MiddlewareConsumer) {
   //   consumer.apply(MyMiddleware).forRoutes(GifEncoderController);
   // }
