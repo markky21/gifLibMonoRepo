@@ -1,10 +1,10 @@
-import { Controller, Header, HttpCode, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Header, HttpCode, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { GifEncoderService } from './gif-encoder-service/gif-encoder.service';
-import { createReadStream } from 'fs';
+import { createReadStream, createWriteStream } from 'fs';
 import { Observable, of } from 'rxjs';
-import { Readable } from 'stream';
+import { Readable, Transform, Writable } from 'stream';
 //
 // const Observable = function(subscriber) {
 //   this.subscribe = subscriber;
@@ -56,14 +56,41 @@ export class GifEncoderController {
 
   @Post()
   @HttpCode(200)
-  @Header('Content-Type', 'image/gif')
+  // @Header('Content-Type', 'binary/octet-stream')
   @UseInterceptors(FileInterceptor('file'))
-  convertToGif(@UploadedFile() file: { buffer: ArrayBuffer; originalname: string }, @Res() res) {
+  convertToGif(
+    @UploadedFile()
+    file: {
+      buffer: ArrayBuffer;
+      originalname: string;
+      video_bitrate: number;
+      video_fps: string;
+      video_resolution: string;
+    },
+    @Res() res
+  ) {
     const result = this.encService.encodeGif(file);
+    const newWritable = new Transform({
+      transform(chunk: Buffer, encoding, callback) {
+        this.push('$');
+        console.log(encoding);
+        callback();
+      }
+    });
 
-    result.pipe(
-      res,
-      { end: true }
-    );
+    const newWritable2 = new Transform({
+      transform(chunk: Buffer, encoding, callback) {
+        console.log(encoding);
+        callback();
+      }
+    });
+
+    result
+      .pipe(newWritable)
+      .pipe(newWritable2)
+      .pipe(
+        res,
+        { end: true }
+      );
   }
 }

@@ -53,9 +53,9 @@ export class HttpService {
     return this.httpClient.post('/api/gif-encoder', body);
   }
 
-  public apiConvertToGif(videoBuffer: FormData): Observable<BinaryType> {
+  public apiConvertToGif(videoBuffer: FormData): Observable<Uint8Array> {
     return from(
-      this.httpClient.post<ImageData>('/api/gif-encoder', videoBuffer, {
+      this.httpClient.post<Uint8Array>('/api/gif-encoder', videoBuffer, {
         headers: { Accept: 'multipart/form-data' }
       })
     );

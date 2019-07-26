@@ -19,9 +19,9 @@ export class GifEncoderService {
     stream.end();
 
     const ff = new ffmpeg(stream);
-    ff.size(video.video_resolution)
-      .fps(parseInt(video.video_fps.split('fps')[0], 10))
-      .videoBitrate(video.video_bitrate)
+    ff.size('120x80')
+      // .fps(parseInt(video.video_fps.split('fps')[0], 10))
+      // .videoBitrate(video.video_bitrate)
       .format('gif')
       .on('start', () => console.log('started converting....'))
       // .on('progress', progress => console.log('Ready: ' + progress.percent + '%'))
