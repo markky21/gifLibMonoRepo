@@ -178,8 +178,7 @@ export class UploadFileService {
     Object.keys(options).forEach(option => formData.append(option, options[option]));
 
     this.httpService
-      .apiConvertToGif(formData)
-      // .initConvertToGif(convertedType, fileData)
+      .apiConvertToGifFetch(formData)
       .then((res) => res.blob())
       .then(
         (response: any) => {
@@ -188,5 +187,11 @@ export class UploadFileService {
         },
         err => this.mainService.notifyMessage(err.message)
       );
+      // .apiConvertToGifObservable(formData)
+      // .subscribe( response => {
+      //   console.log(respons);
+      // });
+      // .initConvertToGif(convertedType, fileData)
+
   }
 }

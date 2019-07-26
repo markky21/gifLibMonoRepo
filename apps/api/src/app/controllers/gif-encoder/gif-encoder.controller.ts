@@ -3,8 +3,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 
 import { GifEncoderService } from './gif-encoder-service/gif-encoder.service';
 import { createReadStream, createWriteStream } from 'fs';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { Readable, Transform, Writable } from 'stream';
+import { fromPromise } from "rxjs/internal-compatibility";
 //
 // const Observable = function(subscriber) {
 //   this.subscribe = subscriber;
