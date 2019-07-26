@@ -181,10 +181,10 @@ export class UploadFileService {
     this.httpService
       .apiConvertToGif(formData)
       // .initConvertToGif(convertedType, fileData)
-      .pipe(switchMap(response => from(response)))
       .subscribe(
         response => {
-          this.convertGifFromConverterToUrl(response);
+          console.log(response.toString());
+          // this.convertGifFromConverterToUrl(response);
         },
         err => this.mainService.notifyMessage(err.message)
       );

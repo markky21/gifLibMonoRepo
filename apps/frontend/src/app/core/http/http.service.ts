@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 
 import { GIPHY_CONFIG } from '../configs/giphy-config';
 import { gifConvertConfig } from '../configs/gif-convert-api.config';
@@ -53,8 +53,12 @@ export class HttpService {
     return this.httpClient.post('/api/gif-encoder', body);
   }
 
-  public apiConvertToGif(videoBuffer: FormData): Observable<any> {
-    return this.httpClient.post('/api/gif-encoder', videoBuffer);
+  public apiConvertToGif(videoBuffer: FormData): Observable<BinaryType> {
+    return from(
+      this.httpClient.post<ImageData>('/api/gif-encoder', videoBuffer, {
+        headers: { Accept: 'multipart/form-data' }
+      })
+    );
   }
 
   public upoloadedGiphyFileIdToGifObject(id: string): Observable<any> {

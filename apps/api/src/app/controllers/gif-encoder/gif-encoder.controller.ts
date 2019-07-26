@@ -58,8 +58,8 @@ export class GifEncoderController {
   @HttpCode(200)
   @Header('Content-Type', 'image/gif')
   @UseInterceptors(FileInterceptor('file'))
-  async convertToGif(@UploadedFile() file: { buffer: ArrayBuffer; originalname: string }, @Res() res) {
-    const result = await this.encService.encodeGif(file);
+  convertToGif(@UploadedFile() file: { buffer: ArrayBuffer; originalname: string }, @Res() res) {
+    const result = this.encService.encodeGif(file);
 
     result.pipe(
       res,
