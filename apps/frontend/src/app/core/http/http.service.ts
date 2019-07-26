@@ -53,12 +53,15 @@ export class HttpService {
     return this.httpClient.post('/api/gif-encoder', body);
   }
 
-  public apiConvertToGif(videoBuffer: FormData): Observable<Uint8Array> {
-    return from(
-      this.httpClient.post<Uint8Array>('/api/gif-encoder', videoBuffer, {
-        headers: { Accept: 'multipart/form-data' }
-      })
+  public apiConvertToGif(videoBuffer: FormData): Promise<Response> {
+    const result: Promise<Response> = fetch('/api/gif-encoder', {
+        headers: { Accept: 'multipart/form-data', responseType: 'image/gif'},
+        method: 'POST',
+        body: videoBuffer
+      },
     );
+
+    return result;
   }
 
   public upoloadedGiphyFileIdToGifObject(id: string): Observable<any> {

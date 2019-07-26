@@ -56,7 +56,7 @@ export class GifEncoderController {
 
   @Post()
   @HttpCode(200)
-  // @Header('Content-Type', 'binary/octet-stream')
+  @Header('Content-Type', 'image/gif')
   @UseInterceptors(FileInterceptor('file'))
   convertToGif(
     @UploadedFile()
@@ -70,24 +70,8 @@ export class GifEncoderController {
     @Res() res
   ) {
     const result = this.encService.encodeGif(file);
-    const newWritable = new Transform({
-      transform(chunk: Buffer, encoding, callback) {
-        this.push('$');
-        console.log(encoding);
-        callback();
-      }
-    });
-
-    const newWritable2 = new Transform({
-      transform(chunk: Buffer, encoding, callback) {
-        console.log(encoding);
-        callback();
-      }
-    });
 
     result
-      .pipe(newWritable)
-      .pipe(newWritable2)
       .pipe(
         res,
         { end: true }

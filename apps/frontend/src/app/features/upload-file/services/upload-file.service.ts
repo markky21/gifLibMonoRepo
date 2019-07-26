@@ -125,13 +125,12 @@ export class UploadFileService {
     });
   }
 
-  public convertGifFromConverterToUrl(responseFile: ArrayBuffer): void {
-    const imageEl = new Blob([new Uint8Array(responseFile)], { type: 'image/gif' });
+  public convertGifFromConverterToUrl(responseFile: Blob): void {
     const urlCreate: typeof URL = window.URL;
-    this.convertedFile = imageEl;
-    this.converting$.next(false);
+    this.convertedFile = responseFile;
 
-    this.convertedURL = this.sanitizer.bypassSecurityTrustResourceUrl(urlCreate.createObjectURL(imageEl));
+    this.converting$.next(false);
+    this.convertedURL = this.sanitizer.bypassSecurityTrustResourceUrl(urlCreate.createObjectURL(responseFile));
   }
 
   public uploadToLibrary(tags: string[], category: string): void {
@@ -181,10 +180,11 @@ export class UploadFileService {
     this.httpService
       .apiConvertToGif(formData)
       // .initConvertToGif(convertedType, fileData)
-      .subscribe(
-        response => {
-          console.log(response.toString());
-          // this.convertGifFromConverterToUrl(response);
+      .then((res) => res.blob())
+      .then(
+        (response: any) => {
+          console.log(response);
+          this.convertGifFromConverterToUrl(response);
         },
         err => this.mainService.notifyMessage(err.message)
       );
