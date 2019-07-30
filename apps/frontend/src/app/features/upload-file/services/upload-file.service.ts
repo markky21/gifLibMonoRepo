@@ -179,7 +179,7 @@ export class UploadFileService {
 
     this.httpService
       .apiConvertToGifFetch(formData)
-      .then((res) => res.blob())
+      .then(res => res.blob())
       .then(
         (response: any) => {
           console.log(response);
@@ -187,11 +187,10 @@ export class UploadFileService {
         },
         err => this.mainService.notifyMessage(err.message)
       );
-      // .apiConvertToGifObservable(formData)
-      // .subscribe( response => {
-      //   console.log(respons);
-      // });
-      // .initConvertToGif(convertedType, fileData)
-
+    // .apiConvertToGifObservable(formData)
+    // .subscribe( response => {
+    //   console.log(respons);
+    // });
+    // .initConvertToGif(convertedType, fileData)
   }
 }

@@ -5,7 +5,7 @@ import { GifEncoderService } from './gif-encoder-service/gif-encoder.service';
 import { createReadStream, createWriteStream } from 'fs';
 import { from, Observable, of } from 'rxjs';
 import { Readable, Transform, Writable } from 'stream';
-import { fromPromise } from "rxjs/internal-compatibility";
+import { fromPromise } from 'rxjs/internal-compatibility';
 //
 // const Observable = function(subscriber) {
 //   this.subscribe = subscriber;
@@ -68,14 +68,17 @@ export class GifEncoderController {
       video_fps: string;
       video_resolution: string;
     },
-    @Res() res
+    @Body('video_bitrate') bitrate,
+    @Body('video_fps') fps,
+    @Body('video_resolution') resolution,
+    @Res()
+    res
   ) {
-    const result = this.encService.encodeGif(file);
+    const result = this.encService.encodeGif({ ...file, bitrate, fps, resolution });
 
-    result
-      .pipe(
-        res,
-        { end: true }
-      );
+    result.pipe(
+      res,
+      { end: true }
+    );
   }
 }

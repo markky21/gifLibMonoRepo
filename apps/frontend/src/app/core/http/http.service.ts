@@ -5,7 +5,7 @@ import { from, Observable, of } from 'rxjs';
 import { GIPHY_CONFIG } from '../configs/giphy-config';
 import { gifConvertConfig } from '../configs/gif-convert-api.config';
 import { ConversionFileData } from '../../features/upload-file/shared/file-data-interface';
-import { map } from "rxjs/operators";
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -54,23 +54,21 @@ export class HttpService {
     return this.httpClient.post('/api/gif-encoder', body);
   }
 
-  public apiConvertToGifObservable(videoBuffer: FormData): Observable<Observable<Response>> {
-    const headers = { Accept: 'multipart/form-data', responseType: 'text'};
+  public apiConvertToGifObservable(videoBuffer: FormData): Observable<any> {
+    const headers = { Accept: 'multipart/form-data', responseType: 'text' };
 
-    const result: Observable<Response> =
-      this.httpClient.post<Response>('/api/gif-encoder', videoBuffer, { headers });
+    const result = this.httpClient.post('/api/gif-encoder', videoBuffer, { headers });
 
-    return result.pipe( map((res:Response) => res.then(res => res)));
+    return result;
   }
 
   public apiConvertToGifFetch(videoBuffer: FormData): Promise<Response> {
-    const headers = { Accept: 'multipart/form-data', responseType: 'image/gif'};
+    const headers = { Accept: 'multipart/form-data', responseType: 'image/gif' };
     const result: Promise<Response> = fetch('/api/gif-encoder', {
-        headers,
-        method: 'POST',
-        body: videoBuffer
-      },
-    );
+      headers,
+      method: 'POST',
+      body: videoBuffer
+    });
 
     return result;
   }
