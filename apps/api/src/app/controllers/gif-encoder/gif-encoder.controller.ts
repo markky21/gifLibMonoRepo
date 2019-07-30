@@ -64,17 +64,15 @@ export class GifEncoderController {
     file: {
       buffer: ArrayBuffer;
       originalname: string;
-      video_bitrate: number;
-      video_fps: string;
+      video_fps: number;
       video_resolution: string;
     },
-    @Body('video_bitrate') bitrate,
-    @Body('video_fps') fps,
-    @Body('video_resolution') resolution,
+    @Body('video_fps') fps: number,
+    @Body('video_resolution') resolution: string,
     @Res()
     res
   ) {
-    const result = this.encService.encodeGif({ ...file, bitrate, fps, resolution });
+    const result = this.encService.encodeGif({ ...file, fps, resolution });
 
     result.pipe(
       res,

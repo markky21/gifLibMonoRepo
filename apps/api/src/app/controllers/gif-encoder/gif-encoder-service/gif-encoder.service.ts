@@ -4,9 +4,9 @@ import * as ffmpeg from 'fluent-ffmpeg';
 
 @Injectable()
 export class GifEncoderService {
-  encodeGif(video: { buffer: ArrayBuffer; originalname: string; bitrate: number; fps: string; resolution: string }) {
+  encodeGif(video: { buffer: ArrayBuffer; originalname: string; fps: number; resolution: string }) {
     const stream = new Duplex();
-    const { bitrate, fps, resolution } = video;
+    const { fps, resolution } = video;
 
     stream.push(video.buffer);
     stream.push(null);
@@ -14,8 +14,7 @@ export class GifEncoderService {
 
     const ff = new ffmpeg(stream);
     ff.size(resolution)
-      .fps(parseInt(fps.split('fps')[0], 10))
-      .videoBitrate(bitrate)
+      .fps(fps)
       .format('gif')
       .on('start', () => console.log('started converting....'))
       // .on('progress', progress => console.log('Ready: ' + progress.percent + '%'))

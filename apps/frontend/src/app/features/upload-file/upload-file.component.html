@@ -39,44 +39,28 @@
           <div *ngIf="(loadedVideo$ | async)">
             <h2><label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)</h2>
             <h2>
-              <label>Resolution: </label
-              ><span>{{ convertedVideo.videoWidth }} x {{ convertedVideo.videoHeight }} </span>
+              <label>Resolution: </label><span>{{ originalResolution }} </span>
             </h2>
             <h2><label>Type:</label> {{ uploadedFile.type.split('/')[1] }}</h2>
             <div>
               <div>Select resolution:</div>
               <mat-button-toggle-group
                 *ngIf="resolutions"
-                name="fontStyle"
-                aria-label="Font Style"
+                #group="matButtonToggleGroup"
                 formControlName="resolution"
+                [value]="originalResolution"
+                (change)="resolutionChange(group.value)"
               >
-                <mat-button-toggle [value]="convertedVideo.videoWidth + 'x' + convertedVideo.videoHeight"
-                  >Original</mat-button-toggle
-                >
+                <mat-button-toggle [value]="originalResolution">Original: ({{ originalResolution }})</mat-button-toggle>
                 <mat-button-toggle *ngFor="let res of resolutions" [value]="res">
                   {{ res }}
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-            </div>
-            <div>Select bitrate:</div>
-            <div>
-              <mat-button-toggle-group
-                name="fontStyle"
-                aria-label="Font Style"
-                formControlName="conversionVideoBitrate"
-              >
-                <mat-button-toggle *ngFor="let rate of [1000, 3000, 5000]" [value]="rate">
-                  {{ rate }}
                 </mat-button-toggle>
               </mat-button-toggle-group>
             </div>
             <div>
               <div>Select framerate:</div>
               <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="conversionFrameRate">
-                <mat-button-toggle *ngFor="let rate of frameRates" [value]="rate">
-                  {{ rate }}
-                </mat-button-toggle>
+                <mat-button-toggle *ngFor="let rate of frameRates" [value]="rate"> {{ rate }} fps </mat-button-toggle>
               </mat-button-toggle-group>
             </div>
             <div *ngIf="(converting$ | async) && !convertedURL">

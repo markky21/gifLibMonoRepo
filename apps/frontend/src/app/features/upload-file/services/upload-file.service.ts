@@ -156,22 +156,15 @@ export class UploadFileService {
 
   public initConvertion(videoUploadForm: FormGroup): void {
     this.converting$.next(true);
-    const { conversionVideoBitrate, conversionFrameRate } = videoUploadForm.value;
+    const { conversionVideoBitrate, conversionFrameRate, resolution } = videoUploadForm.value;
     const convertedType = this.uploadedFile.type.split('/')[1];
     const prefixIndex = (this.videoURL as string).indexOf(',');
     // const prefix = (this.videoURL as string).slice(0, prefixIndex + 1);
     const options: VideoConverterOptions = {
-      video_bitrate: conversionVideoBitrate,
       video_fps: conversionFrameRate,
-      video_resolution: Res.Minimal
+      video_resolution: resolution
     };
-    //
-    // const fileData = {
-    //   filename: this.uploadedFile.name.split('.')[0],
-    //   file: (this.videoURL as string).split(prefix)[1],
-    //   converteroptions: options
-    // };
-    //
+
     let formData = new FormData();
 
     formData.append('file', this.uploadedFile);
