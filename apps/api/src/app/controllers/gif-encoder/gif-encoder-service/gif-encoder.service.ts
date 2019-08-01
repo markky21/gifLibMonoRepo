@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { Duplex, Readable, Writable } from 'stream';
+import { Readable } from 'stream';
 import * as ffmpeg from 'fluent-ffmpeg';
 
 @Injectable()
 export class GifEncoderService {
   encodeGif(video: { buffer: ArrayBuffer; originalname: string; fps: number; resolution: string }) {
-    const stream = new Duplex();
+    const stream = new Readable();
     const { fps, resolution } = video;
 
     stream.push(video.buffer);
     stream.push(null);
-    stream.end();
 
     const ff = new ffmpeg(stream);
     ff.size(resolution)

@@ -15,10 +15,12 @@ export const FRAME_RATES = {
   25: 25
 };
 
+export const DEFAULT_FRAME_RATE = FRAME_RATES[10];
+
 export interface VideoConverterOptions {
-  trim_from?: string;
-  trim_to?: string;
-  video_codec?: 'GIF';
-  video_fps?: string;
-  video_resolution: VideoResolutions;
+  trimFrom?: string;
+  trimTo?: string;
+  videoCodec?: 'GIF';
+  videoFps?: string;
+  videoResolution: VideoResolutions;
 }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { map, switchMap, take, tap } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
-import { BehaviorSubject, forkJoin, from } from 'rxjs';
+import { BehaviorSubject, forkJoin } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { HttpService } from '../../../core/http/http.service';
 import { MainService } from '../../../shared/services/main.service';
-import { Res, VideoConverterOptions } from '../shared/video-converter-options.interfaces';
+import { DEFAULT_FRAME_RATE, Res, VideoConverterOptions } from '../shared/video-converter-options.interfaces';
 import { GIFObject } from '../../../core/types/gif-object.type';
 
 const UPLOAD_MESSAGES = {
@@ -69,8 +69,7 @@ export class UploadFileService {
     return this.fb.group({
       imageInput: this.fb.control(null, [Validators.required]),
       resolution: this.fb.control(Res.Medium, Validators.required),
-      conversionVideoBitrate: this.fb.control(1000, Validators.required),
-      conversionFrameRate: this.fb.control('10fps', Validators.required),
+      conversionFrameRate: this.fb.control(DEFAULT_FRAME_RATE, Validators.required),
       tags: this.fb.control(''),
       category: this.fb.control('Click one of the tags to set it as category')
     });
@@ -110,8 +109,6 @@ export class UploadFileService {
   }
 
   public giveAvailableResolutions(ratio: number): string[] {
-    // TODO: add filtering when uploading video of smaller resolution than of the RES templates
-
     return Object.values(Res).map(res => {
       const defaultRes = res.split('x');
       const defRes = {
@@ -156,13 +153,10 @@ export class UploadFileService {
 
   public initConvertion(videoUploadForm: FormGroup): void {
     this.converting$.next(true);
-    const { conversionVideoBitrate, conversionFrameRate, resolution } = videoUploadForm.value;
-    const convertedType = this.uploadedFile.type.split('/')[1];
-    const prefixIndex = (this.videoURL as string).indexOf(',');
-    // const prefix = (this.videoURL as string).slice(0, prefixIndex + 1);
+    const { conversionFrameRate, resolution } = videoUploadForm.value;
     const options: VideoConverterOptions = {
-      video_fps: conversionFrameRate,
-      video_resolution: resolution
+      videoFps: conversionFrameRate,
+      videoResolution: resolution
     };
 
     let formData = new FormData();
@@ -171,19 +165,7 @@ export class UploadFileService {
     Object.keys(options).forEach(option => formData.append(option, options[option]));
 
     this.httpService
-      .apiConvertToGifFetch(formData)
-      .then(res => res.blob())
-      .then(
-        (response: any) => {
-          console.log(response);
-          this.convertGifFromConverterToUrl(response);
-        },
-        err => this.mainService.notifyMessage(err.message)
-      );
-    // .apiConvertToGifObservable(formData)
-    // .subscribe( response => {
-    //   console.log(respons);
-    // });
-    // .initConvertToGif(convertedType, fileData)
+      .apiConvertToGifObservable(formData)
+      .subscribe((gifImageBlob: Blob) => this.convertGifFromConverterToUrl(gifImageBlob));
   }
 }

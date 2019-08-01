@@ -41,7 +41,9 @@ export class UploadFileComponent implements OnInit {
 
     this.originalResolution = `${w}x${h}`;
     this.uploadService.loadedVideo$.next(true);
-    this.resolutions = this.uploadService.giveAvailableResolutions(ratio);
+    this.resolutions = this.uploadService
+      .giveAvailableResolutions(ratio)
+      .filter(res => res !== this.originalResolution);
   }
 
   public onFileInputChange(event): void {

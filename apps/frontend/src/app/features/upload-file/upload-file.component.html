@@ -45,13 +45,14 @@
             <div>
               <div>Select resolution:</div>
               <mat-button-toggle-group
-                *ngIf="resolutions"
+                *ngIf="originalResolution"
                 #group="matButtonToggleGroup"
                 formControlName="resolution"
-                [value]="originalResolution"
                 (change)="resolutionChange(group.value)"
               >
-                <mat-button-toggle [value]="originalResolution">Original: ({{ originalResolution }})</mat-button-toggle>
+                <mat-button-toggle [value]="this.originalResolution"
+                  >Original: ({{ originalResolution }})</mat-button-toggle
+                >
                 <mat-button-toggle *ngFor="let res of resolutions" [value]="res">
                   {{ res }}
                 </mat-button-toggle>
