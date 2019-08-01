@@ -1,4 +1,4 @@
-import { Body, Controller, Header, HttpCode, Param, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Header, HttpCode, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
 import { GifEncoderService } from './gif-encoder-service/gif-encoder.service';
