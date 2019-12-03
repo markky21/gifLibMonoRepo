@@ -17,24 +17,28 @@
             Video file name: <span class="ImageName">{{ uploadedFile?.name }}</span>
           </h1>
           <div class="videoplayer">
-            <video
-              loop
+            <!--            <video-->
+            <!--              loop-->
+            <!--              [muted]="true"-->
+            <!--              autoplay-->
+            <!--              width="150px"-->
+            <!--              height="auto"-->
+            <!--              #convertedVideogit-->
+            <!--              (loadeddata)="videoLoaded(convertedVideo.videoWidth, convertedVideo.videoHeight, $event)"-->
+            <!--              [src]="videoURL"-->
+            <!--            ></video>-->
+            <mat-video
               [muted]="true"
-              autoplay
-              width="150px"
-              height="auto"
-              #convertedVideo
+              [overlay]="false"
+              spinner="dotted"
+              [preload]="true"
               [src]="videoURL"
-              (loadeddata)="videoLoaded(convertedVideo.videoWidth, convertedVideo.videoHeight, $event)"
-            ></video>
-            <!--<mat-video [muted]="true"-->
-            <!--[overlay]="false"-->
-            <!--spinner="dotted"-->
-            <!--[preload]="true"-->
-            <!--[src]="videoURL"-->
-            <!--[loop]="true"-->
-            <!--[autoplay]="true" #convertedVideo>-->
-            <!--</mat-video>-->
+              [loop]="true"
+              [autoplay]="true"
+              #convertedVideo
+              (canplay)="videoLoaded(convertedVideo.videoWidth, convertedVideo.videoHeight, $event)"
+            >
+            </mat-video>
           </div>
           <div *ngIf="loadedVideo$ | async">
             <h2><label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)</h2>
