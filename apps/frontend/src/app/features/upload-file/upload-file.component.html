@@ -36,7 +36,7 @@
             <!--[autoplay]="true" #convertedVideo>-->
             <!--</mat-video>-->
           </div>
-          <div *ngIf="(loadedVideo$ | async)">
+          <div *ngIf="loadedVideo$ | async">
             <h2><label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)</h2>
             <h2>
               <label>Resolution: </label><span>{{ originalResolution }} </span>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <button
-          *ngIf="(loadedVideo$ | async)"
+          *ngIf="loadedVideo$ | async"
           type="button"
           mat-raised-button
           color="primary"
