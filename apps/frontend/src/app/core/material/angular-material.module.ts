@@ -1,23 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-  MatButtonModule, MatButtonToggleModule,
-  MatCardModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatInputModule,
-  MatMenuModule, MatProgressBarModule, MatSliderModule
-} from '@angular/material';
-import { MatVideoModule } from 'mat-video';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatCardModule } from "@angular/material/card";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatSliderModule } from "@angular/material/slider";
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   exports: [
     MatSliderModule,
-    MatVideoModule,
     MatButtonToggleModule,
     MatButtonModule,
     MatCardModule,
@@ -25,7 +22,7 @@ import { MatVideoModule } from 'mat-video';
     MatMenuModule,
     MatExpansionModule,
     MatIconModule,
-    MatProgressBarModule
-  ]
+    MatProgressBarModule,
+  ],
 })
-export class AngularMaterialModule { }
+export class AngularMaterialModule {}

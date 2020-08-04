@@ -1,17 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
 
-import { MainService } from '../../shared/services/main.service';
-import { FRAME_RATES } from './shared/video-converter-options.interfaces';
-import { UploadFileService } from './services/upload-file.service';
-import { Observable } from 'rxjs';
+import { MainService } from "../../shared/services/main.service";
+import { FRAME_RATES } from "./shared/video-converter-options.interfaces";
+import { UploadFileService } from "./services/upload-file.service";
+import { Observable } from "rxjs";
 
-export const DEFAULT_CATEGORY_VALUE = 'Click one of the tags to set it as category';
+export const DEFAULT_CATEGORY_VALUE =
+  "Click one of the tags to set it as category";
 
 @Component({
-  selector: 'app-upload-file',
-  templateUrl: './upload-file.component.html',
-  styleUrls: ['./upload-file.component.scss']
+  selector: "app-upload-file",
+  templateUrl: "./upload-file.component.html",
+  styleUrls: ["./upload-file.component.scss"],
 })
 export class UploadFileComponent implements OnInit {
   public imageUploadForm: FormGroup;
@@ -23,10 +24,13 @@ export class UploadFileComponent implements OnInit {
   public originalResolution: string;
   public convertResolution: string;
 
-  constructor(private mainService: MainService, private uploadService: UploadFileService) {}
+  constructor(
+    private mainService: MainService,
+    private uploadService: UploadFileService
+  ) {}
 
   get convertRes(): string {
-    return this.imageUploadForm.get('resolution').value;
+    return this.imageUploadForm.get("resolution").value;
   }
 
   public buildForm(): void {
@@ -43,7 +47,7 @@ export class UploadFileComponent implements OnInit {
     this.uploadService.loadedVideo$.next(true);
     this.resolutions = this.uploadService
       .giveAvailableResolutions(ratio)
-      .filter(res => res !== this.originalResolution);
+      .filter((res) => res !== this.originalResolution);
   }
 
   public onFileInputChange(event): void {
@@ -58,7 +62,7 @@ export class UploadFileComponent implements OnInit {
     if (this.category !== DEFAULT_CATEGORY_VALUE) {
       this.uploadService.uploadToLibrary(this.tags, this.category);
     } else {
-      this.mainService.notifyMessage('Please select category!!!');
+      this.mainService.notifyMessage("Please select category!!!");
     }
   }
 
@@ -68,11 +72,11 @@ export class UploadFileComponent implements OnInit {
   }
 
   public changeCategory(tag: string): void {
-    this.imageUploadForm.get('category').patchValue(tag);
+    this.imageUploadForm.get("category").patchValue(tag);
   }
 
   public resolutionChange(resolution: string): void {
-    this.imageUploadForm.get('resolution').patchValue(resolution);
+    this.imageUploadForm.get("resolution").patchValue(resolution);
   }
 
   get fileSizeInKB(): string {
@@ -108,11 +112,11 @@ export class UploadFileComponent implements OnInit {
   }
 
   get tagsControl(): FormControl {
-    return this.imageUploadForm.get('tags') as FormControl;
+    return this.imageUploadForm.get("tags") as FormControl;
   }
 
   get category(): string {
-    return (this.imageUploadForm.get('category') as FormControl).value;
+    return (this.imageUploadForm.get("category") as FormControl).value;
   }
 
   ngOnInit() {

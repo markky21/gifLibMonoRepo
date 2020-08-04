@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
   libraryOpened = false;
@@ -13,7 +13,7 @@ export class AppComponent {
 
   testApi() {
     return this.httpClient
-      .post('/api/gif-encoder', { video: { width: 100, height: 100 } })
-      .subscribe(pach => console.log(pach));
+      .post("/api/gif-encoder", { video: { width: 100, height: 100 } })
+      .subscribe((pach) => console.log(pach));
   }
 }

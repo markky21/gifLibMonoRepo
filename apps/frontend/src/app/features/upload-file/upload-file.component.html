@@ -2,7 +2,13 @@
   <mat-card-header>Upload a file & convert it to gif</mat-card-header>
   <mat-card-content>
     <form [formGroup]="imageUploadForm" enctype="multipart/form-data">
-      <input type="file" accept="video/*" (change)="onFileInputChange($event)" class="HiddenFileInput" #fileInput />
+      <input
+        type="file"
+        accept="video/*"
+        (change)="onFileInputChange($event)"
+        class="HiddenFileInput"
+        #fileInput
+      />
       <button mat-button type="button" (click)="fileInput.click()">
         <div><mat-icon>add_circle_outline</mat-icon></div>
         <div><mat-label>Add a new video</mat-label></div>
@@ -14,38 +20,29 @@
       <div class="UploadedAndConverted">
         <div class="ImagePreview" [hidden]="!(loadedVideo$ | async)">
           <h1>
-            Video file name: <span class="ImageName">{{ uploadedFile?.name }}</span>
+            Video file name:
+            <span class="ImageName">{{ uploadedFile?.name }}</span>
           </h1>
           <div class="videoplayer">
-            <!--            <video-->
-            <!--              loop-->
-            <!--              [muted]="true"-->
-            <!--              autoplay-->
-            <!--              width="150px"-->
-            <!--              height="auto"-->
-            <!--              #convertedVideogit-->
-            <!--              (loadeddata)="videoLoaded(convertedVideo.videoWidth, convertedVideo.videoHeight, $event)"-->
-            <!--              [src]="videoURL"-->
-            <!--            ></video>-->
-            <mat-video
-              [muted]="true"
-              [overlay]="false"
-              spinner="dotted"
-              [preload]="true"
-              [src]="videoURL"
-              [loop]="true"
-              [autoplay]="true"
-              #convertedVideo
-              (canplay)="videoLoaded(convertedVideo.videoWidth, convertedVideo.videoHeight, $event)"
-            >
-            </mat-video>
+          <video
+            loop
+            [muted]="true"
+            autoplay
+            width="150px"
+            height="auto"
+            #convertedVideo
+            (loadeddata)="videoLoaded(convertedVideo.videoWidth, convertedVideo.videoHeight, $event)"
+            [src]="videoURL"
+          ></video>
           </div>
           <div *ngIf="loadedVideo$ | async">
-            <h2><label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)</h2>
+            <h2>
+              <label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)
+            </h2>
             <h2>
               <label>Resolution: </label><span>{{ originalResolution }} </span>
             </h2>
-            <h2><label>Type:</label> {{ uploadedFile.type.split('/')[1] }}</h2>
+            <h2><label>Type:</label> {{ uploadedFile.type.split("/")[1] }}</h2>
             <div>
               <div>Select resolution:</div>
               <mat-button-toggle-group
@@ -57,22 +54,40 @@
                 <mat-button-toggle [value]="this.originalResolution"
                   >Original: ({{ originalResolution }})</mat-button-toggle
                 >
-                <mat-button-toggle *ngFor="let res of resolutions" [value]="res">
+                <mat-button-toggle
+                  *ngFor="let res of resolutions"
+                  [value]="res"
+                >
                   {{ res }}
                 </mat-button-toggle>
               </mat-button-toggle-group>
             </div>
             <div>
               <div>Select framerate:</div>
-              <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="conversionFrameRate">
-                <mat-button-toggle *ngFor="let rate of frameRates" [value]="rate"> {{ rate }} fps </mat-button-toggle>
+              <mat-button-toggle-group
+                name="fontStyle"
+                aria-label="Font Style"
+                formControlName="conversionFrameRate"
+              >
+                <mat-button-toggle
+                  *ngFor="let rate of frameRates"
+                  [value]="rate"
+                >
+                  {{ rate }} fps
+                </mat-button-toggle>
               </mat-button-toggle-group>
             </div>
             <div *ngIf="(converting$ | async) && !convertedURL">
               <div>Converting the image...</div>
               <mat-progress-bar mode="query"></mat-progress-bar>
             </div>
-            <button type="button" (click)="onSubmit()" *ngIf="uploadedFile" mat-raised-button color="primary">
+            <button
+              type="button"
+              (click)="onSubmit()"
+              *ngIf="uploadedFile"
+              mat-raised-button
+              color="primary"
+            >
               Convert to GIF
             </button>
             <div *ngIf="convertedURL">
@@ -80,14 +95,29 @@
               <div>
                 <div>
                   <img [src]="convertedURL" height="150px" width="auto" />
-                  <h2><label>Size:</label> {{ convertedSizeInKB }} KB ({{ convertedSizeInMB }} MB)</h2>
+                  <h2>
+                    <label>Size:</label> {{ convertedSizeInKB }} KB ({{
+                      convertedSizeInMB
+                    }}
+                    MB)
+                  </h2>
                   <div>
-                    Tags: <span *ngFor="let tag of tags" (click)="changeCategory(tag)">{{ tag }}</span>
+                    Tags:
+                    <span
+                      *ngFor="let tag of tags"
+                      (click)="changeCategory(tag)"
+                      >{{ tag }}</span
+                    >
                   </div>
                   <div><strong>Category:</strong>{{ category }}</div>
                 </div>
                 <div>
-                  <input matInput type="text" placeholder="Add tags" [formControl]="tagsControl" />
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Add tags"
+                    [formControl]="tagsControl"
+                  />
                   <button type="button" (click)="addTag()">Add tag</button>
                 </div>
               </div>

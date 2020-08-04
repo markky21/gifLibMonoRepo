@@ -1,22 +1,26 @@
-import { Injectable } from '@angular/core';
-import { map, switchMap, take, tap } from 'rxjs/operators';
-import { DomSanitizer } from '@angular/platform-browser';
-import { BehaviorSubject, forkJoin } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Injectable } from "@angular/core";
+import { map, switchMap, take, tap } from "rxjs/operators";
+import { DomSanitizer } from "@angular/platform-browser";
+import { BehaviorSubject, forkJoin } from "rxjs";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-import { HttpService } from '../../../core/http/http.service';
-import { MainService } from '../../../shared/services/main.service';
-import { DEFAULT_FRAME_RATE, Res, VideoConverterOptions } from '../shared/video-converter-options.interfaces';
-import { GIFObject } from '../../../core/types/gif-object.type';
+import { HttpService } from "../../../core/http/http.service";
+import { MainService } from "../../../shared/services/main.service";
+import {
+  DEFAULT_FRAME_RATE,
+  Res,
+  VideoConverterOptions,
+} from "../shared/video-converter-options.interfaces";
+import { GIFObject } from "../../../core/types/gif-object.type";
 
 const UPLOAD_MESSAGES = {
-  sizeExceeded: 'File upload aborted due to exceeded file size! Limit is 15MB',
-  wrongType: 'Wrong image type. We require video file!',
-  loadOK: 'Whoa! File successfully loaded dude!'
+  sizeExceeded: "File upload aborted due to exceeded file size! Limit is 15MB",
+  wrongType: "Wrong image type. We require video file!",
+  loadOK: "Whoa! File successfully loaded dude!",
 };
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class UploadFileService {
   private _uploadedFile: File = null;
@@ -69,9 +73,12 @@ export class UploadFileService {
     return this.fb.group({
       imageInput: this.fb.control(null, [Validators.required]),
       resolution: this.fb.control(Res.Medium, Validators.required),
-      conversionFrameRate: this.fb.control(DEFAULT_FRAME_RATE, Validators.required),
-      tags: this.fb.control(''),
-      category: this.fb.control('Click one of the tags to set it as category')
+      conversionFrameRate: this.fb.control(
+        DEFAULT_FRAME_RATE,
+        Validators.required
+      ),
+      tags: this.fb.control(""),
+      category: this.fb.control("Click one of the tags to set it as category"),
     });
   }
 
@@ -81,18 +88,18 @@ export class UploadFileService {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
 
-      reader.onloadstart = ev => {
+      reader.onloadstart = (ev) => {
         const limit = 1024 * 1024 * 15;
         const size = ev.total;
         const sizeExceeded = size > limit;
-        const wrongType = !file.type.includes('video');
+        const wrongType = !file.type.includes("video");
 
         if (sizeExceeded || wrongType) {
           reader.abort();
           this.videoURL = null;
           this.uploadedFile = null;
           this.loadedVideo$.next(false);
-          const message = sizeExceeded ? 'sizeExceeded' : 'wrongType';
+          const message = sizeExceeded ? "sizeExceeded" : "wrongType";
           this.mainService.notifyMessage(UPLOAD_MESSAGES[message]);
           return;
         }
@@ -109,14 +116,14 @@ export class UploadFileService {
   }
 
   public giveAvailableResolutions(ratio: number): string[] {
-    return Object.values(Res).map(res => {
-      const defaultRes = res.split('x');
+    return Object.values(Res).map((res) => {
+      const defaultRes = res.split("x");
       const defRes = {
         width: defaultRes[0],
-        height: defaultRes[1]
+        height: defaultRes[1],
       };
 
-      const computedHeight: number = Math.floor(defRes.width / ratio);
+      const computedHeight: number = Math.floor(Number(defRes.width) / ratio);
 
       return `${defRes.width}x${computedHeight}`;
     });
@@ -127,27 +134,35 @@ export class UploadFileService {
     this.convertedFile = responseFile;
 
     this.converting$.next(false);
-    this.convertedURL = this.sanitizer.bypassSecurityTrustResourceUrl(urlCreate.createObjectURL(responseFile));
+    this.convertedURL = this.sanitizer.bypassSecurityTrustResourceUrl(
+      urlCreate.createObjectURL(responseFile)
+    );
   }
 
   public uploadToLibrary(tags: string[], category: string): void {
     const fileData = {
       file: this.convertedFile,
-      name: `${this.uploadedFile.name.split('.')[0]}.gif`
+      name: `${this.uploadedFile.name.split(".")[0]}.gif`,
     };
 
     forkJoin(
       this.httpService.giphyUpload(fileData, tags).pipe(
-        switchMap(response => this.httpService.upoloadedGiphyFileIdToGifObject(`${response.data.id}`)),
-        map(response => response.data),
-        tap((result: GIFObject) => this.mainService.transferToLibrary(category, result))
+        switchMap((response) =>
+          this.httpService.upoloadedGiphyFileIdToGifObject(
+            `${response.data.id}`
+          )
+        ),
+        map((response) => response.data),
+        tap((result: GIFObject) =>
+          this.mainService.transferToLibrary(category, result)
+        )
       ),
       this.mainService.libraryUpdate.pipe(take(1))
     ).subscribe(
       () => {
         this.mainService.saveLibraryToFirebase();
       },
-      err => this.mainService.notifyMessage(err.message, { duration: 10000 })
+      (err) => this.mainService.notifyMessage(err.message, { duration: 10000 })
     );
   }
 
@@ -156,16 +171,20 @@ export class UploadFileService {
     const { conversionFrameRate, resolution } = videoUploadForm.value;
     const options: VideoConverterOptions = {
       videoFps: conversionFrameRate,
-      videoResolution: resolution
+      videoResolution: resolution,
     };
 
     let formData = new FormData();
 
-    formData.append('file', this.uploadedFile);
-    Object.keys(options).forEach(option => formData.append(option, options[option]));
+    formData.append("file", this.uploadedFile);
+    Object.keys(options).forEach((option) =>
+      formData.append(option, options[option])
+    );
 
     this.httpService
       .apiConvertToGifObservable(formData)
-      .subscribe((gifImageBlob: Blob) => this.convertGifFromConverterToUrl(gifImageBlob));
+      .subscribe((gifImageBlob: Blob) =>
+        this.convertGifFromConverterToUrl(gifImageBlob)
+      );
   }
 }

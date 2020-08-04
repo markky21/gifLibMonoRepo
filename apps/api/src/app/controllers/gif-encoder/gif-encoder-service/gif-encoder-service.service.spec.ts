@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { GifEncoderService } from './gif-encoder.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { GifEncoderService } from "./gif-encoder.service";
 
-describe('GifEncoderServiceService', () => {
+describe("GifEncoderServiceService", () => {
   let service: GifEncoderService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GifEncoderService]
+      providers: [GifEncoderService],
     }).compile();
 
     service = module.get<GifEncoderService>(GifEncoderService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });

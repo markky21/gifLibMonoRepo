@@ -1,10 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { Readable } from 'stream';
-import * as ffmpeg from 'fluent-ffmpeg';
+import { Injectable } from "@nestjs/common";
+import { Readable } from "stream";
+import * as ffmpeg from "fluent-ffmpeg";
 
 @Injectable()
 export class GifEncoderService {
-  encodeGif(video: { buffer: ArrayBuffer; originalname: string; fps: number; resolution: string }) {
+  encodeGif(video: {
+    buffer: ArrayBuffer;
+    originalname: string;
+    fps: number;
+    resolution: string;
+  }) {
     const stream = new Readable();
     const { fps, resolution } = video;
 
@@ -12,12 +17,15 @@ export class GifEncoderService {
     stream.push(null);
 
     const ff = new ffmpeg(stream);
+
     ff.size(resolution)
       .fps(fps)
-      .format('gif')
-      .on('start', () => console.log('started converting....'))
+      .format("gif")
+      .on("start", () => console.log("started converting...."))
       // .on('progress', progress => console.log('Ready: ' + progress.percent + '%'))
-      .on('end', () => console.log('finished converting ' + video.originalname));
+      .on("end", () =>
+        console.log("finished converting " + video.originalname)
+      );
 
     return ff;
   }
