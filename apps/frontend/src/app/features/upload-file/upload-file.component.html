@@ -24,16 +24,22 @@
             <span class="ImageName">{{ uploadedFile?.name }}</span>
           </h1>
           <div class="videoplayer">
-          <video
-            loop
-            [muted]="true"
-            autoplay
-            width="150px"
-            height="auto"
-            #convertedVideo
-            (loadeddata)="videoLoaded(convertedVideo.videoWidth, convertedVideo.videoHeight, $event)"
-            [src]="videoURL"
-          ></video>
+            <video
+              loop
+              [muted]="true"
+              autoplay
+              width="150px"
+              height="auto"
+              #convertedVideo
+              (loadeddata)="
+                videoLoaded(
+                  convertedVideo.videoWidth,
+                  convertedVideo.videoHeight,
+                  $event
+                )
+              "
+              [src]="videoURL"
+            ></video>
           </div>
           <div *ngIf="loadedVideo$ | async">
             <h2>

@@ -33,7 +33,7 @@ export class HttpService {
 
   public apiConvertToGifObservable(videoBuffer: FormData): Observable<Blob> {
     return this.httpClient.post("/api/gif-encoder", videoBuffer, {
-      responseType: "blob"
+      responseType: "blob",
     });
   }
 

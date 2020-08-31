@@ -1,0 +1,47 @@
+<div class="LoginForm">
+<form [formGroup]="loginForm">
+  <p>
+    <mat-form-field>
+      <mat-label>Email:</mat-label>
+      <input matInput type="text" formControlName="email" />
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <mat-label>Password:</mat-label>
+      <input matInput type="password" formControlName="password" />
+    </mat-form-field>
+  </p>
+  <h5><p
+    (click)="sendResetPassword()"
+    [style]="forgetPassStyle"
+  >
+    Forgot the password?
+  </p></h5>
+  <button mat-raised-button [disabled]="!formValid" (click)="signInEmailPass()">Sign in</button>
+</form>
+
+<p><button mat-raised-button (click)="facebookLogin()" style="background-color: cornflowerblue">
+  <img
+  style="margin-right: 15px"
+  width="20px"
+  height="auto"
+  alt="Facebook sign-in"
+  src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png"
+  />
+  <mat-label>Login with Facebook</mat-label>
+</button>
+</p>
+<p><button mat-raised-button
+           (click)="googleLogin()">
+  <img
+    style="margin-right: 15px"
+    width="20px"
+    height="auto"
+    alt="Google sign-in"
+    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+  />
+  <mat-label>Login with Google</mat-label>
+</button>
+</p>
+</div>

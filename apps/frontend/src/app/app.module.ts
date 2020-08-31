@@ -26,6 +26,12 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { UploadFileComponent } from "./features/upload-file/upload-file.component";
 import { LibraryImageComponent } from "./features/gif-library/library-image/library-image.component";
 import { CopiedNotificationComponent } from "./features/gif-library/library-image/shared/copied-notification.component";
+import { LoginComponent } from "./features/login/login.component";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
+import { RegisterComponent } from "./features/register/register.component";
+import { LoginErrorComponent } from './features/login/error/login-error/login-error.component';
+import { EmailNotVerifiedComponent } from './features/login/email-not-verified/email-not-verified.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +45,10 @@ import { CopiedNotificationComponent } from "./features/gif-library/library-imag
     UploadFileComponent,
     LibraryImageComponent,
     CopiedNotificationComponent,
+    LoginComponent,
+    RegisterComponent,
+    LoginErrorComponent,
+    EmailNotVerifiedComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +58,8 @@ import { CopiedNotificationComponent } from "./features/gif-library/library-imag
     SharedModule,
     AngularMaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireAuthGuardModule,
     AngularFirestoreModule,
     AngularLoadingBarModule,
     MatSnackBarModule,

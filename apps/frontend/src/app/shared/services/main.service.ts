@@ -10,6 +10,7 @@ import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { LibraryType } from "../../features/gif-library/shared/library.type";
 import { GIFObject } from "../../core/types/gif-object.type";
 import { LibrarySaveSnackComponent } from "../components/library-save-snack/library-save-snack.component";
+import { NotificationService } from "./notification-service";
 
 @Injectable({
   providedIn: "root",
@@ -23,7 +24,8 @@ export class MainService {
   private library: LibraryType | {} = {};
   private firebaseLibrary: AngularFirestoreDocument;
 
-  constructor(private fireDB: AngularFirestore, private notify: MatSnackBar) {}
+  constructor(private fireDB: AngularFirestore,
+              private notificationService: NotificationService) {}
 
   public transferToLibrary(category: string, item: GIFObject): any {
     const categories = Object.entries(this.library).map((entry) => entry[0]);
@@ -67,11 +69,11 @@ export class MainService {
   }
 
   public notifyMessage(message: string, config?: MatSnackBarConfig): void {
-    this.notify.open(message, "Close", config);
+    this.notificationService.simpleNotification(message, "Close", config);
   }
 
   public saveNotify(): void {
-    this.notify.openFromComponent(LibrarySaveSnackComponent);
+    this.notificationService.notificationWithGif(LibrarySaveSnackComponent);
   }
 
   public saveLibraryToFirebase(): void {
