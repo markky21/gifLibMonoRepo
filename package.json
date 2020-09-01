@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "frontend": "ng serve frontend",
-    "api": "ng serve frontend",
+    "api": "ng serve api",
     "build": "ng build",
     "test": "ng test",
     "lint": "nx lint && ng lint",

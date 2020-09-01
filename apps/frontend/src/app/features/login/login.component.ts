@@ -1,16 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { AuthService } from "../../shared/services/auth.service";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "gif-lib-mono-repo-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;

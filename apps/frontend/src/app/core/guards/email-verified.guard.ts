@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from "@angular/router";
+import { CanActivate, Router, UrlTree } from "@angular/router";
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from "@angular/fire/auth";
-import { filter, map, tap } from "rxjs/operators";
+import { filter, map } from "rxjs/operators";
+import { User } from "firebase";
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +11,10 @@ import { filter, map, tap } from "rxjs/operators";
 export class EmailVerifiedGuard implements CanActivate {
   constructor(private angularFire: AngularFireAuth, private router: Router) {
   }
-  canActivate(): Observable<boolean> {
+  canActivate(): Observable<boolean | UrlTree> {
     return this.angularFire.authState.pipe(
-      filter(user => !!user),
-      map(userInfo => {
+      filter((user: User) => !!user),
+      map((userInfo: User) => {
         if (!userInfo.emailVerified) {
           return this.router.parseUrl('/notVerified');
         }

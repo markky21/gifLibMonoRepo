@@ -1,11 +1,75 @@
 <div class="AboutContainer">
   <mat-card>
-    <img src="assets/angular.svg" width="auto" height="350px" />
-    <p>
-      This is app was made with Angular 10.
-    </p>
-    <p>
-      Angular Material on board.
-    </p>
+    <div class="AuthorInfo">
+      <button mat-raised-button class="InfoButton">
+        <div class="AuthorGrid">
+          <div class="About">
+            <p>Developed by:</p>
+            <img src="https://avatars3.githubusercontent.com/u/21079587?s=460&v=4" width="200px" height="auto"/>
+            <h2>Kuba Kocieba, 34, Poland</h2>
+          </div>
+          <div class="Hello">
+            <div>
+              <p>Hi! I'm from Poland and I love music. I write my own songs.</p>
+              <p>Please watch my videos Youtube.</p>
+              <p>You can also check my fanpage on Facebook or find my music on Spotify.</p>
+              <p>But if You want just to check out my coding stuff feel free to visit my GitHub.</p>
+            </div>
+            <div class="HelloButtons">
+              <a target="_blank" href="https://youtube.com/jakubkocieba/c">
+                <button mat-button>
+                  <img src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Emblem.png" width="50px" height="auto"/>
+                </button>
+              </a>
+              <a target="_blank" href="https://facebook.com/kkocieba">
+                <button mat-button>
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Facebook_logo_36x36.svg/600px-Facebook_logo_36x36.svg.png" width="50px" height="auto"/>
+                </button>
+              </a>
+              <a target="_blank" href="https://open.spotify.com/artist/2KnL957vhi6NxZCWkeTai4">
+                <button mat-button>
+                  <img src="https://developer.spotify.com/assets/branding-guidelines/icon3@2x.png" width="50px" height="auto"/>
+                </button>
+              </a>
+              <a target="_blank" href="https://github.com/KubaKocieba">
+                <button mat-button>
+                  <img src="assets/github_logo.png" width="50px" height="auto"/>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </button>
+    </div>
+    <div class="Stack">
+      <button mat-raised-button>
+        <img src="assets/angular.svg" width="150px" height="auto" />
+        <p>
+          This is app was made with Angular 10.
+        </p>
+        <p>
+          Angular Material on board.
+        </p>
+      </button>
+      <button mat-raised-button>
+        <img src="assets/firebase_logo.png" width="300px" height="auto" />
+          <p>
+            Using Google Firebase.
+          </p>
+      </button>
+      <button mat-raised-button>
+        <img src="assets/giphy_logo.png" width="300px" height="auto" />
+        <p>
+          Gifs from Giphy.
+        </p>
+      </button>
+
+      <button mat-raised-button>
+        <img src="assets/ffmpeg_logo.png" width="300px" height="auto" />
+        <p>
+          Video to gif conversion provided by FFMpeg.
+        </p>
+      </button>
+    </div>
   </mat-card>
 </div>

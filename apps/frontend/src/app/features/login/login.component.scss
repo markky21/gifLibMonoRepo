@@ -4,4 +4,10 @@
   justify-items: center;
   align-items: center;
   align-content: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

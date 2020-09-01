@@ -1,15 +1,17 @@
-<form [formGroup]="registerForm">
-  <p>
-    <mat-form-field>
-      <mat-label>Email:</mat-label>
-      <input matInput type="text" formControlName="email" />
-    </mat-form-field>
-  </p>
-  <p>
-    <mat-form-field>
-      <mat-label>Password:</mat-label>
-      <input matInput type="password" formControlName="password" />
-    </mat-form-field>
-  </p>
-  <button mat-stroked-button [disabled]="!formValid" (click)="registerUser()">Register</button>
-</form>
+<div class="LoginForm">
+  <form [formGroup]="registerForm">
+    <p>
+      <mat-form-field>
+        <mat-label>Email:</mat-label>
+        <input matInput type="text" formControlName="email" />
+      </mat-form-field>
+    </p>
+    <p>
+      <mat-form-field>
+        <mat-label>Password:</mat-label>
+        <input matInput type="password" formControlName="password" />
+      </mat-form-field>
+    </p>
+    <button mat-stroked-button [disabled]="!formValid" (click)="registerUser()">Register</button>
+  </form>
+</div>

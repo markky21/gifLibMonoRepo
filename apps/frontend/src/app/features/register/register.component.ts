@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../../shared/services/auth.service";
 
@@ -6,6 +6,7 @@ import { AuthService } from "../../shared/services/auth.service";
   selector: "gif-lib-mono-repo-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
