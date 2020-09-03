@@ -3,7 +3,7 @@ VOLUME ["/root"]
 ADD setup-ffmpeg.sh /root
 RUN /root/setup-ffmpeg.sh
 # Create app directory
-WORKDIR /
+WORKDIR /usr/src/app
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
