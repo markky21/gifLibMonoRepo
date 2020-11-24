@@ -32,6 +32,8 @@ import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
 import { RegisterComponent } from "./features/register/register.component";
 import { LoginErrorComponent } from './features/login/error/login-error/login-error.component';
 import { EmailNotVerifiedComponent } from './features/login/email-not-verified/email-not-verified.component';
+import { BigScreenNaviComponent } from './features/big-screen-navi/big-screen-navi.component';
+import { MobileNaviComponent } from './features/mobile-navi/mobile-navi.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { EmailNotVerifiedComponent } from './features/login/email-not-verified/e
     RegisterComponent,
     LoginErrorComponent,
     EmailNotVerifiedComponent,
+    BigScreenNaviComponent,
+    MobileNaviComponent,
   ],
   imports: [
     BrowserModule,

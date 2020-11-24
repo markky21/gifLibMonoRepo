@@ -1,0 +1,30 @@
+mat-sidenav {
+  width: 50vw;
+}
+
+mat-nav-list {
+  button {
+    height: 60px;
+    width: 100%;
+    background: none;
+    text-align: left;
+  }
+
+  #LogOut button {
+    margin-top: 60vh;
+  }
+
+  mat-label {
+    margin-left: 15px;
+  }
+}
+
+.UserInfo {
+  height: 60px;
+  background-color: #c2185b;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-flow: row nowrap;
+  font-size: medium;
+}

@@ -1,0 +1,38 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile.angular
+      args:
+        project: frontend
+    ports:
+      - 8000:80
+    restart: on-failure
+    volumes:
+      - frontend_vol:/usr/src/frontend/
+      - node_modules:/usr/src/frontend/node_modules/
+    networks:
+      - monorepo_net
+  api:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile.nest
+      args:
+        project: ocean
+    ports:
+      - 3333:3333
+    restart: on-failure
+    volumes:
+      - api_vol:/usr/src/api/
+      - node_modules:/usr/src/api/node_modules/
+    networks:
+      - monorepo_net
+volumes:
+  frontend_vol:
+  api_vol:
+  node_modules:
+
+networks:
+  monorepo_net:
+    driver: bridge

@@ -50,11 +50,11 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  private googleLogin(): void {
+  public googleLogin(): void {
     this.auth.googleSignIn();
   }
 
-  private facebookLogin(): void {
+  public facebookLogin(): void {
     this.auth.facebookSignIn();
   }
 }

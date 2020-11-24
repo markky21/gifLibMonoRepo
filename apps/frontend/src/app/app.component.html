@@ -1,17 +1,6 @@
 <mat-sidenav-container class="AppContainer" [hasBackdrop]="false">
-  <mat-sidenav
-    *ngIf="loggedIn$ | async"
-    class="LibrarySideNav"
-    mode="over"
-    position="end"
-    [(opened)]="libraryOpened"
-  >
-    <button
-      mat-raised-button
-      color="primary"
-      class="SideNavTrigger"
-      (click)="libraryOpened = !libraryOpened"
-    >
+  <mat-sidenav *ngIf="loggedIn$ | async" class="LibrarySideNav" mode="over" position="end" [(opened)]="libraryOpened">
+    <button mat-raised-button color="primary" class="SideNavTrigger" (click)="libraryOpened = !libraryOpened">
       <mat-icon>collections</mat-icon>
     </button>
     <div (swiperight)="libraryOpened = false">
@@ -19,33 +8,62 @@
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <button mat-raised-button color="primary" [routerLink]="['about']">
-      About
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="['search']">
-      GIF Search
-    </button>
-    <button mat-raised-button color="primary" [routerLink]="['upload']">
-      Upload & Convert
-    </button>
-<!--    <button mat-raised-button color="primary" [routerLink]="['edit']">-->
-<!--      Edit Gif-->
-<!--    </button>-->
-    <span *ngIf="loggedIn$ | async as userInfo; else signIn">
-      <span>{{ userInfo.displayName || userInfo.email }}</span>
-      <button mat-raised-button (click)="logOut()">Sign Out</button>
-    </span>
+    <mobile-navi>
+      <div class="MainContent">
+        <big-screen-navi>
+        </big-screen-navi>
+        <!-- <div class="NaviButtons" *ngIf="loggedIn$ | async as userInfo; else signIn">
+      <nav mat-tab-nav-bar>
+        <a mat-tab-link [active]="activeLink === 'about'" [routerLink]="['about']"
+          (click)="setLinkActive('about')">About
+        </a>
+        <a mat-tab-link [active]="activeLink === 'search'" [routerLink]="['search']"
+          (click)="setLinkActive('search')">GIF Search
+        </a>
+        <a mat-tab-link [active]="activeLink === 'upload'" [routerLink]="['upload']"
+          (click)="setLinkActive('upload')">Upload & Convert
+        </a> -->
+        <!--    <button mat-raised-button color="primary" [routerLink]="['edit']">-->
+        <!--      Edit Gif-->
+        <!--    </button>-->
+        <!-- </nav>
+      <div>
+        <button mat-flat-button class="UserName" [matMenuTriggerFor]="menu">
+          <mat-icon>account_box</mat-icon>
+          <mat-label style="margin-left: 10px">{{ userInfo.displayName || userInfo.email }}</mat-label>
+        </button>
+        <mat-menu #menu="matMenu" class="customize">
+          <button mat-menu-item (click)="logOut()">
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Sign out</span>
+          </button>
+        </mat-menu> -->
+        <!-- <button mat-raised-button (click)="logOut()">Sign Out</button> -->
+        <!-- </div>
+    </div>
     <ng-template #signIn>
       <span>
         <a [routerLink]="['signIn']"><button mat-raised-button>Sign In</button></a>
         <a [routerLink]="['register']"><button mat-raised-button color="accent">Register</button></a>
       </span>
-    </ng-template>
-    <div class="App-flex">
-      <div class="Router">
-        <router-outlet></router-outlet>
+    </ng-template> -->
+
+        <div class="App-flex">
+          <div class="Router">
+            <router-outlet></router-outlet>
+          </div>
+          <div class="GifLibrary" *ngIf="loggedIn$ | async">
+            <app-gif-library></app-gif-library>
+          </div>
+        </div>
+
+        <div class="GiphyLogo">
+          <span>Powered by</span>
+          <a href="http://giphy.com" target="_blank">
+            <img src="assets/giphy_logo.png" height="50px" width="auto" alt="Giphy.com" />
+          </a>
+        </div>
       </div>
-    </div>
-    <div><img src="assets/giphy_logo.png" height="50px" width="auto"/></div>
+    </mobile-navi>
   </mat-sidenav-content>
 </mat-sidenav-container>

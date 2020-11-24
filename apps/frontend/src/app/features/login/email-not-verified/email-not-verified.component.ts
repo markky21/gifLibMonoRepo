@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { AuthService } from "../../../shared/services/auth.service";
 
 @Component({
@@ -6,7 +6,7 @@ import { AuthService } from "../../../shared/services/auth.service";
   templateUrl: "./email-not-verified.component.html",
   styleUrls: ["./email-not-verified.component.scss"],
 })
-export class EmailNotVerifiedComponent implements OnInit {
+export class EmailNotVerifiedComponent {
   public resendStyle = {
     cursor: 'pointer',
     color: 'blue'

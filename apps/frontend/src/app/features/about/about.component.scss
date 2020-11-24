@@ -1,63 +1,83 @@
-.AboutContainer{
+.AboutContainer {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  font-size: small;
 
-  mat-card {
+  .Stack {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    align-content: center;
     justify-content: center;
 
-    .Stack {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
+    button {
+      margin: 10px 10px;
+      width: 400px;
+      height: 300px;
+    }
+  }
 
-      button{
-        margin: 10px 10px;
-        width: 400px;
-        height: 300px;
+  .AuthorInfo {
+    .About {
+      img {
+        border-radius: 50%;
       }
     }
 
-    .AuthorInfo {
-      .About {
-        img {
-          border-radius: 50%;
-        }
-      }
+    .AuthorGrid {
+      display: grid;
+      grid-template-columns: [author]25% [hello]70%;
+      grid-column-gap: 5%;
+      justify-self: center;
+      align-items: center;
+      justify-items: center;
+      width: 80%;
+      margin: auto;
 
-      .InfoButton {
-        .AuthorGrid {
-          display: grid;
-          grid-template-columns: [author]25% [hello]70%;
-          grid-column-gap: 5%;
-          justify-self: center;
+      .Hello {
+        display: flex;
+        flex-direction: column;
+
+        .HelloButtons {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
           align-items: center;
-          justify-items: center;
-          width: 80%;
-          margin: auto;
 
-          .Hello {
-            display: flex;
-            flex-direction: column;
-
-            .HelloButtons {
-              display: flex;
-              flex-direction: row;
-              justify-content: center;
-              align-items: center;
-
-              button {
-                margin: 0 10px;
-                height: 80px;
-              }
-            }
+          button {
+            margin: 0 10px;
+            height: 80px;
           }
         }
+      }
+    }
+  }
+}
 
-        margin: 10px 10px;
+@media screen and (max-width: 800px) {
+  .AboutContainer {
+    display: block;
+    margin: 0 0;
+    font-size: small;
+
+    .AuthorInfo {
+      .AuthorGrid {
+        display: block;
+        margin: 0 0;
         width: 100%;
+      }
+    }
+
+    .Stack {
+      flex-direction: column;
+
+      button {
+        margin: 10px 0;
+        width: 100%;
+        height: initial;
       }
     }
   }

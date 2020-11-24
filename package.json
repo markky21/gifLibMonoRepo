@@ -41,8 +41,6 @@
     "@angular/platform-browser-dynamic": "^10.0.5",
     "@angular/router": "^10.0.5",
     "@angular/service-worker": "^10.0.5",
-    "@loadingio/angular-loading-bar": "^0.1.1",
-    "@loadingio/loading-bar": "^0.1.1",
     "@nestjs/common": "^7.3.2",
     "@nestjs/core": "^7.3.2",
     "@nestjs/platform-express": "^7.3.2",

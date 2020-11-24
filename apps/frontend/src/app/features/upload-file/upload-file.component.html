@@ -1,146 +1,148 @@
-<mat-card>
-  <mat-card-header>Upload a file & convert it to gif</mat-card-header>
+<mat-card class="Upload">
+  <mat-card-header>
+    <h3>Upload a file & convert it to gif</h3>
+  </mat-card-header>
   <mat-card-content>
     <form [formGroup]="imageUploadForm" enctype="multipart/form-data">
-      <input
-        type="file"
-        accept="video/*"
-        (change)="onFileInputChange($event)"
-        class="HiddenFileInput"
-        #fileInput
-      />
-      <button mat-button type="button" (click)="fileInput.click()">
-        <div><mat-icon>add_circle_outline</mat-icon></div>
-        <div><mat-label>Add a new video</mat-label></div>
-      </button>
-      <mat-error>
-        {{ imageUploadForm.errors }}
-      </mat-error>
+      <mat-vertical-stepper #uploadStepper>
+        <mat-step>
+          <div class="UploadContainer">
 
-      <div class="UploadedAndConverted">
-        <div class="ImagePreview" [hidden]="!(loadedVideo$ | async)">
-          <h1>
-            Video file name:
-            <span class="ImageName">{{ uploadedFile?.name }}</span>
-          </h1>
-          <div class="videoplayer">
-            <video
-              loop
-              [muted]="true"
-              autoplay
-              width="150px"
-              height="auto"
-              #convertedVideo
-              (loadeddata)="
+            <ng-template matStepLabel>Click button below and select a video file.</ng-template>
+            <input type="file" accept="video/*" (change)="onFileInputChange($event)" class="HiddenFileInput"
+              #fileInput />
+            <button mat-stroked-button type="button" (click)="fileInput.click()">
+              <div>
+                <mat-icon>{{ (loadedVideo$ | async)  ? 'cached'   : 'add_circle_outline' }}</mat-icon>
+              </div>
+              <div>
+                <mat-label>{{ (loadedVideo$ | async) ? 'Replace video' : 'Add a new video' }}</mat-label>
+              </div>
+            </button>
+            <mat-error>
+              {{ imageUploadForm.errors }}
+            </mat-error>
+
+            <div class="UploadedAndConverted">
+              <div class="ImagePreview" [hidden]="!(loadedVideo$ | async)">
+                <h1>
+                  <span class="ImageName">{{ uploadedFile?.name }}</span>
+                </h1>
+                <div class="videoplayer">
+                  <video loop [muted]="true" autoplay width="150px" height="auto" #convertedVideo (loadeddata)="
                 videoLoaded(
                   convertedVideo.videoWidth,
                   convertedVideo.videoHeight,
                   $event
                 )
-              "
-              [src]="videoURL"
-            ></video>
+              " [src]="videoURL"></video>
+                </div>
+                <div *ngIf="loadedVideo$ | async">
+                  <h2>
+                    <label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)
+                  </h2>
+                  <h2>
+                    <label>Resolution: </label><span>{{ originalResolution }} </span>
+                  </h2>
+                  <h2><label>Type:</label> {{ uploadedFile.type.split("/")[1] }}</h2>
+                </div>
+              </div>
+            </div>
+            <button mat-stroked-button matStepperNext type="button">Next</button>
           </div>
-          <div *ngIf="loadedVideo$ | async">
-            <h2>
-              <label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)
-            </h2>
-            <h2>
-              <label>Resolution: </label><span>{{ originalResolution }} </span>
-            </h2>
-            <h2><label>Type:</label> {{ uploadedFile.type.split("/")[1] }}</h2>
-            <div>
-              <div>Select resolution:</div>
-              <mat-button-toggle-group
-                *ngIf="originalResolution"
-                #group="matButtonToggleGroup"
-                formControlName="resolution"
-                (change)="resolutionChange(group.value)"
-              >
-                <mat-button-toggle [value]="this.originalResolution"
-                  >Original: ({{ originalResolution }})</mat-button-toggle
-                >
-                <mat-button-toggle
-                  *ngFor="let res of resolutions"
-                  [value]="res"
-                >
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Set conversion params</ng-template>
+          <div class="UploadContainer">
+
+            <div *ngIf="originalResolution">
+              <h4>Target resolution:</h4>
+              <mat-button-toggle-group class="BigScreen" *ngIf="originalResolution" #group="matButtonToggleGroup"
+                formControlName="resolution" (change)="resolutionChange(group.value)">
+                <mat-button-toggle [value]="this.originalResolution">Original: ({{ originalResolution }})
+                </mat-button-toggle>
+                <mat-button-toggle *ngFor="let res of resolutions" [value]="res">
                   {{ res }}
                 </mat-button-toggle>
               </mat-button-toggle-group>
+              <mat-form-field appearance="fill" class="Mobile">
+                <mat-label>Select target resolution</mat-label>
+                <mat-select formControlName="resolution">
+                  <mat-option [value]="this.originalResolution">Original: ({{ originalResolution }})</mat-option>
+                  <mat-option *ngFor="let res of resolutions" [value]="res">{{ res }}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
+
             <div>
-              <div>Select framerate:</div>
-              <mat-button-toggle-group
-                name="fontStyle"
-                aria-label="Font Style"
-                formControlName="conversionFrameRate"
-              >
-                <mat-button-toggle
-                  *ngFor="let rate of frameRates"
-                  [value]="rate"
-                >
+              <h4>Target framerate:</h4>
+              <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="conversionFrameRate">
+                <mat-button-toggle *ngFor="let rate of frameRates" [value]="rate">
                   {{ rate }} fps
                 </mat-button-toggle>
               </mat-button-toggle-group>
             </div>
+            <button type="button" (click)="onSubmit()" *ngIf="uploadedFile" mat-raised-button color="primary">
+              Convert to GIF
+            </button>
             <div *ngIf="(converting$ | async) && !convertedURL">
               <div>Converting the image...</div>
               <mat-progress-bar mode="query"></mat-progress-bar>
             </div>
-            <button
-              type="button"
-              (click)="onSubmit()"
-              *ngIf="uploadedFile"
-              mat-raised-button
-              color="primary"
-            >
-              Convert to GIF
-            </button>
-            <div *ngIf="convertedURL">
-              <label>Converted file:</label>
+            <button *ngIf="!(converting$ | async) && convertedURL" mat-stroked-button matStepperNext
+              type="button">Next</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Put to library</ng-template>
+          <div class="UploadContainer" *ngIf="convertedURL">
+            <h4>Converted GIF:</h4>
+            <div>
               <div>
-                <div>
-                  <img [src]="convertedURL" height="150px" width="auto" />
-                  <h2>
-                    <label>Size:</label> {{ convertedSizeInKB }} KB ({{
+                <img [src]="convertedURL" height="150px" width="auto" />
+                <h2>
+                  <label>Size:</label> {{ convertedSizeInKB }} KB ({{
                       convertedSizeInMB
                     }}
-                    MB)
-                  </h2>
-                  <div>
-                    Tags:
-                    <span
-                      *ngFor="let tag of tags"
-                      (click)="changeCategory(tag)"
-                      >{{ tag }}</span
-                    >
-                  </div>
-                  <div><strong>Category:</strong>{{ category }}</div>
+                  MB)
+                </h2>
+                <div class="AddTag">
+                  <mat-form-field>
+                    <input matInput type="text" placeholder="Add tags" [formControl]="tagsControl"
+                      (keyup.enter)="addTag()" />
+                  </mat-form-field>
+                  <button mat-stroked-button type="button" (click)="addTag()">Add tag</button>
                 </div>
-                <div>
-                  <input
-                    matInput
-                    type="text"
-                    placeholder="Add tags"
-                    [formControl]="tagsControl"
-                  />
-                  <button type="button" (click)="addTag()">Add tag</button>
+                <div class="Chips">
+                  <mat-chip-list>
+                    Available folders:
+                    <mat-chip *ngFor="let folder of availableFolders" (click)="changeFolder(folder)">{{ folder }}
+                    </mat-chip>
+                  </mat-chip-list>
+                </div>
+                <div class="Chips">
+                  <mat-chip-list>
+                    Tags:
+                    <mat-chip *ngFor="let tag of tags" (click)="changeFolder(tag)">{{ tag }}</mat-chip>
+                  </mat-chip-list>
+                </div>
+                <div id="FolderSelect">
+                  <h3>Selected folder: </h3>
+                  <div id="Folder" [class.folderSet]="folderIsSet">
+                    <mat-icon *ngIf="!folderIsSet">warning</mat-icon>
+                    {{ folder }}
+                    <mat-icon *ngIf="!folderIsSet">warning</mat-icon>
+                  </div>
                 </div>
               </div>
             </div>
+            <button *ngIf="loadedVideo$ | async" type="button" mat-raised-button color="primary"
+              [disabled]="!convertedFile" (click)="onUploadClick()">
+              To library!
+            </button>
           </div>
-        </div>
-        <button
-          *ngIf="loadedVideo$ | async"
-          type="button"
-          mat-raised-button
-          color="primary"
-          [disabled]="!convertedFile"
-          (click)="onUploadClick()"
-        >
-          Upload
-        </button>
-      </div>
+        </mat-step>
+      </mat-vertical-stepper>
     </form>
   </mat-card-content>
 </mat-card>

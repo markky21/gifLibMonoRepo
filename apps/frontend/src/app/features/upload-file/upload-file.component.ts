@@ -1,13 +1,15 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 
 import { MainService } from "../../shared/services/main.service";
 import { FRAME_RATES } from "./shared/video-converter-options.interfaces";
 import { UploadFileService } from "./services/upload-file.service";
 import { Observable } from "rxjs";
+import { MatStepper } from "@angular/material/stepper";
+import { distinctUntilChanged, filter, skip, tap } from "rxjs/operators";
 
-export const DEFAULT_CATEGORY_VALUE =
-  "Click one of the tags to set it as category";
+export const DEFAULT_folder_VALUE =
+  "Click one of the tags or available folders to set it as target library folder";
 
 @Component({
   selector: "app-upload-file",
@@ -15,6 +17,8 @@ export const DEFAULT_CATEGORY_VALUE =
   styleUrls: ["./upload-file.component.scss"],
 })
 export class UploadFileComponent implements OnInit {
+  @ViewChild("uploadStepper") private myStepper: MatStepper;
+
   public imageUploadForm: FormGroup;
   public frameRates = Object.values(FRAME_RATES);
   public resolutions: string[] = [];
@@ -23,6 +27,7 @@ export class UploadFileComponent implements OnInit {
   public tags: string[] = [];
   public originalResolution: string;
   public convertResolution: string;
+  public availableFolders: string[] = [];
 
   constructor(
     private mainService: MainService,
@@ -59,10 +64,10 @@ export class UploadFileComponent implements OnInit {
   }
 
   public onUploadClick(): void {
-    if (this.category !== DEFAULT_CATEGORY_VALUE) {
-      this.uploadService.uploadToLibrary(this.tags, this.category);
+    if (this.folderIsSet) {
+      this.uploadService.uploadToLibrary(this.tags, this.folder);
     } else {
-      this.mainService.notifyMessage("Please select category!!!");
+      this.mainService.notifyMessage("Please select folder!!!");
     }
   }
 
@@ -71,8 +76,8 @@ export class UploadFileComponent implements OnInit {
     this.tagsControl.reset();
   }
 
-  public changeCategory(tag: string): void {
-    this.imageUploadForm.get("category").patchValue(tag);
+  public changeFolder(tag: string): void {
+    this.imageUploadForm.get("folder").patchValue(tag);
   }
 
   public resolutionChange(resolution: string): void {
@@ -115,13 +120,29 @@ export class UploadFileComponent implements OnInit {
     return this.imageUploadForm.get("tags") as FormControl;
   }
 
-  get category(): string {
-    return (this.imageUploadForm.get("category") as FormControl).value;
+  get folder(): string {
+    return (this.imageUploadForm.get("folder") as FormControl).value;
+  }
+
+  get folderIsSet(): boolean {
+    return this.folder !== DEFAULT_folder_VALUE;
   }
 
   ngOnInit() {
     this.buildForm();
     this.converting$ = this.uploadService.converting$;
     this.loadedVideo$ = this.uploadService.loadedVideo$;
+
+    this.converting$
+      .pipe(
+        skip(1),
+        distinctUntilChanged(),
+        filter((val) => !val)
+      )
+      .subscribe(() => {
+        this.availableFolders = Object.keys(this.mainService.getLibrary());
+
+        this.myStepper.next();
+      });
   }
 }

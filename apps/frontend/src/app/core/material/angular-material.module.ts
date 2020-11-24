@@ -9,6 +9,12 @@ import { MatInputModule } from "@angular/material/input";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatSliderModule } from "@angular/material/slider";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatListModule } from "@angular/material/list";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [],
@@ -23,6 +29,12 @@ import { MatSliderModule } from "@angular/material/slider";
     MatExpansionModule,
     MatIconModule,
     MatProgressBarModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatListModule,
+    MatStepperModule,
+    MatChipsModule,
+    MatSelectModule,
   ],
 })
 export class AngularMaterialModule {}

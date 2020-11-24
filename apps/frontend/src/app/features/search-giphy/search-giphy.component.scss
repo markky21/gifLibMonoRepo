@@ -1,1 +1,19 @@
+:host ::ng-deep.mat-expansion-panel-body {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 
+  img {
+    width: 150px;
+    height: auto;
+  }
+}
+
+.SearchField {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 0 30px;
+}

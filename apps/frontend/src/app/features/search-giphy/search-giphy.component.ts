@@ -49,6 +49,7 @@ export class SearchGiphyComponent implements OnInit, OnDestroy {
   }
 
   public clearTerms(): void {
+    this.searchResults = null;
     this.searchControl.reset();
   }
 

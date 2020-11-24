@@ -12,6 +12,7 @@ import {
   VideoConverterOptions,
 } from "../shared/video-converter-options.interfaces";
 import { GIFObject } from "../../../core/types/gif-object.type";
+import { DEFAULT_folder_VALUE } from "../upload-file.component";
 
 const UPLOAD_MESSAGES = {
   sizeExceeded: "File upload aborted due to exceeded file size! Limit is 15MB",
@@ -78,7 +79,7 @@ export class UploadFileService {
         Validators.required
       ),
       tags: this.fb.control(""),
-      category: this.fb.control("Click one of the tags to set it as category"),
+      folder: this.fb.control(DEFAULT_folder_VALUE),
     });
   }
 
