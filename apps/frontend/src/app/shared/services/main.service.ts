@@ -24,8 +24,10 @@ export class MainService {
   private library: LibraryType | {} = {};
   private firebaseLibrary: AngularFirestoreDocument;
 
-  constructor(private fireDB: AngularFirestore,
-              private notificationService: NotificationService) {}
+  constructor(
+    private fireDB: AngularFirestore,
+    private notificationService: NotificationService
+  ) {}
 
   public transferToLibrary(category: string, item: GIFObject): any {
     const categories = Object.entries(this.library).map((entry) => entry[0]);
@@ -96,5 +98,14 @@ export class MainService {
 
   public getImage(category: string, id: number): any {
     return this.library[category].allImages[id];
+  }
+
+  public deleteImage(category: string, image: GIFObject): void {
+    const imageToRm = this.library[category].allImages.findIndex(
+      (inLibrary) => inLibrary.id === image.id
+    );
+
+    this.library[category].allImages.splice(imageToRm, 1);
+    this.libraryUpdate.next();
   }
 }

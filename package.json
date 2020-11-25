@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "frontend": "ng serve frontend",
+    "frontend": "ng serve frontend --host=0.0.0.0 --disable-host-check",
     "api": "ng serve api",
     "build": "ng build",
     "test": "ng test",

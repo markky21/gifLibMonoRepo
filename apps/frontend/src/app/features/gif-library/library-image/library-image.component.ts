@@ -11,6 +11,7 @@ import { GIFObject } from "../../../core/types/gif-object.type";
 import { Params, Router } from "@angular/router";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CopiedNotificationComponent } from "./shared/copied-notification.component";
+import { MainService } from "../../../shared/services/main.service";
 
 interface DetailsCluesInterface {
   category: string;
@@ -31,7 +32,11 @@ export class LibraryImageComponent implements OnInit {
   public imageSrc: string;
   public toolsVisible = false;
 
-  constructor(private router: Router, private notify: MatSnackBar) {}
+  constructor(
+    private router: Router,
+    private notify: MatSnackBar,
+    private mainServ: MainService
+  ) {}
 
   ngOnInit() {
     this.imageSrc = this.getLibImgSrc();
@@ -43,6 +48,10 @@ export class LibraryImageComponent implements OnInit {
       this.detailsClues.category,
       this.detailsClues.el,
     ]);
+  }
+
+  public imageRemove(): void {
+    this.mainServ.deleteImage(this.detailsClues.category, this.img);
   }
 
   public getLibImgSrc(): string {
@@ -74,10 +83,12 @@ export class LibraryImageComponent implements OnInit {
   public setDimensions(): Params {
     const readHeight = parseInt(this.getHeight(), 10);
     const readWidth = parseInt(this.getWidth(), 10);
-    const newWidth = (100 * readWidth) / readHeight;
-    const height = (readHeight < 100 ? 100 : readHeight) + "px";
-    const width = (readHeight < 100 ? newWidth : this.getWidth()) + "px";
+    const wRatio = readWidth / readHeight;
+    const height = readHeight > 200 ? 200 : readHeight < 100 ? 200 : readHeight;
 
-    return { width, height };
+    const width = readHeight > 200 ? 200 : readHeight < 100 ? 200 : readHeight;
+    console.log(width);
+
+    return { height: height + "px", width: width + "px" };
   }
 }

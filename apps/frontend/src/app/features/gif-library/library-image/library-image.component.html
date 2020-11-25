@@ -1,19 +1,15 @@
-<mat-card>
-  <mat-card-content>
-    <div class="ImageContainer"
-         [ngStyle]="setDimensions()"
-         (mouseenter)="toggleTools()"
-         (mouseleave)="toggleTools()">
-      <div class="Image"
-      (swipeleft)="imageDetail()"
-      (swipedown)="copyUrl()">
-        <img [src]="imageSrc"/>
-        <textarea [readOnly]="true" class="URLCopy" [value]="img.images.original.url" #URL></textarea>
-      </div>
-      <div class="ImageTools" *ngIf="toolsVisible">
-        <div (click)="copyUrl()"><mat-icon [title]="'Copy image'">file_copy</mat-icon></div>
-        <div (click)="imageDetail()"><mat-icon [title]="'Show details'">info</mat-icon></div>
-      </div>
+<div class="ImageWithTools" (mouseenter)="toggleTools()" (mouseleave)="toggleTools()">
+  <img [src]="imageSrc" />
+  <div class="ImageTools" *ngIf="toolsVisible">
+    <div (click)="copyUrl()">
+      <mat-icon [title]="'Copy image'">content_copy</mat-icon>
     </div>
-  </mat-card-content>
-</mat-card>
+    <div (click)="imageDetail()">
+      <mat-icon [title]="'Show details'">info</mat-icon>
+    </div>
+    <div (click)="imageRemove()">
+      <mat-icon [title]="'Remove Image'">delete</mat-icon>
+    </div>
+  </div>
+</div>
+<textarea [readOnly]="true" class="URLCopy" [value]="img.images.original.url" #URL></textarea>

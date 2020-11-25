@@ -1,4 +1,6 @@
 $big-margin: 20px;
+$medium-margin: 15px;
+$mobileNaviHeight: 56px;
 
 .MobileNavi {
   mat-toolbar {
@@ -68,64 +70,9 @@ $big-margin: 20px;
   font-size: large;
 }
 
-@media screen and (max-width: 800px) {
-  .Router {
-    width: 100%;
-  }
-
-  .App-flex > * {
-    margin: 0 0;
-  }
-
-  .MobileNavi {
-    mat-toolbar {
-      display: flex;
-    }
-  }
-
-  .AppContainer {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 92%;
-
-    .LibrarySideNav {
-      display: block;
-      width: 85vw;
-
-      .SideNavTrigger {
-        position: absolute;
-        left: -60px;
-        height: 40px;
-        width: 40px;
-        top: $big-margin;
-        z-index: 9999;
-      }
-    }
-  }
-
-  .GifLibrary {
-    display: none;
-  }
-
-  .GiphyLogo {
-    justify-content: center;
-    transform: scale(0.5);
-    width: 100%;
-    margin: 10px auto;
-    bottom: -10px;
-  }
-
-  .NaviButtons {
-    display: none;
-  }
-}
-
 #title {
   img {
-    margin: 20px auto;
+    margin: $big-margin auto;
   }
 
   h1,
@@ -149,7 +96,7 @@ $big-margin: 20px;
   }
 
   #GoToLogin {
-    margin-top: 20px;
+    margin-top: $big-margin;
   }
 }
 
@@ -159,5 +106,100 @@ $big-margin: 20px;
 }
 
 .ExtraLink {
-  margin-bottom: 20px;
+  margin-bottom: $big-margin;
+}
+
+@media screen and (max-width: 800px) {
+  .Router {
+    width: 100%;
+  }
+
+  .App-flex > * {
+    margin: 0 0;
+  }
+
+  .MobileNavi {
+    mat-toolbar {
+      display: flex;
+    }
+  }
+
+  .AppContainer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 92%;
+
+    .mat-drawer-shown {
+      margin-top: $mobileNaviHeight;
+    }
+
+    .LibrarySideNav {
+      display: block;
+      width: 85vw;
+
+      .SideNavTrigger {
+        position: absolute;
+        left: -60px;
+        height: 40px;
+        width: 40px;
+        top: $big-margin;
+        z-index: 9999;
+      }
+    }
+
+    .MobileNaviSideNav {
+      margin-top: $mobileNaviHeight;
+      display: block;
+      width: 60vw;
+
+      mat-nav-list {
+        button {
+          height: 60px;
+          width: 100%;
+          background: none;
+          text-align: left;
+        }
+
+        #LogOut button {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+        }
+
+        mat-label {
+          margin-left: $medium-margin;
+        }
+      }
+
+      .MobileNavUser {
+        height: 60px;
+        background-color: #c2185b;
+        display: flex;
+        align-items: center;
+        flex-flow: row nowrap;
+        gap: $medium-margin + 1;
+        font-size: smaller;
+        padding-left: $medium-margin + 1;
+      }
+    }
+  }
+
+  .GifLibrary {
+    display: none;
+  }
+
+  .GiphyLogo {
+    justify-content: center;
+    transform: scale(0.5);
+    width: 100%;
+    margin: 10px auto;
+    bottom: -10px;
+  }
+
+  .NaviButtons {
+    display: none;
+  }
 }

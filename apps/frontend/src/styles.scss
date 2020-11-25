@@ -58,8 +58,47 @@ element.style {
   background-color: $pallete-light-green;
 }
 
+.AppContainer .mat-list-base {
+  padding: 0;
+}
+
+.mat-drawer-container {
+  display: initial !important;
+  background: url("/gifster_new.png") 50% 50%;
+  background-size: 10%;
+  background-repeat: space;
+  background-color: #b0bec5;
+}
+
 .Mobile {
   display: none;
+}
+
+.PanelHeader {
+  mat-icon {
+    margin: 0 20px;
+  }
+
+  .mat-content {
+    align-items: center;
+  }
+}
+
+.CategoryPanel {
+  mat-panel-description {
+    font-size: smaller;
+    margin-right: 0;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 5px 5px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1%;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -84,5 +123,15 @@ element.style {
     mat-form-field {
       margin: 5px 0;
     }
+  }
+
+  .CategoryPanel {
+    .mat-expansion-panel-body {
+      display: initial;
+    }
+  }
+
+  .mat-drawer-container:first-of-type {
+    display: block !important;
   }
 }
