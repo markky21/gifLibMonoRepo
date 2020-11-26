@@ -1,34 +1,95 @@
-// #title {
-//   img {
-//     margin: 20px auto;
-//   }
+@import "../../styles/variables/margins.scss";
+@import "../../styles/mixins/rwd.scss";
 
-//   h1,
-//   h4 {
-//     margin: 5px 0;
-//   }
-// }
+#Login {
+  overflow: hidden;
+}
 
-// #title,
-// .LoginForm {
-//   display: flex;
-//   flex-direction: column;
-//   justify-items: center;
-//   align-items: center;
-//   align-content: center;
+#title,
+.LoginForm {
+  background-color: #303030;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
 
-//   form {
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//   }
-// }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-// .RegisterLink {
-//   cursor: pointer;
-//   margin: 0 auto;
-// }
+  #GoToLogin {
+    margin-top: $xl-margin;
+  }
+}
 
-// .ExtraLink {
-//   margin-bottom: 20px;
-// }
+.RegisterLink {
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.ExtraLink {
+  margin-bottom: $s-margin;
+}
+
+#title {
+  img {
+    margin: 2 * $xl-margin auto;
+  }
+
+  h1,
+  h4 {
+    margin: $s-margin 0;
+  }
+}
+
+.LoginForm {
+  form {
+    margin-top: $xl-margin;
+    width: 40%;
+  }
+
+  button {
+    margin: $m-margin 0;
+  }
+}
+
+.ForgetRegisterSection {
+  display: flex;
+  gap: $s-margin;
+  margin: $s-margin auto;
+}
+
+@include rwd_mobile_one_breakpoint {
+  #title {
+    height: 27vh;
+
+    h1 {
+      font-size: x-large;
+    }
+
+    h4 {
+      font-size: medium;
+    }
+
+    img {
+      width: 100px;
+      height: auto;
+      margin: 1.2 * $xl-margin auto $m-margin auto;
+    }
+  }
+
+  .LoginForm {
+    height: 63vh;
+
+    form {
+      width: 100%;
+    }
+
+    button {
+      margin: $s-margin 0;
+    }
+  }
+}

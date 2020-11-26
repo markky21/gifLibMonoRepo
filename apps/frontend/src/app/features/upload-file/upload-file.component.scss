@@ -70,7 +70,7 @@ mat-icon {
   }
 }
 
-@media screen and (max-width: 800px) {
+@include rwd_mobile_one_breakpoint {
   #Folder {
     margin: 0;
     width: 100%;

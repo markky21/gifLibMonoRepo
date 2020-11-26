@@ -49,7 +49,7 @@ export class UploadFileComponent implements OnInit {
     const ratio = w / h;
 
     this.originalResolution = `${w}x${h}`;
-    this.uploadService.loadedVideo$.next(true);
+    this.uploadService.setLoadedVideoState(true);
     this.resolutions = this.uploadService
       .giveAvailableResolutions(ratio)
       .filter((res) => res !== this.originalResolution);
@@ -130,8 +130,8 @@ export class UploadFileComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    this.converting$ = this.uploadService.converting$;
-    this.loadedVideo$ = this.uploadService.loadedVideo$;
+    this.converting$ = this.uploadService.getConvertingState();
+    this.loadedVideo$ = this.uploadService.getLoadedVideoState();
 
     this.converting$
       .pipe(

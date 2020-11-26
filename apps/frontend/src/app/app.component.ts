@@ -38,8 +38,4 @@ export class AppComponent implements OnInit {
 
     this.libraryOpened = !this.libraryOpened;
   }
-
-  public logOut(): void {
-    this.authService.signOut();
-  }
 }

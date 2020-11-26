@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { map, switchMap, take, tap } from "rxjs/operators";
 import { DomSanitizer } from "@angular/platform-browser";
-import { BehaviorSubject, forkJoin } from "rxjs";
+import { BehaviorSubject, forkJoin, Observable } from "rxjs";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { HttpService } from "../../../core/http/http.service";
@@ -69,6 +69,18 @@ export class UploadFileService {
     private mainService: MainService,
     private sanitizer: DomSanitizer
   ) {}
+
+  public getConvertingState(): Observable<boolean> {
+    return this.converting$.asObservable();
+  }
+
+  public getLoadedVideoState(): Observable<boolean> {
+    return this.loadedVideo$.asObservable();
+  }
+
+  public setLoadedVideoState(state: boolean): void {
+    return this.loadedVideo$.next(state);
+  }
 
   public buildUploadAndConvertForm(): FormGroup {
     return this.fb.group({

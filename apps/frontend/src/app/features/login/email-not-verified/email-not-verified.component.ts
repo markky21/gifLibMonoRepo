@@ -7,11 +7,6 @@ import { AuthService } from "../../../shared/services/auth.service";
   styleUrls: ["./email-not-verified.component.scss"],
 })
 export class EmailNotVerifiedComponent {
-  public resendStyle = {
-    cursor: 'pointer',
-    color: 'blue'
-  };
-
   constructor(private authService: AuthService) {}
 
   public resendVerification(): void {

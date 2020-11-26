@@ -9,39 +9,14 @@
   </mat-sidenav>
   <mat-sidenav *ngIf="loggedIn$ | async" class="MobileNaviSideNav" position="start" mode="over"
     [(opened)]="mobileNaviSidenavOpened">
-    <mat-nav-list>
-      <div mat-list-item class="MobileNavUser" *ngIf="loggedIn$ | async as user">
-        <img mat-list-item src="gifster_new.png" width="20px" height="auto" />
-        <span>{{ user.displayName || user.email }}</span>
-      </div>
-      <span mat-list-item>
-        <button mat-button routerLink="search">
-          <mat-icon>search</mat-icon>
-          <mat-label>Search</mat-label>
-        </button></span>
-      <span mat-list-item>
-        <button mat-button routerLink="upload">
-          <mat-icon>queue_play_next</mat-icon>
-          <mat-label>Upload & Convert</mat-label>
-        </button></span>
-      <span mat-list-item>
-        <button mat-button routerLink="about">
-          <mat-icon>info</mat-icon>
-          <mat-label>About</mat-label>
-        </button></span>
-      <span id="LogOut" mat-list-item>
-        <button mat-button>
-          <mat-icon>power_settings_new</mat-icon>
-          <mat-label>Log out</mat-label>
-        </button>
-      </span>
-    </mat-nav-list>
+    <mobile-navi-menu>
+    </mobile-navi-menu>
   </mat-sidenav>
   <div class="MainContent">
     <big-screen-navi>
     </big-screen-navi>
-    <mobile-navi (onToggleNavi)="toggleMobileNaviSideNav()">
-    </mobile-navi>
+    <mobile-navi-header (onToggleNavi)="toggleMobileNaviSideNav()">
+    </mobile-navi-header>
     <div class="App-flex">
       <div class="Router">
         <router-outlet></router-outlet>
@@ -51,11 +26,14 @@
       </div>
     </div>
 
-    <div class="GiphyLogo">
-      <span>Powered by</span>
-      <a href="http://giphy.com" target="_blank">
-        <img src="assets/giphy_logo.png" height="50px" width="auto" alt="Giphy.com" />
-      </a>
+    <div id="GiphyLogoContainer">
+      <div class="GiphyLogo">
+        <span>Powered by</span>
+        <a href="http://giphy.com" target="_blank">
+          <img src="assets/giphy_logo.png" height="50px" width="auto" alt="Giphy.com" />
+        </a>
+      </div>
     </div>
+
   </div>
 </mat-sidenav-container>

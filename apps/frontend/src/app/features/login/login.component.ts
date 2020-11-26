@@ -1,18 +1,23 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { AuthService } from "../../shared/services/auth.service";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 
 @Component({
-  selector: "gif-lib-mono-repo-login",
+  selector: "login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public forgetPassStyle = {
-    color: 'blue',
-    cursor: 'pointer'
+    color: "blue",
+    cursor: "pointer",
   };
 
   constructor(private auth: AuthService, private fb: FormBuilder) {}

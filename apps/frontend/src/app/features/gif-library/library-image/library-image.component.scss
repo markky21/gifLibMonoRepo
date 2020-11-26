@@ -1,3 +1,5 @@
+@import "../../../styles/mixins/rwd.scss";
+
 $bg_color: black;
 
 .ImageWithTools {
@@ -50,7 +52,7 @@ $bg_color: black;
   border-radius: 5px;
 }
 
-@media screen and (max-width: 800px) {
+@include rwd_mobile_one_breakpoint {
   .ImageWithTools {
     position: relative;
     display: flex;
@@ -58,6 +60,6 @@ $bg_color: black;
     margin: 10px 0;
     justify-content: center;
     min-height: 150px;
-    max-width: initial;
+    max-width: 325px;
   }
 }

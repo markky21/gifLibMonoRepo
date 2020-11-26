@@ -1,26 +1,24 @@
-<div id="title">
-  <img src="gifster_new.png" alt="GifSter Logo">
-  <h1>GifSter</h1>
-  <h4>Your place to keep cool gifs in one place!</h4>
-</div>
-<div class="LoginForm">
-  <button mat-stroked-button id="GoToLogin" routerLink="/signIn">
-    <mat-icon>keyboard_arrow_left</mat-icon>
-    <mat-label>Go to login page</mat-label>
-  </button>
-  <form [formGroup]="registerForm">
-    <p>
+<div class="Register">
+  <div id="title">
+    <img src="gifster_new.png" alt="GifSter Logo">
+    <h1>GifSter</h1>
+    <h4>Your place to keep cool gifs in one place!</h4>
+  </div>
+  <div class="LoginForm">
+    <button mat-stroked-button id="GoToLogin" routerLink="/signIn">
+      <mat-icon>keyboard_arrow_left</mat-icon>
+      <mat-label>Go to login page</mat-label>
+    </button>
+    <form [formGroup]="registerForm">
       <mat-form-field>
         <mat-label>Email:</mat-label>
         <input matInput type="text" formControlName="email" />
       </mat-form-field>
-    </p>
-    <p>
       <mat-form-field>
         <mat-label>Password:</mat-label>
         <input matInput type="password" formControlName="password" />
       </mat-form-field>
-    </p>
-    <button mat-stroked-button [disabled]="!formValid" (click)="registerUser()">Register</button>
-  </form>
+      <button mat-stroked-button [disabled]="!formValid" (click)="registerUser()">Register</button>
+    </form>
+  </div>
 </div>

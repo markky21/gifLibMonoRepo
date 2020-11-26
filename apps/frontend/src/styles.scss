@@ -1,11 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "../src/app/styles/mixins/rwd.scss";
+@import "../src/app/styles/variables/margins.scss";
+@import "../src/app/styles/variables/colors.scss";
 
-$pallete-light-green: rgb(0, 255, 179);
-$pallete-red: #f44336;
-
-html,
-body {
+html {
   height: 100%;
 }
 body {
@@ -101,13 +100,27 @@ element.style {
   }
 }
 
-@media screen and (max-width: 800px) {
+.LoginForm {
+  mat-form-field {
+    margin: $m-margin 0;
+    width: 70%;
+  }
+}
+
+@include rwd_mobile_one_breakpoint {
   .BigScreen {
     display: none;
   }
 
   .Mobile {
     display: initial;
+  }
+
+  .MobileNavi {
+    .mat-toolbar-row,
+    .mat-toolbar-single-row {
+      height: 56px;
+    }
   }
 
   .Upload .mat-vertical-content-container:last-of-type {
@@ -127,11 +140,12 @@ element.style {
 
   .CategoryPanel {
     .mat-expansion-panel-body {
-      display: initial;
+      display: flex;
+      justify-content: center;
     }
   }
 
-  .mat-drawer-container:first-of-type {
+  .mat-drawer-container {
     display: block !important;
   }
 }

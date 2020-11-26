@@ -30,10 +30,11 @@ import { LoginComponent } from "./features/login/login.component";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireAuthGuardModule } from "@angular/fire/auth-guard";
 import { RegisterComponent } from "./features/register/register.component";
-import { LoginErrorComponent } from './features/login/error/login-error/login-error.component';
-import { EmailNotVerifiedComponent } from './features/login/email-not-verified/email-not-verified.component';
-import { BigScreenNaviComponent } from './features/big-screen-navi/big-screen-navi.component';
-import { MobileNaviComponent } from './features/mobile-navi/mobile-navi.component';
+import { LoginErrorComponent } from "./features/login/error/login-error/login-error.component";
+import { EmailNotVerifiedComponent } from "./features/login/email-not-verified/email-not-verified.component";
+import { BigScreenNaviComponent } from "./features/big-screen-navi/big-screen-navi.component";
+import { MobileNaviHeaderComponent } from "./features/mobile-navi/mobile-navi-header/mobile-navi-header.component";
+import { MobileNaviMenuComponent } from './features/mobile-navi/mobile-navi-menu/mobile-navi-menu.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MobileNaviComponent } from './features/mobile-navi/mobile-navi.componen
     LoginErrorComponent,
     EmailNotVerifiedComponent,
     BigScreenNaviComponent,
-    MobileNaviComponent,
+    MobileNaviHeaderComponent,
+    MobileNaviMenuComponent,
   ],
   imports: [
     BrowserModule,

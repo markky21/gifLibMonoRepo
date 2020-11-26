@@ -1,6 +1,8 @@
-$big-margin: 20px;
-$medium-margin: 15px;
+@import "./styles/mixins/rwd.scss";
+@import "./styles/variables/margins.scss";
+
 $mobileNaviHeight: 56px;
+$giphyLogoContainerH: 40px;
 
 .MobileNavi {
   mat-toolbar {
@@ -35,7 +37,7 @@ $mobileNaviHeight: 56px;
   flex-wrap: wrap;
 
   & > * {
-    margin: 10px $big-margin;
+    margin: 10px $xl-margin;
     flex: 1 1 0;
   }
 }
@@ -44,20 +46,31 @@ $mobileNaviHeight: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-right: 4 * $big-margin;
+  padding-right: 4 * $xl-margin;
   background-color: black;
 }
 
-.GiphyLogo {
+#GiphyLogoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: $giphyLogoContainerH;
   position: fixed;
-  bottom: 10px;
+  bottom: 0px;
+  background-color: #303030;
+  width: 100%;
+}
+
+.GiphyLogo {
+  position: absolute;
+  background-color: #303030;
+  right: $xl-margin;
   margin: 10px 0;
-  right: $big-margin;
   display: flex;
   justify-content: flex-end;
   align-content: center;
   align-items: center;
-  gap: $big-margin;
+  gap: $xl-margin;
   width: 100%;
 }
 
@@ -70,46 +83,13 @@ $mobileNaviHeight: 56px;
   font-size: large;
 }
 
-#title {
-  img {
-    margin: $big-margin auto;
+@include rwd_mobile_one_breakpoint {
+  .LoginForm {
+    button:not(.ExtraLink) {
+      margin: $s-margin 0;
+    }
   }
 
-  h1,
-  h4 {
-    margin: 5px 0;
-  }
-}
-
-#title,
-.LoginForm {
-  display: flex;
-  flex-direction: column;
-  justify-items: center;
-  align-items: center;
-  align-content: center;
-
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #GoToLogin {
-    margin-top: $big-margin;
-  }
-}
-
-.RegisterLink {
-  cursor: pointer;
-  margin: 0 auto;
-}
-
-.ExtraLink {
-  margin-bottom: $big-margin;
-}
-
-@media screen and (max-width: 800px) {
   .Router {
     width: 100%;
   }
@@ -133,7 +113,16 @@ $mobileNaviHeight: 56px;
     height: 92%;
 
     .mat-drawer-shown {
+      height: 77.5vh;
       margin-top: $mobileNaviHeight;
+    }
+
+    .MobileNaviSideNav {
+      height: 77.5vh;
+    }
+
+    .LibrarySideNav {
+      height: 85.9vh;
     }
 
     .LibrarySideNav {
@@ -145,7 +134,7 @@ $mobileNaviHeight: 56px;
         left: -60px;
         height: 40px;
         width: 40px;
-        top: $big-margin;
+        top: $xl-margin;
         z-index: 9999;
       }
     }
@@ -157,20 +146,26 @@ $mobileNaviHeight: 56px;
 
       mat-nav-list {
         button {
-          height: 60px;
+          height: 45px;
           width: 100%;
-          background: none;
           text-align: left;
+          background: none;
         }
 
-        #LogOut button {
-          position: absolute;
-          bottom: 0;
-          left: 0;
+        @media screen and (orientation: portrait) {
+          button {
+            height: 60px;
+          }
+
+          #LogOut button {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+          }
         }
 
         mat-label {
-          margin-left: $medium-margin;
+          margin-left: $l-margin;
         }
       }
 
@@ -180,9 +175,9 @@ $mobileNaviHeight: 56px;
         display: flex;
         align-items: center;
         flex-flow: row nowrap;
-        gap: $medium-margin + 1;
+        gap: $l-margin + 1;
         font-size: smaller;
-        padding-left: $medium-margin + 1;
+        padding-left: $l-margin + 1;
       }
     }
   }
@@ -191,12 +186,14 @@ $mobileNaviHeight: 56px;
     display: none;
   }
 
+  #GiphyLogoContainer {
+    justify-content: center;
+  }
+
   .GiphyLogo {
     justify-content: center;
-    transform: scale(0.5);
-    width: 100%;
     margin: 10px auto;
-    bottom: -10px;
+    transform: scale(0.5);
   }
 
   .NaviButtons {

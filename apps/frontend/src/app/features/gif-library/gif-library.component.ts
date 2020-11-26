@@ -58,6 +58,7 @@ export class GifLibraryComponent implements OnInit, OnDestroy {
   private observeUpdates(): void {
     const updateSub = this.mainService.libraryUpdate.subscribe(() => {
       this.library = this.mainService.getLibrary();
+      this.saveDisabled = false;
     });
 
     this.subscriptions.add(updateSub);

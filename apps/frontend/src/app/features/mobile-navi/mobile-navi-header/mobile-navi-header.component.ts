@@ -4,11 +4,11 @@ import { User } from "firebase";
 import { Observable } from "rxjs";
 
 @Component({
-  selector: "mobile-navi",
-  templateUrl: "./mobile-navi.component.html",
-  styleUrls: ["./mobile-navi.component.scss"],
+  selector: "mobile-navi-header",
+  templateUrl: "./mobile-navi-header.component.html",
+  styleUrls: ["./mobile-navi-header.component.scss"],
 })
-export class MobileNaviComponent implements OnInit {
+export class MobileNaviHeaderComponent implements OnInit {
   @Output("onToggleNavi") onToggleNavi = new EventEmitter<null>();
   loggedIn$: Observable<User>;
 
