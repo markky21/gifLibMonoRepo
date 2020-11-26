@@ -196,8 +196,8 @@ export class UploadFileService {
 
     this.httpService
       .apiConvertToGifObservable(formData)
-      .subscribe((gifImageBlob: Blob) =>
-        this.convertGifFromConverterToUrl(gifImageBlob)
-      );
+      .subscribe((gifImageBlob: Blob) => {
+        this.convertGifFromConverterToUrl(gifImageBlob);
+      });
   }
 }

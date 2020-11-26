@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 
 import { MainService } from "../../shared/services/main.service";
@@ -92,12 +92,24 @@ export class UploadFileComponent implements OnInit {
     return (this.uploadedFile.size / (1024 * 1024)).toPrecision(2);
   }
 
+  get fileSize(): string {
+    return parseInt(this.fileSizeInMB) < 1
+      ? ` ${this.fileSizeInKB} KB (${this.fileSizeInMB} MB)`
+      : ` ${this.fileSizeInMB} MB`;
+  }
+
   get convertedSizeInKB(): string {
     return (this.convertedFile.size / 1024).toPrecision(3);
   }
 
   get convertedSizeInMB(): string {
     return (this.convertedFile.size / (1024 * 1024)).toPrecision(2);
+  }
+
+  get convertedFileSize(): string {
+    return parseInt(this.convertedSizeInMB) < 1
+      ? ` ${this.convertedSizeInKB} KB (${this.convertedSizeInMB} MB)`
+      : ` ${this.convertedSizeInMB} MB`;
   }
 
   get uploadedFile(): any {
@@ -114,6 +126,10 @@ export class UploadFileComponent implements OnInit {
 
   get convertedURL(): any {
     return this.uploadService.convertedURL;
+  }
+
+  set convertedUrl(value: any) {
+    this.uploadService.convertedURL = null;
   }
 
   get tagsControl(): FormControl {
@@ -136,12 +152,12 @@ export class UploadFileComponent implements OnInit {
     this.converting$
       .pipe(
         skip(1),
+        tap(console.log),
         distinctUntilChanged(),
         filter((val) => !val)
       )
-      .subscribe(() => {
+      .subscribe((val) => {
         this.availableFolders = Object.keys(this.mainService.getLibrary());
-
         this.myStepper.next();
       });
   }

@@ -24,6 +24,10 @@
             </mat-error>
 
             <div class="UploadedAndConverted">
+              <!-- <div [hidden]="!(loadedVideo$ | async) && !!originalResolution">
+                <div>Uploading video...</div>
+                <mat-progress-bar mode="query"></mat-progress-bar>
+              </div> -->
               <div class="ImagePreview" [hidden]="!(loadedVideo$ | async)">
                 <h1>
                   <span class="ImageName">{{ uploadedFile?.name }}</span>
@@ -39,7 +43,7 @@
                 </div>
                 <div *ngIf="loadedVideo$ | async">
                   <h2>
-                    <label>Size:</label> {{ fileSizeInKB }} KB ({{ fileSizeInMB }} MB)
+                    <label>Size:</label>{{ fileSize }}
                   </h2>
                   <h2>
                     <label>Resolution: </label><span>{{ originalResolution }} </span>
@@ -48,45 +52,43 @@
                 </div>
               </div>
             </div>
-            <button mat-stroked-button matStepperNext type="button">Next</button>
+            <button mat-stroked-button matStepperNext *ngIf="loadedVideo$ | async" type="button">Next</button>
           </div>
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Set conversion params</ng-template>
           <div class="UploadContainer">
-
-            <div *ngIf="originalResolution">
-              <h4>Target resolution:</h4>
-              <mat-button-toggle-group class="BigScreen" *ngIf="originalResolution" #group="matButtonToggleGroup"
-                formControlName="resolution" (change)="resolutionChange(group.value)">
-                <mat-button-toggle [value]="this.originalResolution">Original: ({{ originalResolution }})
-                </mat-button-toggle>
-                <mat-button-toggle *ngFor="let res of resolutions" [value]="res">
-                  {{ res }}
-                </mat-button-toggle>
-              </mat-button-toggle-group>
-              <mat-form-field appearance="fill" class="Mobile">
-                <mat-label>Select target resolution</mat-label>
-                <mat-select formControlName="resolution">
-                  <mat-option [value]="this.originalResolution">Original: ({{ originalResolution }})</mat-option>
-                  <mat-option *ngFor="let res of resolutions" [value]="res">{{ res }}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
-            <div>
+            <div [ngClass]="(converting$ | async) ? 'hide' : 'show'">
+              <div *ngIf="originalResolution">
+                <h4>Target resolution:</h4>
+                <mat-button-toggle-group class="BigScreen" *ngIf="originalResolution" #group="matButtonToggleGroup"
+                  formControlName="resolution" (change)="resolutionChange(group.value)">
+                  <mat-button-toggle [value]="this.originalResolution">Original: ({{ originalResolution }})
+                  </mat-button-toggle>
+                  <mat-button-toggle *ngFor="let res of resolutions" [value]="res">
+                    {{ res }}
+                  </mat-button-toggle>
+                </mat-button-toggle-group>
+                <mat-form-field appearance="fill" class="Mobile">
+                  <mat-label>Select target resolution</mat-label>
+                  <mat-select formControlName="resolution">
+                    <mat-option [value]="this.originalResolution">Original: ({{ originalResolution }})</mat-option>
+                    <mat-option *ngFor="let res of resolutions" [value]="res">{{ res }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
               <h4>Target framerate:</h4>
-              <mat-button-toggle-group name="fontStyle" aria-label="Font Style" formControlName="conversionFrameRate">
+              <mat-button-toggle-group name=" fontStyle" aria-label="Font Style" formControlName="conversionFrameRate">
                 <mat-button-toggle *ngFor="let rate of frameRates" [value]="rate">
                   {{ rate }} fps
                 </mat-button-toggle>
               </mat-button-toggle-group>
+              <button type="button" (click)="onSubmit()" *ngIf="uploadedFile" mat-raised-button color="primary">
+                Convert to GIF
+              </button>
             </div>
-            <button type="button" (click)="onSubmit()" *ngIf="uploadedFile" mat-raised-button color="primary">
-              Convert to GIF
-            </button>
-            <div *ngIf="(converting$ | async) && !convertedURL">
-              <div>Converting the image...</div>
+            <div [ngClass]="(converting$ | async) ? 'show' : 'hide'">
+              <div>Converting the GIF...</div>
               <mat-progress-bar mode="query"></mat-progress-bar>
             </div>
             <button *ngIf="!(converting$ | async) && convertedURL" mat-stroked-button matStepperNext
@@ -101,10 +103,7 @@
               <div>
                 <img [src]="convertedURL" height="150px" width="auto" />
                 <h2>
-                  <label>Size:</label> {{ convertedSizeInKB }} KB ({{
-                      convertedSizeInMB
-                    }}
-                  MB)
+                  <label>Size:</label> {{ convertedFileSize }}
                 </h2>
                 <div class="AddTag">
                   <mat-form-field>

@@ -70,6 +70,14 @@ mat-icon {
   }
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 @include rwd_mobile_one_breakpoint {
   #Folder {
     margin: 0;
