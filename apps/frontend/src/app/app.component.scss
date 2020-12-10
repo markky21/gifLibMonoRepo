@@ -1,8 +1,13 @@
 @import "./styles/mixins/rwd.scss";
 @import "./styles/variables/margins.scss";
 
-$mobileNaviHeight: 56px;
+$mobileNaviHeaderHeight: 56px;
+$mobileNaviSideNavHeight: 82vh;
+$mobileLibrarySideNavHeight: 96vh;
+$mobileNaviTopMargin: $mobileNaviHeaderHeight;
 $giphyLogoContainerH: 40px;
+$mobileContentHeight: 81vh;
+$sideNavBorderRadius: 10px;
 
 .MobileNavi {
   mat-toolbar {
@@ -11,11 +16,11 @@ $giphyLogoContainerH: 40px;
 }
 
 .MainContent {
-  height: 90vh;
+  height: 86vh;
   overflow-x: hidden;
 }
 
-.AppContainer {
+.SideNavContainer {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -23,6 +28,7 @@ $giphyLogoContainerH: 40px;
   right: 0;
   height: 90%;
 
+  .SideNavTrigger,
   .LibrarySideNav {
     display: none;
   }
@@ -105,43 +111,37 @@ $giphyLogoContainerH: 40px;
     }
   }
 
-  .AppContainer {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 92%;
-
+  .SideNavContainer {
     .mat-drawer-shown {
-      height: 77.5vh;
-      margin-top: $mobileNaviHeight;
+      height: 100%;
+      margin-top: $mobileNaviTopMargin;
     }
 
     .MobileNaviSideNav {
-      height: 77.5vh;
+      height: $mobileNaviSideNavHeight;
+      border-bottom-right-radius: $sideNavBorderRadius;
     }
 
     .LibrarySideNav {
-      height: 85.9vh;
-    }
-
-    .LibrarySideNav {
+      position: fixed;
       display: block;
       width: 85vw;
+      height: $mobileLibrarySideNavHeight;
+      border-bottom-left-radius: $sideNavBorderRadius;
+    }
 
-      .SideNavTrigger {
-        position: absolute;
-        left: -60px;
-        height: 40px;
-        width: 40px;
-        top: $xl-margin;
-        z-index: 9999;
-      }
+    .SideNavTrigger {
+      display: initial;
+      position: absolute;
+      right: 10px;
+      height: 40px;
+      width: 40px;
+      top: 10px;
+      z-index: 9999;
     }
 
     .MobileNaviSideNav {
-      margin-top: $mobileNaviHeight;
+      margin-top: $mobileNaviTopMargin;
       display: block;
       width: 60vw;
 
@@ -192,7 +192,6 @@ $giphyLogoContainerH: 40px;
   }
 
   .GiphyLogo {
-    justify-content: center;
     margin: 10px auto;
     transform: scale(0.5);
     bottom: initial;

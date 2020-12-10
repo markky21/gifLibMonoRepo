@@ -2,7 +2,7 @@
 @import "../../styles/mixins/rwd.scss";
 
 #Login {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #title,
@@ -63,20 +63,23 @@
 }
 
 @include rwd_mobile_one_breakpoint {
+  .ForgetRegisterSection {
+    transform: scale(0.78);
+    margin: initial;
+  }
+
   #title {
-    height: 27vh;
+    height: 34vh;
 
     h1 {
       font-size: x-large;
     }
 
     h4 {
-      font-size: medium;
+      font-size: small;
     }
 
     img {
-      width: 100px;
-      height: auto;
       margin: 1.2 * $xl-margin auto $m-margin auto;
     }
   }

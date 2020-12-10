@@ -24,10 +24,6 @@
             </mat-error>
 
             <div class="UploadedAndConverted">
-              <!-- <div [hidden]="!(loadedVideo$ | async) && !!originalResolution">
-                <div>Uploading video...</div>
-                <mat-progress-bar mode="query"></mat-progress-bar>
-              </div> -->
               <div class="ImagePreview" [hidden]="!(loadedVideo$ | async)">
                 <h1>
                   <span class="ImageName">{{ uploadedFile?.name }}</span>

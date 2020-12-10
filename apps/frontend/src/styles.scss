@@ -40,6 +40,10 @@ body {
 .mat-drawer {
   overflow: visible !important;
   visibility: visible !important;
+
+  &-container {
+    position: static;
+  }
 }
 
 .mat-ink-bar {
@@ -57,7 +61,7 @@ element.style {
   background-color: $pallete-light-green;
 }
 
-.AppContainer .mat-list-base {
+.SideNavContainer .mat-list-base {
   padding: 0;
 }
 
@@ -134,8 +138,21 @@ element.style {
 
   .LoginForm {
     mat-form-field {
-      margin: 5px 0;
+      margin: 0 0;
+      font-size: 0.9em;
     }
+
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-bottom: 0.95em;
+    }
+  }
+
+  .SignIn--button.classic {
+    background-color: $pallete-light-green;
+  }
+
+  .SignIn--button {
+    width: 70vw;
   }
 
   .CategoryPanel {
@@ -147,5 +164,6 @@ element.style {
 
   .mat-drawer-container {
     display: block !important;
+    position: initial !important;
   }
 }

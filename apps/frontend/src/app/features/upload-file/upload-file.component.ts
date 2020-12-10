@@ -43,8 +43,6 @@ export class UploadFileComponent implements OnInit {
     this.convertResolution = this.convertRes;
   }
 
-  // TODO: Add box showing size of converted file as preview
-
   public videoLoaded(w: number, h: number, event): void {
     const ratio = w / h;
 
@@ -152,7 +150,6 @@ export class UploadFileComponent implements OnInit {
     this.converting$
       .pipe(
         skip(1),
-        tap(console.log),
         distinctUntilChanged(),
         filter((val) => !val)
       )
