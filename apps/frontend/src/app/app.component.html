@@ -1,29 +1,12 @@
-<mat-sidenav-container class="SideNavContainer" [hasBackdrop]="true">
+<mat-sidenav-container class="MobileSideNavContainer" [hasBackdrop]="true">
   <mat-sidenav *ngIf="loggedIn$ | async" class="LibrarySideNav" mode="over" position="end" [(opened)]="libraryOpened">
-    <div (swiperight)="libraryOpened = false">
-      <app-gif-library></app-gif-library>
-    </div>
+    <app-gif-library></app-gif-library>
   </mat-sidenav>
   <mat-sidenav *ngIf="loggedIn$ | async" class="MobileNaviSideNav" position="start" mode="over"
     [(opened)]="mobileNaviSidenavOpened">
     <mobile-navi-menu>
     </mobile-navi-menu>
   </mat-sidenav>
-  <!-- <div class="MainContent">
-    <big-screen-navi>
-    </big-screen-navi>
-    <mobile-navi-header (onToggleNavi)="toggleMobileNaviSideNav()">
-    </mobile-navi-header>
-    <div class="App-flex">
-      <div class="Router">
-        <router-outlet></router-outlet>
-      </div>
-      <div class="GifLibrary" *ngIf="loggedIn$ | async">
-        <app-gif-library></app-gif-library>
-      </div>
-    </div> -->
-
-  <!-- to erase after bringing back old version-->
   <big-screen-navi>
   </big-screen-navi>
   <button mat-raised-button color="primary" class="SideNavTrigger" (click)="toggleLibrarySideNav()">
@@ -31,17 +14,6 @@
   </button>
   <mobile-navi-header (onToggleNavi)="toggleMobileNaviSideNav()">
   </mobile-navi-header>
-
-  <!-- <div id="GiphyLogoContainer">
-      <div class="GiphyLogo">
-        <span>Powered by</span>
-        <a href="http://giphy.com" target="_blank">
-          <img src="assets/giphy_logo.png" height="50px" width="auto" alt="Giphy.com" />
-        </a>
-      </div>
-    </div> -->
-
-
 </mat-sidenav-container>
 
 <div class="MainContent">

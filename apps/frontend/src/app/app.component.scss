@@ -20,7 +20,7 @@ $sideNavBorderRadius: 10px;
   overflow-x: hidden;
 }
 
-.SideNavContainer {
+.MobileSideNavContainer {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -62,7 +62,7 @@ $sideNavBorderRadius: 10px;
   justify-content: flex-end;
   height: $giphyLogoContainerH;
   position: fixed;
-  bottom: 0px;
+  bottom: 0;
   background-color: #303030;
   width: 100%;
 }
@@ -111,7 +111,7 @@ $sideNavBorderRadius: 10px;
     }
   }
 
-  .SideNavContainer {
+  .MobileSideNavContainer {
     .mat-drawer-shown {
       height: 100%;
       margin-top: $mobileNaviTopMargin;
@@ -192,7 +192,8 @@ $sideNavBorderRadius: 10px;
   }
 
   .GiphyLogo {
-    margin: 10px auto;
+    right: initial;
+    width: initial;
     transform: scale(0.5);
     bottom: initial;
   }
