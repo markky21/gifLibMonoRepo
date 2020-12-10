@@ -7,7 +7,7 @@ import { LoginComponent } from "./features/login/login.component";
 import {
   AngularFireAuthGuard,
   redirectLoggedInTo,
-  redirectUnauthorizedTo
+  redirectUnauthorizedTo,
 } from "@angular/fire/auth-guard";
 import { RegisterComponent } from "./features/register/register.component";
 import { EmailVerifiedGuard } from "./core/guards/email-verified.guard";
@@ -34,7 +34,7 @@ const routes: Routes = [
   {
     path: "notVerified",
     canActivate: [AngularFireAuthGuard],
-    component: EmailNotVerifiedComponent
+    component: EmailNotVerifiedComponent,
   },
   {
     path: "search",
@@ -61,7 +61,7 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToLogin },
     loadChildren: "./features/edit-gif/edit-gif.module#EditGifModule",
   },
-  { path: "**", redirectTo: "" }
+  { path: "**", redirectTo: "" },
 ];
 
 @NgModule({

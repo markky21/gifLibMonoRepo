@@ -3,14 +3,18 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from "@angular/fire/firestore";
-import { Subject } from "rxjs";
-import { take } from "rxjs/operators";
-import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
+import { from, Observable, of, Subject } from "rxjs";
+import { filter, map, switchMap, take } from "rxjs/operators";
+import { MatSnackBarConfig } from "@angular/material/snack-bar";
 
 import { LibraryType } from "../../features/gif-library/shared/library.type";
 import { GIFObject } from "../../core/types/gif-object.type";
 import { LibrarySaveSnackComponent } from "../components/library-save-snack/library-save-snack.component";
 import { NotificationService } from "./notification-service";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { firestore, User } from "firebase";
+import { LoginErrorComponent } from "../../features/login/error/login-error/login-error.component";
+import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: "root",
@@ -25,6 +29,7 @@ export class MainService {
   private firebaseLibrary: AngularFirestoreDocument;
 
   constructor(
+    private fireAuth: AngularFireAuth,
     private fireDB: AngularFirestore,
     private notificationService: NotificationService
   ) {}
@@ -56,18 +61,23 @@ export class MainService {
   }
 
   public loadFirebaseData(): void {
-    this.spinner.next(true);
-    this.firebaseLibrary = this.fireDB.doc("user/kuba/data/library");
+    const firebaseShot = this.initLibraryIfEmpty();
 
-    this.firebaseLibrary
-      .get()
-      .pipe(take(1))
-      .subscribe((firebaseData) => {
-        this.library = { ...firebaseData.data().library };
-        this.libraryUpdate.next();
-        this.saveState.next(false);
-        this.spinner.next(false);
-      });
+    this.spinner.next(true);
+    const fireBase = this.fireAuth.user.pipe(
+      take(1),
+      filter((usrData) => !!usrData),
+      map((usrData: User) => usrData.uid),
+      switchMap((userId: string) => firebaseShot(userId))
+    );
+
+    fireBase.subscribe((firebaseData) => {
+      console.log(firebaseData);
+      this.library = { ...firebaseData };
+      this.libraryUpdate.next();
+      this.saveState.next(false);
+      this.spinner.next(false);
+    });
   }
 
   public notifyMessage(message: string, config?: MatSnackBarConfig): void {
@@ -81,19 +91,26 @@ export class MainService {
   public saveLibraryToFirebase(): void {
     const library = this.library;
     const batch = this.fireDB.firestore.batch();
-    const fireLibraryRef = this.fireDB.firestore.doc("user/kuba/data/library");
+    const fireLibraryRef = (userId: string) =>
+      this.fireDB.firestore.doc("users/" + userId);
 
-    batch
-      .set(fireLibraryRef, { library })
-      .commit()
-      .then(() => {
-        this.saveNotify();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    this.saveState.next(false);
+    from(this.fireAuth.currentUser)
+      .pipe(
+        switchMap((user: User) =>
+          from(batch.set(fireLibraryRef(user.uid), { library }).commit())
+        )
+      )
+      .subscribe(
+        () => {
+          this.saveNotify();
+          this.saveState.next(false);
+        },
+        (errorMsg) =>
+          this.notificationService.notificationWithGif(LoginErrorComponent, {
+            data: errorMsg,
+            duration: 8000,
+          })
+      );
   }
 
   public getImage(category: string, id: number): any {
@@ -107,5 +124,32 @@ export class MainService {
 
     this.library[category].allImages.splice(imageToRm, 1);
     this.libraryUpdate.next();
+  }
+
+  private initLibraryIfEmpty() {
+    return (
+      userId: string
+    ): Observable<firestore.DocumentSnapshot<firestore.DocumentData> | null> =>
+      this.fireDB
+        .doc("users/" + userId)
+        .get()
+        .pipe(
+          switchMap(
+            (data: firestore.DocumentSnapshot<firestore.DocumentData>) => {
+              if (data.data()) {
+                return of(data.data().library);
+              } else {
+                return from(
+                  this.fireDB.firestore
+                    .batch()
+                    .set(this.fireDB.firestore.doc("users/" + userId), {
+                      library: {},
+                    })
+                    .commit()
+                );
+              }
+            }
+          )
+        );
   }
 }

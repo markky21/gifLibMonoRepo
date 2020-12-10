@@ -2,6 +2,9 @@ import { Component, Injectable } from "@angular/core";
 import { MatSnackBar, MatSnackBarConfig } from "@angular/material/snack-bar";
 import { ComponentType } from "@angular/cdk/overlay";
 
+// TODO: Fix notification style on mobiles
+// TODO2: Provide closing notification on click
+
 @Injectable({
   providedIn: "root",
 })

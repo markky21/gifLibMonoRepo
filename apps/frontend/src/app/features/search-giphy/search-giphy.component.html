@@ -10,7 +10,7 @@
     </ol>
     <div class="SearchField">
       <mat-form-field>
-        <input matInput type="text" placeholder="Search gif" (keyup)="searchNext(searchInput.value)"
+        <input matInput type="text" placeholder="Type to begin the gif search" (keyup)="searchNext(searchInput.value)"
           [formControl]="searchControl" #searchInput>
         <mat-error *ngIf="searchControl.invalid">You must enter a value</mat-error>
       </mat-form-field>
