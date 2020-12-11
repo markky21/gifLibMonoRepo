@@ -1,42 +1,169 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "@angular/material/prebuilt-themes/pink-bluegrey.css";
+@import "../src/app/styles/mixins/rwd.scss";
+@import "../src/app/styles/variables/margins.scss";
+@import "../src/app/styles/variables/colors.scss";
 
-html,
-body {
-    height: 100%;
+html {
+  height: 100%;
 }
 body {
-    margin: 0;
-    font-family: Roboto, 'Helvetica Neue', sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 body {
-    background-color: #a9a9a978;
-    background: url('assets/gifster_new.png') no-repeat 50% 50%;
-}
-
-@font-face {
-    font-family: 'Material Icons';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 24px;
-    line-height: 1;
-    letter-spacing: normal;
-    text-transform: none;
-    display: inline-block;
-    white-space: nowrap;
-    word-wrap: normal;
-    direction: ltr;
-    -moz-font-feature-settings: 'liga';
-    -moz-osx-font-smoothing: grayscale;
+  background: url("assets/gifster_new.png") no-repeat 50% 50%;
 }
 
 @font-face {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
+  font-family: "Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -moz-font-feature-settings: "liga";
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
 }
 
 .mat-drawer {
-    overflow: visible !important;
-    visibility: visible !important;
+  overflow: visible !important;
+  visibility: visible !important;
+
+  &-container {
+    position: static;
+  }
+}
+
+.mat-ink-bar {
+  height: 4px;
+}
+
+element.style {
+  visibility: visible;
+  left: 0px;
+  width: 160px;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: $pallete-light-green;
+}
+
+.MobileSideNavContainer .mat-list-base {
+  padding: 0;
+}
+
+.mat-drawer-container {
+  display: initial !important;
+  background: url("/gifster_new.png") 50% 50%;
+  background-size: 10%;
+  background-repeat: space;
+  background-color: #b0bec5;
+}
+
+.Mobile {
+  display: none;
+}
+
+.PanelHeader {
+  mat-icon {
+    margin: 0 20px;
+  }
+
+  .mat-content {
+    align-items: center;
+  }
+}
+
+.CategoryPanel {
+  mat-panel-description {
+    font-size: smaller;
+    margin-right: 0;
+  }
+
+  .mat-expansion-panel-body {
+    padding: 5px 5px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1%;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.LoginForm {
+  mat-form-field {
+    margin: $m-margin 0;
+    width: 70%;
+  }
+}
+
+@include rwd_mobile_one_breakpoint {
+  .BigScreen {
+    display: none;
+  }
+
+  .Mobile {
+    display: initial;
+  }
+
+  .MobileNavi {
+    .mat-toolbar-row,
+    .mat-toolbar-single-row {
+      height: 56px;
+    }
+  }
+
+  .Upload .mat-vertical-content-container:last-of-type {
+    margin-left: 0;
+  }
+
+  #title img {
+    margin: 20px auto;
+    height: 20vh;
+  }
+
+  .LoginForm {
+    mat-form-field {
+      margin: 0 0;
+      font-size: 0.9em;
+    }
+
+    .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+      padding-bottom: 0.95em;
+    }
+  }
+
+  .SignIn--button.classic {
+    background-color: $pallete-light-green;
+  }
+
+  .SignIn--button {
+    width: 70vw;
+  }
+
+  .CategoryPanel {
+    .mat-expansion-panel-body {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .mat-drawer-container {
+    display: block !important;
+    position: initial !important;
+  }
 }

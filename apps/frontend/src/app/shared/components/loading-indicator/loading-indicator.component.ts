@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MainService } from '../../services/main.service';
 
 @Component({
@@ -15,5 +15,4 @@ export class LoadingIndicatorComponent implements OnInit {
   ngOnInit() {
     this.progress$ = this.mainService.progress;
   }
-
 }

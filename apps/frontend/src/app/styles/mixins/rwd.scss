@@ -1,0 +1,19 @@
+@import "../variables/rwd.scss";
+
+@mixin rwd_custom_to($size) {
+  @media screen and (max-width: $size) {
+    @content;
+  }
+}
+
+@mixin rwd_custom_from($size) {
+  @media screen and (min-width: $size) {
+    @content;
+  }
+}
+
+@mixin rwd_mobile_one_breakpoint {
+  @media screen and (max-width: $main-mobile-breakpoint) {
+    @content;
+  }
+}

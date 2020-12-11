@@ -1,25 +1,37 @@
-<mat-sidenav-container class="AppContainer" [hasBackdrop]="false">
-    <mat-sidenav class="LibrarySideNav" mode="over" position="end" [(opened)]="libraryOpened">
-        <button mat-raised-button color="primary" class="SideNavTrigger" (click)="libraryOpened = !libraryOpened">
-            <mat-icon>collections</mat-icon>
-        </button>
-        <div (swiperight)="libraryOpened = false">
-            <app-gif-library></app-gif-library>
-        </div>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <button mat-raised-button color="primary" [routerLink]="['about']">About</button>
-        <button mat-raised-button color="primary" [routerLink]="['']">GIF Search</button>
-        <button mat-raised-button color="primary" [routerLink]="['upload']">Upload & Convert</button>
-        <button mat-raised-button color="primary" [routerLink]="['edit']">Edit Gif</button>
-        <span>Sign In</span>
-        <span>Register</span>
-        <span><img src="assets/giphy_logo.png"/></span>
-        <div class="App-flex">
-            <div class="Router">
-                <router-outlet></router-outlet>
-            </div>
-        </div>
-        <button (click)="testApi($event)">Test API</button>
-    </mat-sidenav-content>
+<mat-sidenav-container class="MobileSideNavContainer" [hasBackdrop]="true">
+  <mat-sidenav *ngIf="loggedIn$ | async" class="LibrarySideNav" mode="over" position="end" [(opened)]="libraryOpened">
+    <app-gif-library></app-gif-library>
+  </mat-sidenav>
+  <mat-sidenav *ngIf="loggedIn$ | async" class="MobileNaviSideNav" position="start" mode="over"
+    [(opened)]="mobileNaviSidenavOpened">
+    <mobile-navi-menu>
+    </mobile-navi-menu>
+  </mat-sidenav>
+  <big-screen-navi>
+  </big-screen-navi>
+  <button mat-raised-button color="primary" class="SideNavTrigger" (click)="toggleLibrarySideNav()">
+    <mat-icon>collections</mat-icon>
+  </button>
+  <mobile-navi-header (onToggleNavi)="toggleMobileNaviSideNav()">
+  </mobile-navi-header>
 </mat-sidenav-container>
+
+<div class="MainContent">
+  <div class="App-flex">
+    <div class="Router">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="GifLibrary" *ngIf="loggedIn$ | async">
+      <app-gif-library></app-gif-library>
+    </div>
+  </div>
+</div>
+
+<div id="GiphyLogoContainer">
+  <div class="GiphyLogo">
+    <span>Powered by</span>
+    <a href="http://giphy.com" target="_blank">
+      <img src="assets/giphy_logo.png" height="50px" width="auto" alt="Giphy.com" />
+    </a>
+  </div>
+</div>

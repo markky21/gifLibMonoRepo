@@ -22,8 +22,19 @@
                         "main": "apps/frontend/src/main.ts",
                         "polyfills": "apps/frontend/src/polyfills.ts",
                         "tsConfig": "apps/frontend/tsconfig.app.json",
-                        "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
-                        "styles": ["apps/frontend/src/styles.scss"],
+                        "assets": [
+                          "apps/frontend/src/favicon.ico",
+                          "apps/frontend/src/assets",
+                          {
+                            "glob": "**/*",
+                            "input": "node_modules/ngx-auth-firebaseui/assets/",
+                            "output":"apps/frontend/src/assets/"
+                          }
+                        ],
+                        "styles": [
+                          "apps/frontend/src/styles.scss",
+                          "node_modules/material-design-icons/iconfont/material-icons.css"
+                        ],
                         "scripts": []
                     },
                     "configurations": {

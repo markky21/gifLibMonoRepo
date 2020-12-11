@@ -1,6 +1,8 @@
+@import "../../../styles.scss";
+
 .HiddenFileInput {
   position: absolute;
-  top: -100%;
+  top: -1000%;
 }
 
 .BitrateSlider {
@@ -10,4 +12,75 @@
 .videoplayer {
   width: 150px;
   height: auto;
+}
+
+mat-icon {
+  margin: 10px 0;
+}
+
+.UploadContainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  img,
+  .videoplayer {
+    margin: 0 auto;
+  }
+
+  button {
+    margin: 10px;
+  }
+
+  .AddTag {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .Chips {
+    margin-top: 20px;
+  }
+
+  .mat-vertical-content {
+    padding: 0;
+  }
+}
+
+#FolderSelect {
+  margin: 0 auto;
+  width: 100%;
+}
+
+#Folder {
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: small;
+  background-color: $pallete-red;
+
+  &.folderSet {
+    background-color: $pallete-light-green;
+    font-size: large;
+    color: black;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+@include rwd_mobile_one_breakpoint {
+  #Folder {
+    margin: 0;
+    width: 100%;
+  }
 }

@@ -1,22 +1,41 @@
-.AppContainer {
+@import "./styles/mixins/rwd.scss";
+@import "./styles/variables/margins.scss";
+
+$mobileNaviHeaderHeight: 56px;
+$mobileNaviSideNavHeight: 82vh;
+$mobileLibrarySideNavHeight: 96vh;
+$mobileNaviTopMargin: $mobileNaviHeaderHeight;
+$giphyLogoContainerH: 40px;
+$mobileContentHeight: 81vh;
+$sideNavBorderRadius: 10px;
+
+.MobileNavi {
+  mat-toolbar {
+    display: none;
+  }
+}
+
+.MainContent {
+  height: 86vh;
+  overflow-x: hidden;
+}
+
+.MobileSideNavContainer {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100%;
+  height: 90%;
 
+  .SideNavTrigger,
   .LibrarySideNav {
-    width: 55vw;
-
-    .SideNavTrigger {
-      position: absolute;
-      left: -60px;
-      height: 40px;
-      width: 40px;
-      z-index: 9999;
-    }
+    display: none;
   }
+}
+.UserName {
+  margin-left: 10px;
+  font-weight: bolder;
 }
 
 .App-flex {
@@ -24,7 +43,162 @@
   flex-wrap: wrap;
 
   & > * {
-    margin: 10px 20px;
+    margin: 10px $xl-margin;
     flex: 1 1 0;
+  }
+}
+
+.NaviButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 4 * $xl-margin;
+  background-color: black;
+}
+
+#GiphyLogoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: $giphyLogoContainerH;
+  position: fixed;
+  bottom: 0;
+  background-color: #303030;
+  width: 100%;
+}
+
+.GiphyLogo {
+  position: absolute;
+  background-color: #303030;
+  right: $xl-margin;
+  margin: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-content: center;
+  align-items: center;
+  gap: $xl-margin;
+  width: 100%;
+  bottom: -5px;
+}
+
+.mat-menu-panel {
+  margin: 3px 18px;
+}
+
+.mat-tab-label,
+.mat-tab-link {
+  font-size: large;
+}
+
+@include rwd_mobile_one_breakpoint {
+  .LoginForm {
+    button:not(.ExtraLink) {
+      margin: $s-margin 0;
+    }
+  }
+
+  .Router {
+    width: 100%;
+  }
+
+  .App-flex > * {
+    margin: 0 0;
+  }
+
+  .MobileNavi {
+    mat-toolbar {
+      display: flex;
+    }
+  }
+
+  .MobileSideNavContainer {
+    .mat-drawer-shown {
+      height: 100%;
+      margin-top: $mobileNaviTopMargin;
+    }
+
+    .MobileNaviSideNav {
+      height: $mobileNaviSideNavHeight;
+      border-bottom-right-radius: $sideNavBorderRadius;
+    }
+
+    .LibrarySideNav {
+      position: fixed;
+      display: block;
+      width: 85vw;
+      height: $mobileLibrarySideNavHeight;
+      border-bottom-left-radius: $sideNavBorderRadius;
+    }
+
+    .SideNavTrigger {
+      display: initial;
+      position: absolute;
+      right: 10px;
+      height: 40px;
+      width: 40px;
+      top: 10px;
+      z-index: 9999;
+    }
+
+    .MobileNaviSideNav {
+      margin-top: $mobileNaviTopMargin;
+      display: block;
+      width: 60vw;
+
+      mat-nav-list {
+        button {
+          height: 45px;
+          width: 100%;
+          text-align: left;
+          background: none;
+        }
+
+        @media screen and (orientation: portrait) {
+          button {
+            height: 60px;
+          }
+
+          #LogOut button {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+          }
+        }
+
+        mat-label {
+          margin-left: $l-margin;
+        }
+      }
+
+      .MobileNavUser {
+        height: 60px;
+        background-color: #c2185b;
+        display: flex;
+        align-items: center;
+        flex-flow: row nowrap;
+        gap: $l-margin + 1;
+        font-size: smaller;
+        padding-left: $l-margin + 1;
+      }
+    }
+  }
+
+  .GifLibrary {
+    display: none;
+  }
+
+  #GiphyLogoContainer {
+    justify-content: center;
+  }
+
+  .GiphyLogo {
+    right: initial;
+    width: initial;
+    transform: scale(0.5);
+    bottom: initial;
+  }
+
+  .NaviButtons {
+    display: none;
   }
 }

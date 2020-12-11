@@ -1,0 +1,14 @@
+@import "../../../styles/variables/colors.scss";
+
+.NotVerified {
+  display: flex;
+  padding: 25vh 10vw;
+  justify-content: center;
+  justify-items: center;
+  gap: 20px;
+  background-color: #303030;
+
+  span {
+    color: $pallete-light-green;
+  }
+}

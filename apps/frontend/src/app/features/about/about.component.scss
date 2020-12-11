@@ -1,3 +1,88 @@
-.AboutContainer{
+@import "../../styles/mixins/rwd.scss";
+
+.AboutContainer {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  font-size: small;
+
+  .Stack {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    button {
+      margin: 10px 10px;
+      width: 400px;
+      height: 300px;
+    }
+  }
+
+  .AuthorInfo {
+    .About {
+      img {
+        height: 200px;
+        width: auto;
+        border-radius: 5%;
+      }
+    }
+
+    .AuthorGrid {
+      display: grid;
+      grid-template-columns: [author]25% [hello]70%;
+      grid-column-gap: 5%;
+      justify-self: center;
+      align-items: center;
+      justify-items: center;
+      width: 80%;
+      margin: auto;
+
+      .Hello {
+        display: flex;
+        flex-direction: column;
+
+        .HelloButtons {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+
+          button {
+            margin: 0 10px;
+            height: 80px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include rwd_mobile_one_breakpoint {
+  .AboutContainer {
+    display: block;
+    margin: 0 0;
+    font-size: small;
+
+    .AuthorInfo {
+      .AuthorGrid {
+        display: block;
+        margin: 0 0;
+        width: 100%;
+      }
+    }
+
+    .Stack {
+      flex-direction: column;
+
+      button {
+        margin: 10px 0;
+        width: 100%;
+        height: initial;
+      }
+    }
+  }
 }
