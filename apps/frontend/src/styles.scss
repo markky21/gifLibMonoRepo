@@ -166,4 +166,12 @@ element.style {
     display: block !important;
     position: initial !important;
   }
+
+  .mat-snack-bar-container {
+    img {
+      max-height: 200px;
+      height: auto;
+      max-width: 100%;
+    }
+  }
 }
