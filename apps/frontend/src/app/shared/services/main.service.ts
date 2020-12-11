@@ -14,7 +14,6 @@ import { NotificationService } from "./notification-service";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { firestore, User } from "firebase";
 import { LoginErrorComponent } from "../../features/login/error/login-error/login-error.component";
-import { AuthService } from "./auth.service";
 
 @Injectable({
   providedIn: "root",
