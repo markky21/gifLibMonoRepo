@@ -71,7 +71,6 @@ export class MainService {
     );
 
     fireBase.subscribe((firebaseData) => {
-      console.log(firebaseData);
       this.library = { ...firebaseData };
       this.libraryUpdate.next();
       this.saveState.next(false);

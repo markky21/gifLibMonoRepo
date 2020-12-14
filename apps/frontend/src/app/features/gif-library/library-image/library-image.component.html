@@ -1,4 +1,4 @@
-<div class="ImageWithTools" (mouseenter)="toggleTools()" (mouseleave)="toggleTools()">
+<div class="ImageWithTools" (click)="copyUrl()" (mouseenter)="toggleTools()" (mouseleave)="toggleTools()">
   <img [src]="imageSrc" />
   <div class="ImageTools" *ngIf="toolsVisible">
     <div (click)="copyUrl()">

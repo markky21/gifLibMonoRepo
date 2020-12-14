@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { NotificationService } from "apps/frontend/src/app/shared/services/notification-service";
 
 @Component({
-  selector: 'app-copied-notification',
-  templateUrl: './copied-notification.component.html',
-  styleUrls: ['./copied-notification.component.scss']
+  selector: "app-copied-notification",
+  templateUrl: "./copied-notification.component.html",
+  styleUrls: ["./copied-notification.component.scss"],
 })
-export class CopiedNotificationComponent implements OnInit {
+export class CopiedNotificationComponent {
+  constructor(private notificationService: NotificationService) {}
 
-  constructor() { }
-
-  ngOnInit() {
+  public close(): void {
+    this.notificationService.closeNotification();
   }
-
 }

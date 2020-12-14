@@ -14,6 +14,7 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularMaterialModule } from "./core/material/angular-material.module";
 import { LibrarySortPipe } from "./features/gif-library/library-sort.pipe";
 import { LoadingIndicatorComponent } from "./shared/components/loading-indicator/loading-indicator.component";
+import { AngularLoadingBarModule } from "@loadingio/angular-loading-bar";
 import { ImageDetailComponent } from "./features/image-detail/image-detail.component";
 import {
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
@@ -66,6 +67,7 @@ import { MobileNaviMenuComponent } from "./features/mobile-navi/mobile-navi-menu
     AngularFireAuthModule,
     AngularFireAuthGuardModule,
     AngularFirestoreModule,
+    AngularLoadingBarModule,
     MatSnackBarModule,
     MatSidenavModule,
     ServiceWorkerModule.register("ngsw-worker.js", {
