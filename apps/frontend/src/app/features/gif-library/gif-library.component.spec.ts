@@ -8,9 +8,8 @@ describe('GifLibraryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GifLibraryComponent ]
-    })
-    .compileComponents();
+      declarations: [GifLibraryComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

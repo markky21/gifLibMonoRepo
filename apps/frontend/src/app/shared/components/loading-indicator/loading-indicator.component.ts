@@ -5,12 +5,12 @@ import { MainService } from '../../services/main.service';
   selector: 'app-loading-indicator',
   templateUrl: './loading-indicator.component.html',
   styleUrls: ['./loading-indicator.component.scss'],
-  animations: []
+  animations: [],
 })
 export class LoadingIndicatorComponent implements OnInit {
   public progress$;
 
-  constructor(private mainService: MainService) { }
+  constructor(private mainService: MainService) {}
 
   ngOnInit() {
     this.progress$ = this.mainService.progress;

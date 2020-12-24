@@ -1,16 +1,16 @@
-import { Injectable, NgZone } from "@angular/core";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore } from "@angular/fire/firestore";
-import { Router } from "@angular/router";
-import { auth as firebaseAuth, firestore, User } from "firebase/app";
-import { forkJoin, from, Observable, of } from "rxjs";
-import { map, switchMap, tap } from "rxjs/operators";
+import { Injectable, NgZone } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
+import { auth as firebaseAuth, firestore, User } from 'firebase/app';
+import { forkJoin, from, Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
-import { LoginErrorComponent } from "../../features/login/error/login-error/login-error.component";
-import { NotificationService } from "./notification-service";
+import { LoginErrorComponent } from '../../features/login/error/login-error/login-error.component';
+import { NotificationService } from './notification-service';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class AuthService {
   constructor(
@@ -38,11 +38,7 @@ export class AuthService {
   public googleSignIn(): void {
     const firebaseShot = this.createLibraryIfNotExistingForUser();
 
-    from(
-      this.angularFireAuth.signInWithPopup(
-        new firebaseAuth.GoogleAuthProvider()
-      )
-    )
+    from(this.angularFireAuth.signInWithPopup(new firebaseAuth.GoogleAuthProvider()))
       .pipe(
         map(({ user }) => user.uid),
         switchMap((userId: string) => firebaseShot(userId))
@@ -53,11 +49,7 @@ export class AuthService {
   public facebookSignIn(): void {
     const firebaseShot = this.createLibraryIfNotExistingForUser();
 
-    from(
-      this.angularFireAuth.signInWithPopup(
-        new firebaseAuth.FacebookAuthProvider()
-      )
-    )
+    from(this.angularFireAuth.signInWithPopup(new firebaseAuth.FacebookAuthProvider()))
       .pipe(
         map(({ user }) => user.uid),
         switchMap((userId: string) => firebaseShot(userId))
@@ -67,12 +59,12 @@ export class AuthService {
 
   public goToSearch(): void {
     this.ngZone.run(() => {
-      this.router.navigate(["search"]);
+      this.router.navigate(['search']);
     });
   }
 
   public signOut(): void {
-    this.angularFireAuth.signOut().then(() => this.router.navigate(["signIn"]));
+    this.angularFireAuth.signOut().then(() => this.router.navigate(['signIn']));
   }
 
   public createUser(email: string, password: string): void {
@@ -80,17 +72,11 @@ export class AuthService {
     const sendVerification = this.verificationEmailResend();
 
     from(this.angularFireAuth.createUserWithEmailAndPassword(email, password))
-      .pipe(
-        switchMap(({ user }) =>
-          forkJoin(sendVerification(user), firebaseShot(user.uid))
-        )
-      )
+      .pipe(switchMap(({ user }) => forkJoin(sendVerification(user), firebaseShot(user.uid))))
       .subscribe(
         () => {
-          this.notificationService.simpleNotification(
-            "Verification email sent"
-          );
-          this.router.navigate(["signIn"]);
+          this.notificationService.simpleNotification('Verification email sent');
+          this.router.navigate(['signIn']);
         },
         (msg) => this.signInError(msg)
       );
@@ -104,9 +90,7 @@ export class AuthService {
   }
 
   public sendResetPassword(email: string): void {
-    this.angularFireAuth
-      .sendPasswordResetEmail(email)
-      .then(() => this.resetPassNotification());
+    this.angularFireAuth.sendPasswordResetEmail(email).then(() => this.resetPassNotification());
   }
 
   public verificationEmailResend(): any {
@@ -114,39 +98,33 @@ export class AuthService {
   }
 
   public noPassResetEmail(): void {
-    this.notificationService.simpleNotification("Please fill email");
+    this.notificationService.simpleNotification('Please fill email');
   }
 
   private resetPassNotification(): void {
-    this.notificationService.simpleNotification(
-      "Password reset email sent, check your inbox."
-    );
+    this.notificationService.simpleNotification('Password reset email sent, check your inbox.');
   }
 
   private createLibraryIfNotExistingForUser() {
-    return (
-      userId: string
-    ): Observable<firestore.DocumentSnapshot<firestore.DocumentData> | null> =>
+    return (userId: string): Observable<firestore.DocumentSnapshot<firestore.DocumentData> | null> =>
       this.firestore
-        .doc("users/" + userId)
+        .doc('users/' + userId)
         .get()
         .pipe(
-          switchMap(
-            (data: firestore.DocumentSnapshot<firestore.DocumentData>) => {
-              if (data.data()) {
-                return of(null);
-              } else {
-                return from(
-                  this.firestore.firestore
-                    .batch()
-                    .set(this.firestore.firestore.doc("users/" + userId), {
-                      library: {},
-                    })
-                    .commit()
-                );
-              }
+          switchMap((data: firestore.DocumentSnapshot<firestore.DocumentData>) => {
+            if (data.data()) {
+              return of(null);
+            } else {
+              return from(
+                this.firestore.firestore
+                  .batch()
+                  .set(this.firestore.firestore.doc('users/' + userId), {
+                    library: {},
+                  })
+                  .commit()
+              );
             }
-          )
+          })
         );
   }
 }

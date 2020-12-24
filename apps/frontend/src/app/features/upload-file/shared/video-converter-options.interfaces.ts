@@ -1,8 +1,8 @@
 export enum Res {
-  Minimal = "240x160",
-  Low = "320x240",
-  Medium = "480x320",
-  High = "640x480",
+  Minimal = '240x160',
+  Low = '320x240',
+  Medium = '480x320',
+  High = '640x480',
 }
 
 export type VideoResolutions = Res.Minimal | Res.Low | Res.Medium | Res.High;
@@ -20,7 +20,7 @@ export const DEFAULT_FRAME_RATE = FRAME_RATES[10];
 export interface VideoConverterOptions {
   trimFrom?: string;
   trimTo?: string;
-  videoCodec?: "GIF";
+  videoCodec?: 'GIF';
   videoFps?: string;
   videoResolution: VideoResolutions;
 }

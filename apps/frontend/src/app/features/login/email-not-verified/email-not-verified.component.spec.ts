@@ -8,9 +8,8 @@ describe('EmailNotVerifiedComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EmailNotVerifiedComponent ]
-    })
-    .compileComponents();
+      declarations: [EmailNotVerifiedComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

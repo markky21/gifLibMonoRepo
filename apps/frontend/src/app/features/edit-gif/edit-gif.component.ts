@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 @Component({
   selector: 'app-edit-gif',
   templateUrl: './edit-gif.component.html',
-  styleUrls: ['./edit-gif.component.scss']
+  styleUrls: ['./edit-gif.component.scss'],
 })
 export class EditGifComponent implements OnInit, AfterViewInit, AfterContentChecked {
   data$: Observable<number[]>;
@@ -36,21 +36,20 @@ export class EditGifComponent implements OnInit, AfterViewInit, AfterContentChec
   }
 
   assignClasses(): void {
-    this.getData().subscribe(data => {
-      this.classes = data.map(number => {
+    this.getData().subscribe((data) => {
+      this.classes = data.map((number) => {
         if (number % 3) {
           return 'red';
         } else {
           return 'gray';
         }
       });
-    })
+    });
   }
 
   ngAfterViewInit(): void {
     console.timeEnd(this.time);
   }
 
-  ngAfterContentChecked(): void {
-  }
+  ngAfterContentChecked(): void {}
 }

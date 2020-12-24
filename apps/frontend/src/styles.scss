@@ -1,22 +1,22 @@
 /* You can add global styles to this file, and also import other style files */
-@import "@angular/material/prebuilt-themes/pink-bluegrey.css";
-@import "../src/app/styles/mixins/rwd.scss";
-@import "../src/app/styles/variables/margins.scss";
-@import "../src/app/styles/variables/colors.scss";
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+@import '../src/app/styles/mixins/rwd.scss';
+@import '../src/app/styles/variables/margins.scss';
+@import '../src/app/styles/variables/colors.scss';
 
 html {
   height: 100%;
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 body {
-  background: url("assets/gifster_new.png") no-repeat 50% 50%;
+  background: url('assets/gifster_new.png') no-repeat 50% 50%;
 }
 
 @font-face {
-  font-family: "Material Icons";
+  font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
   font-size: 24px;
@@ -27,12 +27,12 @@ body {
   white-space: nowrap;
   word-wrap: normal;
   direction: ltr;
-  -moz-font-feature-settings: "liga";
+  -moz-font-feature-settings: 'liga';
   -moz-osx-font-smoothing: grayscale;
 }
 
 @font-face {
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
 }
@@ -67,7 +67,7 @@ element.style {
 
 .mat-drawer-container {
   display: initial !important;
-  background: url("/gifster_new.png") 50% 50%;
+  background: url('/gifster_new.png') 50% 50%;
   background-size: 10%;
   background-repeat: space;
   background-color: #b0bec5;

@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "frontend": "ng serve frontend --host=0.0.0.0 --disable-host-check",
-    "api": "ng serve api",
-    "build": "ng build",
+    "start:frontend": "ng serve frontend",
+    "start:api": "ng serve api",
+    "build:frontend": "ng build frontend",
+    "build:api": "ng build api",
     "test": "ng test",
     "lint": "nx lint && ng lint",
     "e2e": "ng e2e",

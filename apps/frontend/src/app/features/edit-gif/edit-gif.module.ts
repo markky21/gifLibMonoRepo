@@ -6,18 +6,11 @@ import { SharedModule } from '../../core/shared.module';
 
 import { EditGifComponent } from './edit-gif.component';
 
-
-const routes: Routes = [
-  { path: '', component: EditGifComponent}
-];
+const routes: Routes = [{ path: '', component: EditGifComponent }];
 
 @NgModule({
   declarations: [EditGifComponent],
-  imports: [
-    SharedModule,
-    RouterModule.forChild(routes),
-    CommonModule
-  ],
-  exports: [RouterModule]
+  imports: [SharedModule, RouterModule.forChild(routes), CommonModule],
+  exports: [RouterModule],
 })
-export class EditGifModule { }
+export class EditGifModule {}

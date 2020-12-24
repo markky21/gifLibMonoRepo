@@ -1,7 +1,9 @@
 <mat-card>
   <mat-card-header>
     <mat-card-title *ngIf="image">{{ image.title }}</mat-card-title>
-    <mat-card-subtitle >Category: <strong>{{ category }}</strong></mat-card-subtitle>
+    <mat-card-subtitle
+      >Category: <strong>{{ category }}</strong></mat-card-subtitle
+    >
   </mat-card-header>
   <mat-card-content>
     <app-loading-indicator *ngIf="!originalImageUrl; else imgTmpl"></app-loading-indicator>
@@ -12,7 +14,7 @@
         </div>
         <div>
           <div>Rating: {{ image.rating }}</div>
-          <div>Score: {{  image._score }}</div>
+          <div>Score: {{ image._score }}</div>
           <div>Username: {{ image.username }}</div>
         </div>
       </div>

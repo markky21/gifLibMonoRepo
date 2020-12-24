@@ -8,9 +8,8 @@ describe('CopiedNotificationComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CopiedNotificationComponent ]
-    })
-    .compileComponents();
+      declarations: [CopiedNotificationComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

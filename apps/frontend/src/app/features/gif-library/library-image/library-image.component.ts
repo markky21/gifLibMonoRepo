@@ -1,17 +1,9 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from "@angular/core";
-import { GIFObject } from "../../../core/types/gif-object.type";
-import { Params, Router } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { CopiedNotificationComponent } from "./shared/copied-notification.component";
-import { MainService } from "../../../shared/services/main.service";
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { GIFObject } from '../../../core/types/gif-object.type';
+import { Params, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CopiedNotificationComponent } from './shared/copied-notification.component';
+import { MainService } from '../../../shared/services/main.service';
 
 interface DetailsCluesInterface {
   category: string;
@@ -19,35 +11,27 @@ interface DetailsCluesInterface {
 }
 
 @Component({
-  selector: "app-library-image",
-  templateUrl: "./library-image.component.html",
-  styleUrls: ["./library-image.component.scss"],
+  selector: 'app-library-image',
+  templateUrl: './library-image.component.html',
+  styleUrls: ['./library-image.component.scss'],
 })
 export class LibraryImageComponent implements OnInit {
   @Input() img: GIFObject;
   @Input() detailsClues: DetailsCluesInterface;
   @Output() showTools: EventEmitter<number>;
-  @ViewChild("URL", { static: true }) public URLtextarea: ElementRef;
+  @ViewChild('URL', { static: true }) public URLtextarea: ElementRef;
 
   public imageSrc: string;
   public toolsVisible = false;
 
-  constructor(
-    private router: Router,
-    private notify: MatSnackBar,
-    private mainServ: MainService
-  ) {}
+  constructor(private router: Router, private notify: MatSnackBar, private mainServ: MainService) {}
 
   ngOnInit() {
     this.imageSrc = this.getLibImgSrc();
   }
 
   public imageDetail(): void {
-    this.router.navigate([
-      "images",
-      this.detailsClues.category,
-      this.detailsClues.el,
-    ]);
+    this.router.navigate(['images', this.detailsClues.category, this.detailsClues.el]);
   }
 
   public imageRemove(): void {
@@ -65,9 +49,7 @@ export class LibraryImageComponent implements OnInit {
   }
 
   public getHeight(): string {
-    return (
-      this.img.images.preview_gif.height || this.img.images.downsized.height
-    );
+    return this.img.images.preview_gif.height || this.img.images.downsized.height;
   }
 
   public toggleTools(): void {
@@ -76,7 +58,7 @@ export class LibraryImageComponent implements OnInit {
 
   public copyUrl(): void {
     this.URLtextarea.nativeElement.select();
-    document.execCommand("copy");
+    document.execCommand('copy');
     this.notify.openFromComponent(CopiedNotificationComponent);
   }
 
@@ -89,6 +71,6 @@ export class LibraryImageComponent implements OnInit {
     const width = readHeight > 200 ? 200 : readHeight < 100 ? 200 : readHeight;
     console.log(width);
 
-    return { height: height + "px", width: width + "px" };
+    return { height: height + 'px', width: width + 'px' };
   }
 }

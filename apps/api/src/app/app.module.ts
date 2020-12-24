@@ -1,10 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { Module } from '@nestjs/common';
 
-import { AppController } from "./app.controller";
-import { AppService } from "./app.service";
-import { GifEncoderController } from "./controllers/gif-encoder/gif-encoder.controller";
-import { GifEncoderService } from "./controllers/gif-encoder/gif-encoder-service/gif-encoder.service";
-import { MyMiddleware } from "./middleware/my-middleware.service";
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { GifEncoderController } from './controllers/gif-encoder/gif-encoder.controller';
+import { GifEncoderService } from './controllers/gif-encoder/gif-encoder-service/gif-encoder.service';
 
 @Module({
   imports: [],

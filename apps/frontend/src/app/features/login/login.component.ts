@@ -1,23 +1,18 @@
-import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { AuthService } from "../../shared/services/auth.service";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { AuthService } from '../../shared/services/auth.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: "login",
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"],
+  selector: 'login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public forgetPassStyle = {
-    color: "blue",
-    cursor: "pointer",
+    color: 'blue',
+    cursor: 'pointer',
   };
 
   constructor(private auth: AuthService, private fb: FormBuilder) {}
@@ -30,11 +25,11 @@ export class LoginComponent implements OnInit {
   }
 
   get email(): string {
-    return this.loginForm.get("email").value;
+    return this.loginForm.get('email').value;
   }
 
   get password(): string {
-    return this.loginForm.get("password").value;
+    return this.loginForm.get('password').value;
   }
 
   get formValid(): boolean {

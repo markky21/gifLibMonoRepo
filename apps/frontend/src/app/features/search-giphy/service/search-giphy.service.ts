@@ -8,8 +8,7 @@ import { GIFObject } from '../../../core/types/gif-object.type';
 
 @Injectable()
 export class SearchGiphyService {
-
-  constructor(private httpService: HttpService) { }
+  constructor(private httpService: HttpService) {}
 
   search(terms: string): Observable<GIFObject[]> {
     return this.httpService.searchGifs(terms).pipe(map((results: SEARCH_GIPHY_RESPONSE) => results.data));

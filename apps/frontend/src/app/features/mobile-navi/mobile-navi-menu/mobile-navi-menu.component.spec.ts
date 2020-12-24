@@ -8,9 +8,8 @@ describe('MobileNaviMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MobileNaviMenuComponent ]
-    })
-    .compileComponents();
+      declarations: [MobileNaviMenuComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

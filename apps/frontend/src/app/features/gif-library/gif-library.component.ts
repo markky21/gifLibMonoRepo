@@ -1,21 +1,21 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { Subscription } from "rxjs";
-import { MatAccordion } from "@angular/material/expansion";
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { MatAccordion } from '@angular/material/expansion';
 
-import { MainService } from "../../shared/services/main.service";
-import { LibraryType } from "./shared/library.type";
-import { Router } from "@angular/router";
+import { MainService } from '../../shared/services/main.service';
+import { LibraryType } from './shared/library.type';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: "app-gif-library",
-  templateUrl: "./gif-library.component.html",
-  styleUrls: ["./gif-library.component.scss"],
+  selector: 'app-gif-library',
+  templateUrl: './gif-library.component.html',
+  styleUrls: ['./gif-library.component.scss'],
 })
 export class GifLibraryComponent implements OnInit, OnDestroy {
   @ViewChild(MatAccordion) allTabs: MatAccordion;
 
   public library: LibraryType | {} = {};
-  public sortOptions = "date";
+  public sortOptions = 'date';
   public saveDisabled: boolean;
   public spinnerVisible: boolean;
   public progress = 0;
@@ -36,11 +36,9 @@ export class GifLibraryComponent implements OnInit, OnDestroy {
   }
 
   private spinnerInit(): void {
-    const spinnerSub = this.mainService.spinner.subscribe(
-      (visibility: boolean) => {
-        this.spinnerVisible = visibility;
-      }
-    );
+    const spinnerSub = this.mainService.spinner.subscribe((visibility: boolean) => {
+      this.spinnerVisible = visibility;
+    });
 
     this.subscriptions.add(
       this.mainService.progress.subscribe((value) => {
@@ -65,11 +63,9 @@ export class GifLibraryComponent implements OnInit, OnDestroy {
   }
 
   private saveDisabledSet(): void {
-    const saveStateSub = this.mainService.saveState.subscribe(
-      (state: boolean) => {
-        this.saveDisabled = !state;
-      }
-    );
+    const saveStateSub = this.mainService.saveState.subscribe((state: boolean) => {
+      this.saveDisabled = !state;
+    });
 
     this.subscriptions.add(saveStateSub);
   }

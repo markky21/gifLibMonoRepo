@@ -1,27 +1,23 @@
-import { Injectable } from "@angular/core";
-import { map, switchMap, take, tap } from "rxjs/operators";
-import { DomSanitizer } from "@angular/platform-browser";
-import { BehaviorSubject, forkJoin, Observable } from "rxjs";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Injectable } from '@angular/core';
+import { map, switchMap, take, tap } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
+import { BehaviorSubject, forkJoin, Observable } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { HttpService } from "../../../core/http/http.service";
-import { MainService } from "../../../shared/services/main.service";
-import {
-  DEFAULT_FRAME_RATE,
-  Res,
-  VideoConverterOptions,
-} from "../shared/video-converter-options.interfaces";
-import { GIFObject } from "../../../core/types/gif-object.type";
-import { DEFAULT_folder_VALUE } from "../upload-file.component";
+import { HttpService } from '../../../core/http/http.service';
+import { MainService } from '../../../shared/services/main.service';
+import { DEFAULT_FRAME_RATE, Res, VideoConverterOptions } from '../shared/video-converter-options.interfaces';
+import { GIFObject } from '../../../core/types/gif-object.type';
+import { DEFAULT_folder_VALUE } from '../upload-file.component';
 
 const UPLOAD_MESSAGES = {
-  sizeExceeded: "File upload aborted due to exceeded file size! Limit is 15MB",
-  wrongType: "Wrong image type. We require video file!",
-  loadOK: "Whoa! File successfully loaded dude!",
+  sizeExceeded: 'File upload aborted due to exceeded file size! Limit is 15MB',
+  wrongType: 'Wrong image type. We require video file!',
+  loadOK: 'Whoa! File successfully loaded dude!',
 };
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class UploadFileService {
   private _uploadedFile: File = null;
@@ -86,11 +82,8 @@ export class UploadFileService {
     return this.fb.group({
       imageInput: this.fb.control(null, [Validators.required]),
       resolution: this.fb.control(Res.Medium, Validators.required),
-      conversionFrameRate: this.fb.control(
-        DEFAULT_FRAME_RATE,
-        Validators.required
-      ),
-      tags: this.fb.control(""),
+      conversionFrameRate: this.fb.control(DEFAULT_FRAME_RATE, Validators.required),
+      tags: this.fb.control(''),
       folder: this.fb.control(DEFAULT_folder_VALUE),
     });
   }
@@ -105,14 +98,14 @@ export class UploadFileService {
         const limit = 1024 * 1024 * 15;
         const size = ev.total;
         const sizeExceeded = size > limit;
-        const wrongType = !file.type.includes("video");
+        const wrongType = !file.type.includes('video');
 
         if (sizeExceeded || wrongType) {
           reader.abort();
           this.videoURL = null;
           this.uploadedFile = null;
           this.loadedVideo$.next(false);
-          const message = sizeExceeded ? "sizeExceeded" : "wrongType";
+          const message = sizeExceeded ? 'sizeExceeded' : 'wrongType';
           this.mainService.notifyMessage(UPLOAD_MESSAGES[message]);
           return;
         }
@@ -130,7 +123,7 @@ export class UploadFileService {
 
   public giveAvailableResolutions(ratio: number): string[] {
     return Object.values(Res).map((res) => {
-      const defaultRes = res.split("x");
+      const defaultRes = res.split('x');
       const defRes = {
         width: defaultRes[0],
         height: defaultRes[1],
@@ -147,28 +140,20 @@ export class UploadFileService {
     this.convertedFile = responseFile;
 
     this.converting$.next(false);
-    this.convertedURL = this.sanitizer.bypassSecurityTrustResourceUrl(
-      urlCreate.createObjectURL(responseFile)
-    );
+    this.convertedURL = this.sanitizer.bypassSecurityTrustResourceUrl(urlCreate.createObjectURL(responseFile));
   }
 
   public uploadToLibrary(tags: string[], category: string): void {
     const fileData = {
       file: this.convertedFile,
-      name: `${this.uploadedFile.name.split(".")[0]}.gif`,
+      name: `${this.uploadedFile.name.split('.')[0]}.gif`,
     };
 
     forkJoin(
       this.httpService.giphyUpload(fileData, tags).pipe(
-        switchMap((response) =>
-          this.httpService.upoloadedGiphyFileIdToGifObject(
-            `${response.data.id}`
-          )
-        ),
+        switchMap((response) => this.httpService.upoloadedGiphyFileIdToGifObject(`${response.data.id}`)),
         map((response) => response.data),
-        tap((result: GIFObject) =>
-          this.mainService.transferToLibrary(category, result)
-        )
+        tap((result: GIFObject) => this.mainService.transferToLibrary(category, result))
       ),
       this.mainService.libraryUpdate.pipe(take(1))
     ).subscribe(
@@ -189,15 +174,11 @@ export class UploadFileService {
 
     let formData = new FormData();
 
-    formData.append("file", this.uploadedFile);
-    Object.keys(options).forEach((option) =>
-      formData.append(option, options[option])
-    );
+    formData.append('file', this.uploadedFile);
+    Object.keys(options).forEach((option) => formData.append(option, options[option]));
 
-    this.httpService
-      .apiConvertToGifObservable(formData)
-      .subscribe((gifImageBlob: Blob) => {
-        this.convertGifFromConverterToUrl(gifImageBlob);
-      });
+    this.httpService.apiConvertToGifObservable(formData).subscribe((gifImageBlob: Blob) => {
+      this.convertGifFromConverterToUrl(gifImageBlob);
+    });
   }
 }

@@ -8,9 +8,8 @@ describe('LibraryImageComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LibraryImageComponent ]
-    })
-    .compileComponents();
+      declarations: [LibraryImageComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

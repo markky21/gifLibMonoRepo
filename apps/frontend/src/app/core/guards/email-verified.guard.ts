@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, UrlTree } from "@angular/router";
+import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AngularFireAuth } from "@angular/fire/auth";
-import { filter, map } from "rxjs/operators";
-import { User } from "firebase";
+import { AngularFireAuth } from '@angular/fire/auth';
+import { filter, map } from 'rxjs/operators';
+import { User } from 'firebase';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EmailVerifiedGuard implements CanActivate {
-  constructor(private angularFire: AngularFireAuth, private router: Router) {
-  }
+  constructor(private angularFire: AngularFireAuth, private router: Router) {}
   canActivate(): Observable<boolean | UrlTree> {
     return this.angularFire.authState.pipe(
       filter((user: User) => !!user),
@@ -20,6 +19,7 @@ export class EmailVerifiedGuard implements CanActivate {
         }
 
         return userInfo.emailVerified;
-      }));
+      })
+    );
   }
 }

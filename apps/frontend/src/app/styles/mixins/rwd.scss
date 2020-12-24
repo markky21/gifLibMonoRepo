@@ -1,4 +1,4 @@
-@import "../variables/rwd.scss";
+@import '../variables/rwd.scss';
 
 @mixin rwd_custom_to($size) {
   @media screen and (max-width: $size) {
