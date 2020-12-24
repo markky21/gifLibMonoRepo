@@ -8,9 +8,8 @@ describe('LibrarySaveSnackComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LibrarySaveSnackComponent ]
-    })
-    .compileComponents();
+      declarations: [LibrarySaveSnackComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

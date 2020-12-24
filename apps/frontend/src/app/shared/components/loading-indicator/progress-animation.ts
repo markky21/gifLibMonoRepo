@@ -1,2 +1,1 @@
-export const ProgressAnimation = {
-}
+export const ProgressAnimation = {};

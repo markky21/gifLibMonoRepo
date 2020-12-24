@@ -3,21 +3,13 @@
     <mat-card-title>Your Library</mat-card-title>
     <div class="LibraryNavi">
       <span>
-        <button mat-stroked-button [disabled]="saveDisabled" color="primary" (click)="saveToFirebase()">
-          Save
-        </button>
-        <button mat-stroked-button color="primary" (click)="allTabs.openAll()">
-          Open All
-        </button>
-        <button mat-stroked-button color="primary" (click)="allTabs.closeAll()">
-          Close All
-        </button>
+        <button mat-stroked-button [disabled]="saveDisabled" color="primary" (click)="saveToFirebase()">Save</button>
+        <button mat-stroked-button color="primary" (click)="allTabs.openAll()">Open All</button>
+        <button mat-stroked-button color="primary" (click)="allTabs.closeAll()">Close All</button>
       </span>
       <span>
         <label>Sort by:</label>
-        <button mat-button [color]="!sortOptions ? 'warn' : 'primary'" (click)="sortOptions = null">
-          A-z
-        </button>
+        <button mat-button [color]="!sortOptions ? 'warn' : 'primary'" (click)="sortOptions = null">A-z</button>
         <button mat-button [color]="sortOptions === 'reverse' ? 'warn' : 'primary'" (click)="sortOptions = 'reverse'">
           z-A
         </button>
@@ -29,25 +21,28 @@
     </div>
   </mat-card-header>
   <mat-card-content>
-    <mat-progress-bar *ngIf="spinnerVisible; else libraryDiv" mode="indeterminate">
-    </mat-progress-bar>
+    <mat-progress-bar *ngIf="spinnerVisible; else libraryDiv" mode="indeterminate"> </mat-progress-bar>
     <ng-template #libraryDiv>
       <mat-accordion [multi]="true">
-        <mat-expansion-panel class="CategoryPanel"
-          *ngFor="let category of library | librarySort: sortOptions; let i = index" [expanded]="false">
+        <mat-expansion-panel
+          class="CategoryPanel"
+          *ngFor="let category of library | librarySort: sortOptions; let i = index"
+          [expanded]="false"
+        >
           <mat-expansion-panel-header class="PanelHeader">
             <mat-icon [title]="'Remove category ' + category" (click)="removeCategory($event, category)">
               delete
             </mat-icon>
             <mat-panel-title>
-              {{category}}
+              {{ category }}
             </mat-panel-title>
-            <mat-panel-description *ngIf="i === 0">
-              Click to show GIFS
-            </mat-panel-description>
+            <mat-panel-description *ngIf="i === 0"> Click to show GIFS </mat-panel-description>
           </mat-expansion-panel-header>
-          <app-library-image *ngFor="let el of library[category]['allImages']; let i = index" [img]="el"
-            [detailsClues]=" {category: category, el: i}">
+          <app-library-image
+            *ngFor="let el of library[category]['allImages']; let i = index"
+            [img]="el"
+            [detailsClues]="{ category: category, el: i }"
+          >
           </app-library-image>
         </mat-expansion-panel>
       </mat-accordion>

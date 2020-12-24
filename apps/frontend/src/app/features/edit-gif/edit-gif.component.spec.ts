@@ -8,9 +8,8 @@ describe('EditGifComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditGifComponent ]
-    })
-    .compileComponents();
+      declarations: [EditGifComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

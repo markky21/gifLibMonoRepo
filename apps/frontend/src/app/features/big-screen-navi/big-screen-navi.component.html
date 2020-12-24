@@ -1,22 +1,19 @@
 <div class="NaviButtons" *ngIf="loggedIn$ | async as userInfo">
-    <nav mat-tab-nav-bar>
-        <a mat-tab-link [active]="activeLink === 'about'" [routerLink]="['about']">About
-        </a>
-        <a mat-tab-link [active]="activeLink === 'search'" [routerLink]="['search']">GIF Search
-        </a>
-        <a mat-tab-link [active]="activeLink === 'upload'" [routerLink]="['upload']">Upload & Convert
-        </a>
-    </nav>
-    <div>
-        <button mat-flat-button class="UserName" [matMenuTriggerFor]="menu">
-            <mat-icon>account_box</mat-icon>
-            <mat-label style="margin-left: 10px">{{ userInfo.displayName || userInfo.email }}</mat-label>
-        </button>
-        <mat-menu #menu="matMenu" class="customize">
-            <button mat-menu-item (click)="logOut()">
-                <mat-icon>power_settings_new</mat-icon>
-                <span>Sign out</span>
-            </button>
-        </mat-menu>
-    </div>
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link [active]="activeLink === 'about'" [routerLink]="['about']">About </a>
+    <a mat-tab-link [active]="activeLink === 'search'" [routerLink]="['search']">GIF Search </a>
+    <a mat-tab-link [active]="activeLink === 'upload'" [routerLink]="['upload']">Upload & Convert </a>
+  </nav>
+  <div>
+    <button mat-flat-button class="UserName" [matMenuTriggerFor]="menu">
+      <mat-icon>account_box</mat-icon>
+      <mat-label style="margin-left: 10px">{{ userInfo.displayName || userInfo.email }}</mat-label>
+    </button>
+    <mat-menu #menu="matMenu" class="customize">
+      <button mat-menu-item (click)="logOut()">
+        <mat-icon>power_settings_new</mat-icon>
+        <span>Sign out</span>
+      </button>
+    </mat-menu>
+  </div>
 </div>

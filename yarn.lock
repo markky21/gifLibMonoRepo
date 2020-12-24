@@ -1808,18 +1808,6 @@
     merge-source-map "^1.1.0"
     schema-utils "^2.6.4"
 
-"@loadingio/angular-loading-bar@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@loadingio/angular-loading-bar/-/angular-loading-bar-0.1.1.tgz#c193348a016dd32f41c8acb0ed55ad2730ba0468"
-  integrity sha512-OB4i5FNnwwlo1aMkx1RNBL3Unh2rb0cZe1AOCfPGMnwMj3E+VTdwVdWn247jLjhybSdIwoiKG6OoWO/D4XhQIQ==
-  dependencies:
-    tslib "^1.9.0"
-
-"@loadingio/loading-bar@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@loadingio/loading-bar/-/loading-bar-0.1.1.tgz#870964cf21bc708907aed767baa54626c38b55c0"
-  integrity sha512-yplZliYit8MQIxKi6WX6HiuOzlcGD4OK+sJpzxI+ls4qQUm3ozJtrKObJvCGpv3zIdZ8XxFqUetWs2/iL2gWng==
-
 "@nestjs/common@^7.3.2":
   version "7.4.4"
   resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-7.4.4.tgz#400011464792e446949e9cb719bdf7ede31da725"

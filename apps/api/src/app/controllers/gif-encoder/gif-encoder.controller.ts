@@ -1,26 +1,17 @@
-import {
-  Body,
-  Controller,
-  Header,
-  HttpCode,
-  Post,
-  Res,
-  UploadedFile,
-  UseInterceptors,
-} from "@nestjs/common";
-import { FileInterceptor } from "@nestjs/platform-express";
+import { Body, Controller, Header, HttpCode, Post, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 
-import { GifEncoderService } from "./gif-encoder-service/gif-encoder.service";
-import { Readable } from "stream";
+import { GifEncoderService } from './gif-encoder-service/gif-encoder.service';
+import { Readable } from 'stream';
 
-@Controller("gif-encoder")
+@Controller('gif-encoder')
 export class GifEncoderController {
   public constructor(private readonly encService: GifEncoderService) {}
 
   @Post()
   @HttpCode(200)
-  @Header("Content-Type", "image/gif")
-  @UseInterceptors(FileInterceptor("file"))
+  @Header('Content-Type', 'image/gif')
+  @UseInterceptors(FileInterceptor('file'))
   convertToGif(
     @UploadedFile()
     file: {
@@ -29,8 +20,8 @@ export class GifEncoderController {
       videoFps: number;
       videoResolution: string;
     },
-    @Body("videoFps") fps: number,
-    @Body("videoResolution") resolution: string,
+    @Body('videoFps') fps: number,
+    @Body('videoResolution') resolution: string,
     @Res()
     res
   ) {

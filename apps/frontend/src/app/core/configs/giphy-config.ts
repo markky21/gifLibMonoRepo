@@ -4,6 +4,6 @@ export const GIPHY_CONFIG = {
   endpoints: {
     getById: 'https://api.giphy.com/v1/gifs/%1?api_key=',
     search: 'https://api.giphy.com/v1/gifs/search?api_key=',
-    upload: 'https://upload.giphy.com/v1/gifs?api_key='
-  }
+    upload: 'https://upload.giphy.com/v1/gifs?api_key=',
+  },
 };

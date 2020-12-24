@@ -10,8 +10,14 @@
     </ol>
     <div class="SearchField">
       <mat-form-field>
-        <input matInput type="text" placeholder="Type to begin the gif search" (keyup)="searchNext(searchInput.value)"
-          [formControl]="searchControl" #searchInput>
+        <input
+          matInput
+          type="text"
+          placeholder="Type to begin the gif search"
+          (keyup)="searchNext(searchInput.value)"
+          [formControl]="searchControl"
+          #searchInput
+        />
         <mat-error *ngIf="searchControl.invalid">You must enter a value</mat-error>
       </mat-form-field>
       <button mat-button (click)="clearTerms()">
@@ -22,12 +28,10 @@
       <mat-expansion-panel *ngIf="searchResults" [expanded]="true">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            <span>
-              What giphy gives...
-            </span>
+            <span> What giphy gives... </span>
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <div class=" SearchResults" *ngFor="let result of searchResults">
+        <div class="SearchResults" *ngFor="let result of searchResults">
           <div>
             <img [src]="result.images.preview_gif.url" (click)="sendToLibrary(actualTerm, result)" />
           </div>

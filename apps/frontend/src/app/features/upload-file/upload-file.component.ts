@@ -1,23 +1,22 @@
-import { Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { FormControl, FormGroup } from "@angular/forms";
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
-import { MainService } from "../../shared/services/main.service";
-import { FRAME_RATES } from "./shared/video-converter-options.interfaces";
-import { UploadFileService } from "./services/upload-file.service";
-import { Observable } from "rxjs";
-import { MatStepper } from "@angular/material/stepper";
-import { distinctUntilChanged, filter, skip, tap } from "rxjs/operators";
+import { MainService } from '../../shared/services/main.service';
+import { FRAME_RATES } from './shared/video-converter-options.interfaces';
+import { UploadFileService } from './services/upload-file.service';
+import { Observable } from 'rxjs';
+import { MatStepper } from '@angular/material/stepper';
+import { distinctUntilChanged, filter, skip, tap } from 'rxjs/operators';
 
-export const DEFAULT_folder_VALUE =
-  "Click one of the tags or available folders to set it as target library folder";
+export const DEFAULT_folder_VALUE = 'Click one of the tags or available folders to set it as target library folder';
 
 @Component({
-  selector: "app-upload-file",
-  templateUrl: "./upload-file.component.html",
-  styleUrls: ["./upload-file.component.scss"],
+  selector: 'app-upload-file',
+  templateUrl: './upload-file.component.html',
+  styleUrls: ['./upload-file.component.scss'],
 })
 export class UploadFileComponent implements OnInit {
-  @ViewChild("uploadStepper") private myStepper: MatStepper;
+  @ViewChild('uploadStepper') private myStepper: MatStepper;
 
   public imageUploadForm: FormGroup;
   public frameRates = Object.values(FRAME_RATES);
@@ -29,13 +28,10 @@ export class UploadFileComponent implements OnInit {
   public convertResolution: string;
   public availableFolders: string[] = [];
 
-  constructor(
-    private mainService: MainService,
-    private uploadService: UploadFileService
-  ) {}
+  constructor(private mainService: MainService, private uploadService: UploadFileService) {}
 
   get convertRes(): string {
-    return this.imageUploadForm.get("resolution").value;
+    return this.imageUploadForm.get('resolution').value;
   }
 
   public buildForm(): void {
@@ -65,7 +61,7 @@ export class UploadFileComponent implements OnInit {
     if (this.folderIsSet) {
       this.uploadService.uploadToLibrary(this.tags, this.folder);
     } else {
-      this.mainService.notifyMessage("Please select folder!!!");
+      this.mainService.notifyMessage('Please select folder!!!');
     }
   }
 
@@ -75,11 +71,11 @@ export class UploadFileComponent implements OnInit {
   }
 
   public changeFolder(tag: string): void {
-    this.imageUploadForm.get("folder").patchValue(tag);
+    this.imageUploadForm.get('folder').patchValue(tag);
   }
 
   public resolutionChange(resolution: string): void {
-    this.imageUploadForm.get("resolution").patchValue(resolution);
+    this.imageUploadForm.get('resolution').patchValue(resolution);
   }
 
   get fileSizeInKB(): string {
@@ -131,11 +127,11 @@ export class UploadFileComponent implements OnInit {
   }
 
   get tagsControl(): FormControl {
-    return this.imageUploadForm.get("tags") as FormControl;
+    return this.imageUploadForm.get('tags') as FormControl;
   }
 
   get folder(): string {
-    return (this.imageUploadForm.get("folder") as FormControl).value;
+    return (this.imageUploadForm.get('folder') as FormControl).value;
   }
 
   get folderIsSet(): boolean {

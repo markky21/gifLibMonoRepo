@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MobileNaviHeaderComponent } from "./mobile-navi-header.component";
+import { MobileNaviHeaderComponent } from './mobile-navi-header.component';
 
-describe("MobileNaviComponent", () => {
+describe('MobileNaviComponent', () => {
   let component: MobileNaviHeaderComponent;
   let fixture: ComponentFixture<MobileNaviHeaderComponent>;
 
@@ -18,7 +18,7 @@ describe("MobileNaviComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

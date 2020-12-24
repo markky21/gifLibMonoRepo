@@ -10,8 +10,8 @@ export const environment = {
     databaseURL: 'https://giflib-33608.firebaseio.com',
     projectId: 'giflib-33608',
     storageBucket: 'giflib-33608.appspot.com',
-    messagingSenderId: '847829462607'
-  }
+    messagingSenderId: '847829462607',
+  },
 };
 
 /*

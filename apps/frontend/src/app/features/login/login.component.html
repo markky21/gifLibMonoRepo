@@ -1,6 +1,6 @@
 <div id="Login">
   <div id="title">
-    <img src="gifster_new.png" alt="GifSter Logo">
+    <img src="gifster_new.png" alt="GifSter Logo" />
     <h1>GifSter</h1>
     <h4>Your place to keep cool gifs in one place!</h4>
   </div>
@@ -22,17 +22,28 @@
           <button mat-stroked-button>New user</button>
         </div>
       </div>
-      <button class="SignIn--button classic" mat-raised-button [disabled]="!formValid" (click)="signInEmailPass()">Sign
-        in</button>
+      <button class="SignIn--button classic" mat-raised-button [disabled]="!formValid" (click)="signInEmailPass()">
+        Sign in
+      </button>
     </form>
     <button mat-raised-button class="SignIn--button" (click)="facebookLogin()" style="background-color: cornflowerblue">
-      <img style="margin-right: 15px" width="20px" height="auto" alt="Facebook sign-in"
-        src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png" />
+      <img
+        style="margin-right: 15px"
+        width="20px"
+        height="auto"
+        alt="Facebook sign-in"
+        src="https://upload.wikimedia.org/wikipedia/commons/c/cd/Facebook_logo_%28square%29.png"
+      />
       <mat-label>Login with Facebook</mat-label>
     </button>
     <button mat-raised-button class="SignIn--button" (click)="googleLogin()">
-      <img style="margin-right: 15px" width="20px" height="auto" alt="Google sign-in"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />
+      <img
+        style="margin-right: 15px"
+        width="20px"
+        height="auto"
+        alt="Google sign-in"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"
+      />
       <mat-label>Login with Google</mat-label>
     </button>
   </div>

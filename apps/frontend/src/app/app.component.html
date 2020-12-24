@@ -2,18 +2,20 @@
   <mat-sidenav *ngIf="loggedIn$ | async" class="LibrarySideNav" mode="over" position="end" [(opened)]="libraryOpened">
     <app-gif-library></app-gif-library>
   </mat-sidenav>
-  <mat-sidenav *ngIf="loggedIn$ | async" class="MobileNaviSideNav" position="start" mode="over"
-    [(opened)]="mobileNaviSidenavOpened">
-    <mobile-navi-menu>
-    </mobile-navi-menu>
+  <mat-sidenav
+    *ngIf="loggedIn$ | async"
+    class="MobileNaviSideNav"
+    position="start"
+    mode="over"
+    [(opened)]="mobileNaviSidenavOpened"
+  >
+    <mobile-navi-menu> </mobile-navi-menu>
   </mat-sidenav>
-  <big-screen-navi>
-  </big-screen-navi>
+  <big-screen-navi> </big-screen-navi>
   <button mat-raised-button color="primary" class="SideNavTrigger" (click)="toggleLibrarySideNav()">
     <mat-icon>collections</mat-icon>
   </button>
-  <mobile-navi-header (onToggleNavi)="toggleMobileNaviSideNav()">
-  </mobile-navi-header>
+  <mobile-navi-header (onToggleNavi)="toggleMobileNaviSideNav()"> </mobile-navi-header>
 </mat-sidenav-container>
 
 <div class="MainContent">
