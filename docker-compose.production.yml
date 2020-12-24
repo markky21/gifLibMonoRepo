@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+  api:
+    container_name: crawler-api-microservice
+    image:  mojagazetkateam/api-microservice
+    build:
+      context: .
+      target: mg-builder
+      dockerfile: Production.Dockerfile
+    ports:
+      - 3000:3000
+    command: npm run start:prod:api
+    env_file:
+      - .env.dockerPreProd
+    networks:
+      - webnet
+    depends_on:
+      - crawler
+      - crawler-db
+  crawler:
+    container_name: crawler-microservice
+    image:  mojagazetkateam/crawler-microservice
+    build:
+      context: .
+      target: mg-puppeteer
+      dockerfile: Production.Dockerfile
+    command: npm run start:prod:crawler
+    env_file:
+      - .env.dockerPreProd
+    networks:
+      - webnet
+    depends_on:
+      - crawler-db
+    security_opt:
+      - seccomp=chrome.json
+  crawler-db:
+    container_name: crawler-db-microservice
+    image:  mojagazetkateam/crawler-db-microservice
+    build:
+      context: .
+      target: mg-builder
+      dockerfile: Production.Dockerfile
+    command: npm run start:prod:crawler-db
+    env_file:
+      - .env.dockerPreProd
+    networks:
+      - webnet
+networks:
+  webnet:
+volumes:
+  pgdata:
